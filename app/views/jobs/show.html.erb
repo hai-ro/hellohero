@@ -1,0 +1,80 @@
+<h2>お仕事詳細</h2>
+<% if nursing_home_signed_in? %>
+  <% if @job.nursing_home_id == current_nursing_home.id %>
+    <p>-----------------------------------------------------</p>
+    <p>《発注状況》</p>
+    <% if @progress == 0 %>
+      <p>現在、エントリーしている人はいません。</p>
+    <% elsif @progress == 1 %>
+      <%= link_to "エントリーがあります。確認してください。", "/jobs/order_confirm/#{@job.id}" %>
+    <% elsif @progress == 2 %>
+      <p>発注済み、条件提示書の承認待ちです。</p>
+    <% elsif @progress == 3 %>
+      <p>契約成立済、業務遂行待ちです。</p>
+      <%= link_to "業務完了を確認した場合はこちら", "/jobs/order_close_confirm/#{@job.id}" %>
+    <% elsif @progress == 4 %>
+      <p>業務完了済</p>
+    <% end %>
+    <p>-----------------------------------------------------</p>
+  <% end %>
+<% end %>
+
+  <p>お仕事名:<%= @job.title %></p>
+  
+  <p>お仕事カテゴリ:<%= @job.job_category.name %></p>
+  
+  <p>発注者:<%= @job.nursing_home.id %></p>
+  
+  <p>報酬額:<%= @job.price %> 円</p>
+  
+  <p>仕事内容:<%= @job.service %></p>
+  
+  <p>どんな人に受けてほしいか:<%= @job.expect %></p>
+  
+  <p>クライアント名:<%= link_to @job.client.name, client_path(@job.client.id) %></p>
+  
+  <p>開始時間:<%= @job.start_datetime %></p>
+  
+  <p>終了時間:<%= @job.end_datetime %></p>
+  
+  <% if hero_signed_in? %>
+  <p>-----------------------------------------------------</p>
+  <h4>受注状況</h4>
+    <% if @progress == 0 %>
+      <%= link_to "この仕事にエントリーする", "/jobs/order_request_confirm/#{@job.id}" %>
+    <% elsif @progress == 1 %>
+      <p>この仕事はすでに受注依頼が出されています。</p>
+      <% if @job.hero_id == current_hero.id %>
+        <p>※この仕事はあなたが受注依頼しています。※</p>
+        <%= link_to "エントリーをキャンセルする", "/jobs/order_request_cancel/#{@job.id}" %>
+      <% end %>
+    <% elsif @progress == 2 %>
+      <p>この仕事はすでに受注依頼が出されています。</p>
+      <% if @job.hero_id == current_hero.id %>
+        <%= link_to "事業者から条件提示書が送付されています。確認してください。", "/jobs/order_agreement_confirm/#{@job.id}" %>
+      <% end %>
+    <% elsif @progress == 3 %>
+      <p>この仕事はすでに受注者が確定しています。</p>
+      <% if @job.hero_id == current_hero.id %>
+        <p>※この仕事はあなたが受注しています。※</p>
+      <% end %>
+    <% elsif @progress == 4 %>
+      <p>この仕事は完了しています。</p>
+    <% end %>
+  <p>-----------------------------------------------------</p>
+  <% elsif nursing_home_signed_in? %>
+    <% if @job.nursing_home_id == current_nursing_home.id %>
+      <% if @progress < 4 %>
+        <%= link_to "仕事内容を編集する", edit_job_path(@job.id) %>
+        <br/>
+        <%= link_to "この仕事を取り下げる", job_path(@job.id), method: :delete %>
+      <% end %>
+    <% else %>
+      
+    <% end %>
+  <% end %>
+  
+  <br/>
+  <%= link_to "戻る", :back %>
+  <br/>
+  <%= link_to "ホームへ戻る", root_path %>

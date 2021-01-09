@@ -1,0 +1,15 @@
+<h2>トップページ</h2>
+
+<% if hero_signed_in? %>
+  <p><%= link_to 'ヒーローログアウト', destroy_hero_session_path, method: :delete %></p>
+  <p><%= link_to 'ヒーローマイページ', hero_path(current_hero.id) %></p>
+<% elsif nursing_home_signed_in? %>
+  <p><%= link_to '事業所ログアウト', destroy_nursing_home_session_path, method: :delete %></p>
+  <p><%= link_to '管理ページ', nursing_home_path(current_nursing_home.id) %></p>
+<% else %>
+  <P><%= link_to 'ヒーロー登録', heros_rules_path %></P>
+  <P><%= link_to 'ヒーローサインイン', new_hero_session_path %></P>
+  <br/>
+  <p><%= link_to '事業所登録（テスト）', new_nursing_home_registration_path %></p>
+  <P><%= link_to '事業所サインイン（テスト）', new_nursing_home_session_path %></P>
+<% end %>

@@ -1,0 +1,24 @@
+<h2>クライアント一覧</h2>
+
+<% @clients.each do |client| %>
+  <p>-----------------------------------------------------------------------------------------</p>
+  <p>名前:<%= client.name %></p>
+  
+  <p>性別:
+    <% if client.gender == 1 %>
+      <span>男性</span>
+    <% elsif client.gender == 2 %>
+      <span>女性</span>
+    <% elsif client.gender == 3 %>
+      <span>その他</span>
+    <% end %>
+  </p>
+
+  <p>生年月日:<%= client.birthday %></p>
+  
+  <%= link_to "詳細を見る", client_path(client.id) %>
+  <p>-----------------------------------------------------------------------------------------</p>
+  <br/>
+<% end %>
+<br/>
+<%= link_to "管理ページに戻る", nursing_home_path(current_nursing_home.id) %>

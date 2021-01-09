@@ -1,0 +1,10 @@
+<p>事業所管理ページ</p>
+<p><%= @nursing_home.id %></p>
+
+<p><%= link_to "クライアントを登録する", new_client_path %></p>
+<p><%= link_to "仕事を発注する", new_job_path %></p>
+
+<p><%= link_to "クライアント一覧", clients_path %></p>
+<p><%= link_to "仕事一覧へ", jobs_path %></p>
+
+<p><%= link_to "トップへ戻る", root_path %></p>

@@ -1,0 +1,40 @@
+<h2>クライアント登録</h2>
+
+<%= form_for @client do |f| %>
+  <!--名前登録-->
+  <%= f.label "クライアント名" %>
+  <%= f.text_field :name, autofocus: :true, placeholder: "クライアント名" %>
+  <br/>
+  <!--性別登録-->
+  <%= f.label "性別" %>
+  <%= f.label "男性" %> <%= f.radio_button :gender, 1 %>
+  <%= f.label "女性" %> <%= f.radio_button :gender, 2 %>
+  <%= f.label "その他" %> <%= f.radio_button :gender, 3 %>
+  <br/>
+  <!--誕生日登録-->
+  <%= f.label "誕生日" %>
+  <%= f.date_select :birthday, autofocus: :true %>
+  <br/>
+  <!--障害登録-->
+  <%= f.label "持っている障がい" %>
+  <%= f.text_field :disability, autofocus: :true, placeholder: "障がい" %>
+  <br/>
+  <!--好きなこと登録-->
+  <%= f.label "すきなこと" %>
+  <%= f.text_field :like, autofocus: :true, placeholder: "好きなこと" %>
+  <br/>
+  <!--苦手なこと登録-->
+  <%= f.label "にがてなこと" %>
+  <%= f.text_field :bad, autofocus: :true, placeholder: "にがてなこと" %>
+  <br/>
+  <!--プロフィール登録-->
+  <%= f.label "プロフィール" %>
+  <%= f.text_area :profile, autofocus: :true, placeholder: "プロフィール" %>
+  <br/>
+  <%= f.hidden_field :nursing_home_id, value: @nursing_home.id %>
+  
+  <%= f.submit "登録する" %>
+  
+<% end %>
+<br/>
+<%= link_to "戻る", :back %>

@@ -1,0 +1,11 @@
+<% if hero_signed_in? && @hero == current_hero %>
+  <p>My page</p>
+<% else %>
+  <p>Hero page</p>
+<% end %>
+  <p><%= @hero.id %></p>
+  
+  
+  <p><%= link_to "仕事一覧へ", jobs_path %></p>
+  <p><%= link_to "トップへ戻る", root_path %></p>
+

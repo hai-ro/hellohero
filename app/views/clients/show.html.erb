@@ -1,0 +1,29 @@
+<h2>クライアントページ</h2>
+
+  <p>名前:<%= @client.name %></p>
+  
+  <p>登録事業所:<%= @client.nursing_home.id %></p>
+  
+  <p>性別:
+  <% if @client.gender == 1 %>
+    男性
+  <% elsif @client.gender == 2 %>
+    女性
+  <% elsif @client.gender == 3 %>
+    その他
+  <% end %>
+  
+  <p>生年月日:<%= @client.birthday %></p>
+  
+  <p>持っている障がい:<%= @client.disability %></p>
+  
+  <p>好きなこと:<%= @client.like %></p>
+  
+  <p>苦手なこと:<%= @client.bad %></p>
+  
+  <p>プロフィール:<%= @client.profile %></p>
+
+  <br/>
+  <%= link_to "戻る", :back %>
+  <br/>
+  <%= link_to "ホームに戻る", root_path %>
