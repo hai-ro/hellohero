@@ -24,6 +24,10 @@
   <p>プロフィール:<%= @client.profile %></p>
 
   <br/>
-  <%= link_to "戻る", :back %>
+  <% if nursing_home_signed_in? %>
+    <%= link_to "管理ページに戻る", nursing_home_path(current_hero.id) %>
+  <% elsif hero_signed_in? %>
+    <%= link_to "マイページに戻る", hero_path(current_hero.id) %>
+  <% end %>
   <br/>
   <%= link_to "ホームに戻る", root_path %>

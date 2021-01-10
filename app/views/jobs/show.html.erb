@@ -75,6 +75,12 @@
   <% end %>
   
   <br/>
-  <%= link_to "戻る", :back %>
+  <%= link_to "仕事一覧へ", jobs_path %>
+  <br/>
+  <% if hero_signed_in? %>
+    <%= link_to "マイページへ", hero_path(current_hero.id) %>
+  <% elsif nursing_home_signed_in? %>
+    <%= link_to "管理ページへ", nursing_home(current_nursing_home.id) %>
+  <% end %>
   <br/>
   <%= link_to "ホームへ戻る", root_path %>

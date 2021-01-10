@@ -1,35 +1,42 @@
 <h2>仕事発注画面</h2>
 
-<%= form_for(@job) do |f| %>
-  <%= f.label "お仕事名" %>
-  <%= f.text_field :title %>
-  </br>
-  <%= f.label "クライアント名" %>
-  <%= f.collection_select( :client_id, @clients, :id, :name) %>
-  </br>
-  <%= f.label "報酬" %>
-  <%= f.number_field :price %>
-  </br>
-  <%= f.label "仕事内容" %>
-  <%= f.text_area :service %>
-  </br>
-  <%= f.label "どんな人に受けてもらいたいか" %>
-  <%= f.text_field :expect %>
-  </br>
-  <%= f.hidden_field :nursing_home_id, value: @nursing_home.id %>
-  <%= f.hidden_field :progress, value: 0 %>
-  <%= f.hidden_field :hero_id, value: 0 %>
-  </br>
-  <%= f.label "仕事カテゴリ" %>
-  <%= f.collection_select( :job_category_id, @job_categories, :id, :name) %>
-  </br>
-  <%= f.label "開始時間" %>
-  <%= f.datetime_field :start_datetime %>
-  </br>
-  <%= f.label "終了時間" %>
-  <%= f.datetime_field :end_datetime %>
-  </br>
-  <%= f.submit "登録" %>
+<% if @clients.exists? %>
+  <%= form_for(@job) do |f| %>
+    <%= f.label "お仕事名" %>
+    <%= f.text_field :title %>
+    </br>
+    <%= f.label "クライアント名" %>
+    <%= f.collection_select( :client_id, @clients, :id, :name) %>
+    </br>
+    <%= f.label "報酬" %>
+    <%= f.number_field :price %>
+    </br>
+    <%= f.label "仕事内容" %>
+    <%= f.text_area :service %>
+    </br>
+    <%= f.label "どんな人に受けてもらいたいか" %>
+    <%= f.text_field :expect %>
+    </br>
+    <%= f.hidden_field :nursing_home_id, value: @nursing_home.id %>
+    <%= f.hidden_field :progress, value: 0 %>
+    <%= f.hidden_field :hero_id, value: 1 %>
+    </br>
+    <%= f.label "仕事カテゴリ" %>
+    <%= f.collection_select( :job_category_id, @job_categories, :id, :name) %>
+    </br>
+    <%= f.label "開始時間" %>
+    <%= f.datetime_field :start_datetime %>
+    </br>
+    <%= f.label "終了時間" %>
+    <%= f.datetime_field :end_datetime %>
+    </br>
+    <%= f.submit "登録" %>
+  <% end %>
+
+<% else %>
+  <p>クライアントを先に登録してください。</p>
+  <%= link_to "クライアント登録画面へ", new_client_path %>
 <% end %>
 <br/>
-<%= link_to "戻る", :back %>
+<%= link_to "管理ページへ", nursing_home_path(current_nursing_home.id) %>
+<%= link_to "仕事一覧へ", jobs_path %>
