@@ -79,8 +79,3 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
 gem 'acts_as_follower', github: "tcocca/acts_as_follower"
-
-
-group :production do
-  gem 'pg', '0.20.0'
-end
