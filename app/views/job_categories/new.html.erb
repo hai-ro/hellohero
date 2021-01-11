@@ -1,0 +1,10 @@
+<h2>仕事カテゴリ登録</h2>
+
+<%= form_for (@job_category) do |f| %>
+  <%= f.label "カテゴリ名" %>
+  <%= f.text_field :name %>
+<% end %>
+
+<br/>
+<br/>
+<%= link_to "管理ページへ戻る", nursing_home_path(current_nursing_home.id) %>

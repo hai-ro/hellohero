@@ -1,6 +1,6 @@
 <h2>仕事発注画面</h2>
 
-<% if @clients.exists? %>
+<% if @clients.exists? && @job_categories.exists? %>
   <%= form_for(@job) do |f| %>
     <%= f.label "お仕事名" %>
     <%= f.text_field :title %>

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root "tops#index"
   
-  resources :jobs, only: [:index, :show, :new, :create, :destroy, :edit, :update]
+  resources :jobs
   # ヘルパーがエントリーする際のルーティング
   get "jobs/order_request_confirm/:id" => "jobs#order_request_confirm"
   get "jobs/order_request_complete/:id" => "jobs#order_request_complete"
@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :rooms
   resources :reviews
   resources :heros_rules, only: [:index]
+  resources :job_categories, only: [:new, :create]
   
   devise_for :heros, controllers: {
     sessions:      'heros/sessions',
