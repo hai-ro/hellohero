@@ -80,7 +80,7 @@
   <% if hero_signed_in? %>
     <%= link_to "マイページへ", hero_path(current_hero.id) %>
   <% elsif nursing_home_signed_in? %>
-    <%= link_to "管理ページへ", nursing_home(current_nursing_home.id) %>
+    <%= link_to "管理ページへ", nursing_home_path(current_nursing_home.id) %>
   <% end %>
   <br/>
   <%= link_to "ホームへ戻る", root_path %>
