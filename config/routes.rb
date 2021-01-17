@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     passwords:     'heros/passwords',
     registrations: 'heros/registrations'
   }
-  resources :heros, only: [:show]
+  resources :heros, only: [:show, :update]
   
   devise_for :admins, controllers: {
     sessions:      'admins/sessions',

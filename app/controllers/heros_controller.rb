@@ -5,23 +5,28 @@ before_action :authenticate_hero!, only: [:show]
     @hero = Hero.find(params[:id])
   end
   
-  def follow
-    @hero = Hero.find(params[:hero_id])
-    current_hero.follow(@hero)
-    redirect_to hero_path(@hero)
+  def update
+    @hero = Hero.find(params[:id])
   end
   
-  def unfollow
-    @hero = Hero.find(params[:hero_id])
-    current_hero.stop_following(@hero)
-    redirect_to hero_path(@hero)
-  end
+  # フォロー機能を実装するときに要検討（現在未実装）
+  # def follow
+  #   @hero = Hero.find(params[:hero_id])
+  #   current_hero.follow(@hero)
+  #   redirect_to hero_path(@hero)
+  # end
   
-  def follow_list
-    @hero = Hero.find(params[:hero_id])
-  end
+  # def unfollow
+  #   @hero = Hero.find(params[:hero_id])
+  #   current_hero.stop_following(@hero)
+  #   redirect_to hero_path(@hero)
+  # end
   
-  def follower_list
-    @hero = Hero.find(params[:hero_id])
-  end
+  # def follow_list
+  #   @hero = Hero.find(params[:hero_id])
+  # end
+  
+  # def follower_list
+  #   @hero = Hero.find(params[:hero_id])
+  # end
 end
