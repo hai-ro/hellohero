@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Heros::RegistrationsController < Devise::RegistrationsController
-  # before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
+  before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   def new
@@ -62,6 +62,11 @@ class Heros::RegistrationsController < Devise::RegistrationsController
 
   # The path used after sign up for inactive accounts.
   def after_inactive_sign_up_path_for(resource)
+    super(resource)
+  end
+  
+  # ユーザーの情報更新後にマイページへ繊維
+  def after_update_path_for(resource)
     hero_path(resource)
   end
 end

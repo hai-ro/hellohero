@@ -1,11 +1,12 @@
-<% if hero_signed_in? && @hero == current_hero %>
+<% if hero_signed_in? && @hero.id == current_hero.id %>
   <p>My page</p>
 <% else %>
   <p>Hero page</p>
 <% end %>
-  <p><%= @hero.id %></p>
+  <p><%= @hero.last_name %> <%= @hero.first_name %>さんのページ</p>
   
-  
+<% if hero_signed_in? && @hero.id == current_hero.id %>
+  <p><%= link_to "登録情報を編集する", edit_hero_registration_path(current_hero.id) %></p>
+<% end %>
   <p><%= link_to "仕事一覧へ", jobs_path %></p>
   <p><%= link_to "トップへ戻る", root_path %></p>
-
