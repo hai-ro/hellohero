@@ -4,8 +4,23 @@
   <%= render "nursing_homes/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <%= f.label "事業所名" %>
+    <%= f.label "事業所名" %><br />
     <%= f.text_field :name, autofocus: true, autocomplete: "事業所名" %>
+  </div>
+
+  <div class="field">
+    <%= f.label "事業所住所" %><br />
+    <%= f.text_field :address, autofocus: true, autocomplete: "事業所住所" %>
+  </div>
+
+  <div class="field">
+    <%= f.label "担当者名" %><br />
+    <%= f.text_field :contact_person, autofocus: true, autocomplete: "担当者名" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label "電話番号" %><br />
+    <%= f.text_field :phone, autofocus: true, autocomplete: "電話番号" %>
   </div>
 
   <div class="field">
@@ -14,20 +29,22 @@
   </div>
 
   <div class="field">
-    <%= f.label :password %>
+    <%= f.label "パスワード" %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <em>(<%= @minimum_password_length %>文字以上)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.password_field :password, autocomplete: "パスワード" %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.label "パスワード（確認用）" %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "パスワード" %>
   </div>
 
+  <br />
+
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "登録する" %>
   </div>
 <% end %>
 

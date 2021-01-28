@@ -1,43 +1,77 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2>登録情報変更</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "nursing_homes/shared/error_messages", resource: resource %>
+  
+  <p>------------------------------------------------------------------------------------------------------------------------</p>
+  <h3>変更する情報を入力してください。</h3>
+  
+   <div class="field">
+    <%= f.label "事業所名" %><br />
+    <%= f.text_field :name, autofocus: true, autocomplete: true, placeholder: "事業所名" %>
+  </div>
 
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label "事業所住所" %><br />
+    <%= f.text_field :address, autofocus: true, autocomplete: true, placeholder: "事業所住所" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label "メールアドレス" %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "メールアドレス" %>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <div>認証前のメールアドレスです: <%= resource.unconfirmed_email %></div>
   <% end %>
+  
+  <div class="contact_person">
+    <%= f.label "担当者名" %>
+    <%= f.text_field :contact_person, autofocus: true, autocomplete: "担当者名" %>
+  </div>
+  
+  <div class="phone">
+    <%= f.label "電話番号" %>
+    <%= f.text_field :phone, autofocus: true, autocomplete: "電話番号" %>
+  </div>
+  
+  <div class="field">
+    <%= f.label "企業サイト" %>
+    <%= f.text_field :website, autofocus: true, autocomplete: "企業サイト" %>
+  </div>
 
   <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.label "新しいパスワード" %> <i>(変更しない場合は空欄のままにしてください。)</i><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
     <% if @minimum_password_length %>
       <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+      <em><%= @minimum_password_length %>文字以上</em>
     <% end %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label "新しいパスワード（確認用）" %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
   <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <%= f.label "現在のパスワード" %> <i>（変更内容を更新するには現在のパスワードの入力が必要です)</i><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
-
+  
+  <p>------------------------------------------------------------------------------------------------------------------------</p>
+  <br />
+  
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit "更新する" %>
   </div>
 <% end %>
 
-<h3>Cancel my account</h3>
+<br />
+<%= link_to "管理ページに戻る", nursing_home_path(resource) %>
+<br />
+<br />
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+<h3>アカウントを削除する</h3>
 
-<%= link_to "Back", :back %>
+<p><%= button_to "このアカウントを削除する", registration_path(resource_name), data: { confirm: "すべての会員情報が削除されます。よろしいですか？" }, method: :delete %></p>
