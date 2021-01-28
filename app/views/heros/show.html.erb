@@ -1,12 +1,123 @@
 <% if hero_signed_in? && @hero.id == current_hero.id %>
-  <p>My page</p>
+  <h1>My page</h1>
+  <br />
+  <br />
+  <% if current_hero.jobs.where(progress: 2).count == 0 %>
+  <% else %>
+    <p>事業者から条件が提示されているお仕事が<%= current_hero.jobs.where(progress: 2).count.to_i %>件あります!すぐに確認しましょう!</p>
+    <%= link_to "承認待ちの仕事を確認する", "/jobs/index/2/hero/#{current_hero.id}" %><br />
+  <% end %>
+  <% if current_hero.jobs.where(progress: 4).count == 0 %>
+  <% else %>
+    <p>事業者からあなたのお仕事の完了を確認しました！（未確認：<%= current_hero.jobs.where(progress: 2).count.to_i %>件）</p>
+    <%= link_to "完了した仕事を確認する", "/jobs/index/4/hero/#{current_hero.id}" %><br />
+  <% end %>
 <% else %>
-  <p>Hero page</p>
+  <h1>Hero page</h1>
 <% end %>
-  <p><%= @hero.last_name %> <%= @hero.first_name %>さんのページ</p>
+  <h2><%= @hero.last_name %> <%= @hero.first_name %>さんのページ</h2>
+  
+  <p>-----------------------------------------------------------------------------------</p>
+  <h3>登録情報</h3>
+  <br />
+  <br />
+  <% if hero_signed_in? %>
+    <% if @hero.id == current_hero.id %>
+      <p><%= link_to "#{current_hero.last_name} #{current_hero.first_name}さんがエントリーしている仕事を確認する", "/jobs/index/1/hero/#{current_hero.id}" %> </p>
+      <p>メールアドレス：<%= @hero.email %></p>
+      <p>住所：
+        <% if @hero.address? %>
+          <%= @hero.address %>
+        <% else %>
+          未設定
+        <% end %>
+      </p>
+    <% end %>
+  <% end %>
+  <p>性別：
+    <% if @hero.gender == 1 %>
+      男性
+    <% elsif @hero.gender == 2 %>
+      女性
+    <% else %>
+      その他
+    <% end %>
+  </p>
+  <p>誕生日：
+    <% if @hero.birthday? %>
+      <%= @hero.birthday.strftime("%Y年%-m月%-d日") %>
+    <% else %>
+      未設定
+    <% end %>
+  </p>
+  <p>得意なこと：
+    <% if @hero.special_skill? %>
+      <%= @hero.special_skill %>
+    <% else %>
+      未設定
+    <% end %>
+  </p>
+  <p>好きなこと：
+    <% if @hero.like? %>
+      <%= @hero.like %>
+    <% else %>
+      未設定
+    <% end %>
+  </p>
+  <p>自己紹介：
+    <% if @hero.profile %>
+      <%= @hero.profile %>
+    <% else %>
+      未設定
+    <% end %>
+  </p>
+  <p>-----------------------------------------------------------------------------------</p>
+  
+<br />
+<br />
+<br />
   
 <% if hero_signed_in? && @hero.id == current_hero.id %>
   <p><%= link_to "登録情報を編集する", edit_hero_registration_path(current_hero.id) %></p>
+  <p><%= link_to "仕事の経歴を見る", "/jobs/index/5/hero/#{current_hero.id}" %></p>
 <% end %>
-  <p><%= link_to "仕事一覧へ", jobs_path %></p>
+  <p><%= link_to "募集中の仕事一覧へ", jobs_path %></p>
+  
   <p><%= link_to "トップへ戻る", root_path %></p>
+  
+  
+  
+  
+  
+  
+  
+  
+  <!--小沼さんへの引き継ぎ用-->
+  
+  <p>募集中の仕事一覧</p>
+    <% @jobs.each do |job| %>
+      <p>仕事タイトル：<%= job.title %></p>
+      <p>報酬額：<%= job.price %></p>
+      <p>仕事内容：<%= job.service %></p>
+      <p>どんな人を希望するか：<%= job.expect %></p>
+      <p>発注者ID：<%= job.nursing_home_id %></p>
+      <p>クライアントID：<%= job.client_id %></p>
+      <p>仕事カテゴリID：<%= job.job_category_id %></p>
+      <p>開始日時：<%= job.start_datetime %></p>
+      <p>終了日時：<%= job.end_datetime %></p>
+      <p>発注の進捗：<%= job.progress %></p>
+      <p>受注者ID：<%= job.hero_id %></p>
+    <% end %>
+    
+    <p>ヘルパー本人がエントリーした仕事</p>
+      <% @hero.jobs.where(progress: 3).each do |job| %>
+        <p>仕事タイトル（エントリー済み）：<%= job.title %></p>
+      <% end %>
+
+    <!--以後、”progress”の数値を変更すると、進捗状況に合わせた仕事一覧が表示されます。-->
+    <!--1 = エントリー済み-->
+    <!--2 = 発注済み（事業者がエントリーを承認）、ヘルパー労働条件通知書承認待ち-->
+    <!--3 = 契約成立済み、業務遂行待ち-->
+    <!--4 = 業務完了（ヘルパー未確認）-->
+    <!--5 = 業務完了（ヘルパー確認済み）-->
+    

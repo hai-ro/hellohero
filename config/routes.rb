@@ -8,12 +8,28 @@ Rails.application.routes.draw do
   get "jobs/order_request_cancel/:id" => "jobs#order_request_cancel"
   get "jobs/order_agreement_confirm/:id" => "jobs#order_agreement_confirm"
   get "jobs/order_agreement_conmplete/:id" => "jobs#order_agreement_complete"
+  
+  # 進捗ごとに一覧を表示するためのルーティング（ヘルパー）
+  get "jobs/index/1/hero/:id" => "jobs#index_1_hero" # エントリー済のjob
+  get "jobs/index/2/hero/:id" => "jobs#index_2_hero" # 事業者がヘルパーに発注済みのjob
+  get "jobs/index/3/hero/:id" => "jobs#index_3_hero" # 契約が成立し、業務遂行待ちのjob
+  get "jobs/index/4/hero/:id" => "jobs#index_4_hero" # 業務遂行完了を事業者が確認、ヘルパーが完了報告を未確認のjob
+  get "jobs/index/5/hero/:id" => "jobs#index_5_hero" # 業務遂行完了を事業者が確認、ヘルパーも完了報告を確認済のjob
+  
+  
   # 事業所がエントリーを承認する際のルーティング
   get "jobs/order_confirm/:id" => "jobs#order_confirm"
   get "jobs/order_complete/:id" => "jobs#order_complete"
   get "jobs/order_rejection/:id" => "jobs#order_rejection"
   get "jobs/order_close_confirm/:id" => "jobs#order_close_confirm"
   get "jobs/order_close_complete/:id" => "jobs#order_close_complete"
+  
+  # 進捗ごとに一覧を表示するためのルーティング（事業所）
+  get "jobs/index_progress1_nursing_home/:id" => "jobs#index_progress1_nursing_home"
+  get "jobs/index_progress2_nursing_home/:id" => "jobs#index_progress2_nursing_home"
+  get "jobs/index_progress3_nursing_home/:id" => "jobs#index_progress3_nursing_home"
+  get "jobs/index_progress4_nursing_home/:id" => "jobs#index_progress4_nursing_home"
+  
   resources :clients, only: [:index, :show, :new, :create, :destroy]
   resources :rooms
   resources :reviews
@@ -25,7 +41,12 @@ Rails.application.routes.draw do
     passwords:     'heros/passwords',
     registrations: 'heros/registrations'
   }
-  resources :heros, only: [:show, :update]
+  
+  devise_scope :hero do
+    get "heros/confirmation" => "heros/registrations#confirmation"
+  end
+  
+  resources :heros, only: [:show]
   
   devise_for :admins, controllers: {
     sessions:      'admins/sessions',

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_09_071912) do
+ActiveRecord::Schema.define(version: 2021_01_21_131415) do
 
   create_table "admins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -53,11 +53,11 @@ ActiveRecord::Schema.define(version: 2021_01_09_071912) do
 
   create_table "heros", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.string "name"
+    t.string "first_name", default: "", null: false
+    t.string "last_name", default: "", null: false
+    t.string "first_name_kana", default: "", null: false
+    t.string "last_name_kana", default: "", null: false
+    t.string "address"
     t.integer "gender"
     t.string "special_skill"
     t.date "birthday"
@@ -68,8 +68,40 @@ ActiveRecord::Schema.define(version: 2021_01_09_071912) do
     t.integer "pool_money"
     t.integer "point"
     t.string "like"
+    t.integer "initial_training"
+    t.integer "practical_training"
+    t.integer "social_worker"
+    t.integer "care_manager"
+    t.integer "care_worker"
+    t.integer "mhwp"
+    t.integer "csdw"
+    t.integer "interventional_services"
+    t.integer "whec"
+    t.integer "dementia_care"
+    t.integer "confirmation"
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "behavior"
+    t.float "smile"
+    t.float "cleanliness"
+    t.float "politeness"
+    t.float "physical"
+    t.text "initial_training_file"
+    t.text "practical_training_file"
+    t.text "social_worker_file"
+    t.text "care_manager_filename"
+    t.text "care_worker_file"
+    t.text "mhwp_file"
+    t.text "csdw_file"
+    t.text "interventional_services_file"
+    t.text "whec_file"
+    t.text "dementia_care_file"
+    t.text "confirmation_file"
+    t.string "eto"
     t.index ["email"], name: "index_heros_on_email", unique: true
     t.index ["reset_password_token"], name: "index_heros_on_reset_password_token", unique: true
   end

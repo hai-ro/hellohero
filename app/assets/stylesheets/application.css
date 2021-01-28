@@ -13,14 +13,14 @@
  *= require_tree .
  *= require_self
  */
- 
+
  @import "bootstrap-sprockets";
  @import "bootstrap";
 
 /*
  フォントサイズはremで指定する（大元は10px)
  */
- 
+
 html{
   font-size: 10px;
 }
@@ -37,19 +37,36 @@ body{
 }
 
 /*共通系（使い回し用）*/
+.style-main{
+  width: 100%;
+}
+.style-footer{
+  width: 100%;
+}
+
+.style-header{
+  width: 100%;
+}
+
 .style-text-black{
   color:black;
 }
+.style-lgtext{
+  font-size: 36px;
+}
+.style-midtext{
+  font-size: 24px;
+}
+
 .style-red{
 color: red;
 }
-
 .style-centertext{
 text-align: center;
 }
 .style-boder{
   border-style: solid;
-  border-width: 1px;  
+  border-width: 1px;
 }
 .style-underbar{
   text-decoration:underline;/*下線を引く*/
@@ -59,14 +76,26 @@ text-align: center;
 .style-grayback{
 background-color:#EEEEEE;
 }
+.style-gra-pinkback{
+background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
+}
+.style-indigoback{
+background-color:#1B788F;
+}
 .style-underline-red{
 text-decoration:underline;
 text-decoration-color:#FF0000;
 }
+.style-float-right{
+  float: right;
+}
+.style-pd-high{
+  padding-top: 100px;
+}
 
 /*トップページ*/
 .style-nav{
-  background-color: white;
+  background-color: #fff;
 }
 
 .style-titlehead{
@@ -85,74 +114,42 @@ text-decoration-color:#FF0000;
 
 .style-titlelist{
   padding-left: 0px;
-  padding-top: 30px;
+  padding-top: 10px;
   padding-bottom: 5px;
   list-style: none;
   text-align:center;
 }
 
-.style-titleimg{
-width: 30rem;
-height: 40rem;
-margin-top: 15rem;
-/*画像をリサイズして枠内にきっちり入るようにする*/
-/*object-fit: contain;*/
-}
-
 .style-helper-loginbtn{
-  display       : inline-block;
-  border-radius : 5%;          /* 角丸       */
-  text-align    : center;      /* 文字位置   */
-  cursor        : pointer;     /* カーソル   */
-  padding       : 12px 12px;   /* 余白       */
-  background    : #ff0000;     /* 背景色     */
-  color         : #ffffff;     /* 文字色     */
-  line-height   : 1em;         /* 1行の高さ  */
-  opacity       : 1;           /* 透明度     */
-  transition    : .3s;         /* なめらか変化 */
-  border-style: solid;
-  border-width: 1px;
-}
-
-.style-helper-loginbtn:hover {
-  opacity       : 0.8;         /* カーソル時透明度 */
+  display: inline-block;
+  text-align: center;
+  background:#40BDDB;
+  color: black;
+  line-height   :20px;
+  border:1px solid;
+  border-color: white;
+  border-radius: 5%;
 }
 
 .style-helper-newmenbtn {
-  display       : inline-block;
-  border-radius : 5%;          /* 角丸       */
-  text-align    : center;      /* 文字位置   */
-  cursor        : pointer;     /* カーソル   */
-  padding       : 12px 12px;   /* 余白       */
-  background    : #ffcc99;     /* 背景色     */
+  display: inline-block;
+  text-align: center;
+  background:#DB024F;
   color: black;
-  line-height   : 1em;         /* 1行の高さ  */
-  opacity       : 1;           /* 透明度     */
-  transition    : .3s;         /* なめらか変化 */
-  border-style: solid;
+  line-height   :20px;
+  border:2px solid;
   border-color: white;
-  border-width: 2px;
-}
-.style-helper-newmenbtn :hover {
-  opacity       : 0.8;         /* カーソル時透明度 */
+  border-radius: 5%;
 }
 
-.style-offices-loginbtn{
-  display       : inline-block;
-  border-radius : 5%;          /* 角丸       */
-  text-align    : center;      /* 文字位置   */
-  cursor        : pointer;     /* カーソル   */
-  padding       : 12px 12px;   /* 余白       */
-  background    : #00ffff;     /* 背景色     */
-  color         : #ffffff;     /* 文字色     */
-  line-height   : 1em;         /* 1行の高さ  */
-  opacity       : 1;           /* 透明度     */
-  transition    : .3s;         /* なめらか変化 */
-  border-style: solid;
-  border-width: 1px;
-}
-.style-helper-btn:hover {
-  opacity       : 0.8;         /* カーソル時透明度 */
+.style-topoffices-btn{
+  display: inline-block;
+  text-align: center;
+  background:#1B788F;
+  color: #ffffff;
+  line-height: 20px;
+  border:1px solid;
+  border-radius : 5%;
 }
 
 .style-offices-newmenbtn {
@@ -170,43 +167,39 @@ margin-top: 15rem;
   border-color: white;
   border-width: 2px;
 }
-.style-offices-newmenbtn :hover {
-  opacity       : 0.8;         /* カーソル時透明度 */
+
+.style-helper-topnewmenbtn{
+  display: inline-block;
+  text-align: center;
+  background:#DB024F;
+  color: black;
+  font-size:20px;
+  padding:10px;
+  border:2px solid;
+  border-color: white;
+  border-radius: 5%;
+}
+.style-helper-toploginbtn{
+  display: inline-block;
+  text-align: center;
+  background:#40BDDB;
+  color: black;
+  padding:10px;
+  border:1px solid;
+  border-color: white;
+  border-radius: 5%;
 }
 
-.card{
-  border-style: solid;
-  border-width: 2px;
-  border-radius: 3px;
-  border-color:blue;
-  height:40rem;
-  width:30rem;
-}
-
-.carousel-control-next, .carousel-control-prev {
-  width: 5%;
-  background-color: transparent;
-}
-
- .carousel-control-prev-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
-}
-
-.carousel-control-next-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
-}
-
-.style-workimg{
-  display: block;
-  height: 25rem;
-  max-width: 100%;
+.style-workimg-place{
+  height: 300px;
+  width: 300px;
 }
 
 /*ログイン画面*/
 .style-ftlist{
   padding-left: 0px;
   list-style: none;
-  font-size: 1.0rem;
+  font-size:16px;
 }
 .style-jobdata{
   height:2rem;
@@ -343,8 +336,3 @@ vertical-align: middle;
 .style-text-vertical{
 vertical-align: middle;
 }
-.test{
- background-color:red; 
- color:red;
-}
-

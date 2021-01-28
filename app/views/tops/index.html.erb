@@ -13,3 +13,8 @@
   <p><%= link_to '事業所登録（テスト）', new_nursing_home_registration_path %></p>
   <P><%= link_to '事業所サインイン（テスト）', new_nursing_home_session_path %></P>
 <% end %>
+<% if hero_signed_in? %>
+<p>ログイン後テスト</p>
+<% else %>
+<p>ログイン前テスト</p>
+<% end %>

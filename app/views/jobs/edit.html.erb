@@ -1,4 +1,4 @@
-<h2>仕事発注画面</h2>
+<h2>仕事発注内容編集</h2>
 
 <%= form_for(@job) do |f| %>
   <%= f.label "お仕事名" %>
@@ -30,4 +30,4 @@
   <%= f.submit "修正する" %>
 <% end %>
 <br/>
-<%= link_to "戻る", :back %>
+<%= link_to "仕事一覧へ戻る", jobs_path %>
