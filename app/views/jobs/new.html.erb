@@ -2,35 +2,53 @@
 
 <% if @clients.exists? && @job_categories.exists? %>
   <%= form_for(@job) do |f| %>
-    <%= f.label "お仕事名" %>
-    <%= f.text_field :title %>
-    </br>
-    <%= f.label "クライアント名" %>
-    <%= f.collection_select( :client_id, @clients, :id, :name) %>
-    </br>
-    <%= f.label "報酬" %>
-    <%= f.number_field :price %>
-    </br>
-    <%= f.label "仕事内容" %>
-    <%= f.text_area :service %>
-    </br>
-    <%= f.label "どんな人に受けてもらいたいか" %>
-    <%= f.text_field :expect %>
-    </br>
+    <div class="field">
+      <%= f.label "お仕事名" %></br>
+      <%= f.text_field :title %>
+    </div>
+    
+    <div class="field">
+      <%= f.label "クライアント名" %></br>
+      <%= f.collection_select( :client_id, @clients, :id, :name) %>
+    </div>
+    
+    <div class="field">
+      <%= f.label "報酬" %></br>
+      <%= f.number_field :price %>
+    </div>
+    <div class-"field">
+      <%= f.label "仕事内容" %><br/>
+      <%= f.text_area :service %>
+    </div>
+    
+    <div class="field">
+      <%= f.label "どんな人に受けてもらいたいか" %><br/>
+      <%= f.text_field :expect %>
+    </div>
+    
+    <div class="fiela">
+      <%= f.label "仕事カテゴリ" %></br>
+      <%= f.collection_select( :job_category_id, @job_categories, :id, :name) %>
+    </div>
+    
+    <div class="field">
+      <%= f.label "開始時間" %></br>
+      <%= f.datetime_field :start_datetime %>
+    </div>
+    
+    <div class="field">
+      <%= f.label "終了時間" %></br>
+      <%= f.datetime_field :end_datetime %>
+    </div>
+    
     <%= f.hidden_field :nursing_home_id, value: @nursing_home.id %>
     <%= f.hidden_field :progress, value: 0 %>
     <%= f.hidden_field :hero_id, value: 1 %>
+    
+    <div class="action">
+      <%= f.submit "登録" %>
+    </div>
     </br>
-    <%= f.label "仕事カテゴリ" %>
-    <%= f.collection_select( :job_category_id, @job_categories, :id, :name) %>
-    </br>
-    <%= f.label "開始時間" %>
-    <%= f.datetime_field :start_datetime %>
-    </br>
-    <%= f.label "終了時間" %>
-    <%= f.datetime_field :end_datetime %>
-    </br>
-    <%= f.submit "登録" %>
   <% end %>
 
 <% else %>

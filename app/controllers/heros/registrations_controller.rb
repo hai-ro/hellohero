@@ -28,6 +28,12 @@ class Heros::RegistrationsController < Devise::RegistrationsController
   def destroy
     super
   end
+  
+  # 資格情報の承認のために追加
+  def confirmation
+    super
+    
+  end
 
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign
@@ -43,7 +49,10 @@ class Heros::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [
-      :first_name, :last_name, :first_name_kana, :last_name_kana, :gender
+      :first_name, :last_name, :first_name_kana, :last_name_kana, :gender,
+      :initial_training, :practical_training, :social_worker, :care_manager,
+      :care_worker, :mhwp, :csdw, :interventional_services, :wehc, :dementia_care,
+      :confirmation
       ])
   end
 
@@ -51,7 +60,10 @@ class Heros::RegistrationsController < Devise::RegistrationsController
   def configure_account_update_params
     devise_parameter_sanitizer.permit(:account_update, keys: [
       :first_name, :last_name, :first_name_kana, :last_name_kana, :gender,
-      :address, :special_skill, :birthday, :profile, :like
+      :address, :special_skill, :birthday, :profile, :like,
+      :initial_training, :practical_training, :social_worker, :care_manager,
+      :care_worker, :mhwp, :csdw, :interventional_services, :wehc, :dementia_care,
+      :confirmation
       ])
   end
 

@@ -1,12 +1,9 @@
 class HerosController < ApplicationController
-before_action :authenticate_hero!, only: [:show]
+  before_action :authenticate_hero!, only: [:show]
 
   def show
-    @hero = Hero.find(params[:id])
-  end
-  
-  def update
-    @hero = Hero.find(params[:id])
+    @hero = Hero.includes(:jobs).find(params[:id])
+    @jobs = Job.where(progress: 0).includes([:hero, nursing_home: :client])
   end
   
   # フォロー機能を実装するときに要検討（現在未実装）

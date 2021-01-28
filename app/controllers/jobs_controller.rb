@@ -8,12 +8,15 @@ before_action :authenticate_hero!, only: [
 ]
 
   def index
-    @jobs = Job.order("created_at DESC").all
+    @jobs = Job.order("created_at DESC").where(progress: 0)
   end
   
   def show
     @job = Job.find(params[:id])
     @progress = @job.progress
+    if @job.progress == 4
+      @job.update(progress: 5)
+    end
   end
   
   def new
@@ -42,6 +45,58 @@ before_action :authenticate_hero!, only: [
   def destroy
     @job = Job.find(params[:id])
     @job.destroy
+  end
+  
+  # 【ヘルパー側】進捗ごとに一覧が表示できるようにアクションを追加
+  def index_1_hero #エントリー済
+    @hero = Hero.find(params[:id])
+    @jobs = Job.order("created_at DESC").where(progress: 1, hero_id: @hero.id)
+    @count = @jobs.count
+  end
+  
+  def index_2_hero #発注済み
+    @hero = Hero.find(params[:id])
+    @jobs = Job.order("created_at DESC").where(progress: 2, hero_id: @hero.id)
+    @count = @jobs.count
+  end
+  
+  def index_3_hero #条件提示承認済み
+    @hero = Hero.find(params[:id])
+    @jobs = Job.order("created_at DESC").where(progress: 3, hero_id: @hero.id)
+    @count = @jobs.count
+  end
+  
+  def index_4_hero #完了済み
+    @hero = Hero.find(params[:id])
+    @jobs = Job.order("created_at DESC").where(progress: 4, hero_id: @hero.id)
+    @count = @jobs.count
+  end
+  
+  def index_5_hero #完了済み
+    @hero = Hero.find(params[:id])
+    @jobs = Job.order("created_at DESC").where(progress: 5, hero_id: @hero.id)
+    @count = @jobs.count
+  end
+  
+  # 【事業所側】進捗ごとに一覧が表示できるようにアクションを追加
+  def index_1_nursing_home #エントリー済
+    @jobs = Job.order("created_at DESC").where(progress: 1)
+    @nursing_home = NursingHome.find(params[:id])
+  end
+  
+  def index_progress2_nursing_home #発注済み
+    @jobs = Job.order("created_at DESC").where(progress: 2)
+    @nursing_home = NursingHome.find(params[:id])
+  end
+  
+  def index_progress3_nursing_home #条件提示承認済み
+    @jobs = Job.order("created_at DESC").where(progress: 3)
+    @nursing_home = NursingHome.find(params[:id])
+  end
+  
+  def index_progress4_nursing_home #完了済み
+    @jobs = Job.order("created_at DESC").where(progress: 4)
+    @nursing_home = NursingHome.find(params[:id])
   end
   
   # ヘルパーがエントリーをするときのアクション

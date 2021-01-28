@@ -1,0 +1,8 @@
+<h2>資格情報の登録</h2>
+
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= render "heros/shared/error_messages", resource: resource %>
+  
+
+<% end %>
