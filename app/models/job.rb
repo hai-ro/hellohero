@@ -4,7 +4,7 @@ class Job < ApplicationRecord
   belongs_to :nursing_home
   belongs_to :client
   belongs_to :hero
-  has_many :reviews
+  has_one :review
   
   # #フォロー・フォロワー関係をあらわすアソシエーション
   # acts_as_followable

@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   root "tops#index"
   
-  resources :jobs
+  resources :job do 
+  
+    resources :reviews
+  
+  end
   # ヘルパーがエントリーする際のルーティング
   get "jobs/order_request_confirm/:id" => "jobs#order_request_confirm"
   get "jobs/order_request_complete/:id" => "jobs#order_request_complete"
@@ -32,7 +36,6 @@ Rails.application.routes.draw do
   
   resources :clients, only: [:index, :show, :new, :create, :destroy]
   resources :rooms
-  resources :reviews
   resources :heros_rules, only: [:index]
   resources :job_categories, only: [:new, :create]
   

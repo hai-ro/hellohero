@@ -8,7 +8,8 @@ class ReviewsController < ApplicationController
   end
   
   def new
-    
+    @review = Review.new
+    @job = Job.includes(:nursing_home, :hero).find(params[:job_id])
   end
   
   def create
