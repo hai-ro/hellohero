@@ -110,7 +110,7 @@
     <% end %>
     
     <p>ヘルパー本人がエントリーした仕事</p>
-      <% @hero.jobs.where(progress: 3).each do |job| %>
+      <% @hero.jobs.where(progress: 1).each do |job| %>
         <p>仕事タイトル（エントリー済み）：<%= job.title %></p>
       <% end %>
 

@@ -1,0 +1,58 @@
+<h1>レビュー投稿画面</h1>
+
+<h2>発注したミッション</h2>
+
+<p>---------------------------------------------------------------</p>
+  <p>ミッション名:<%= @job.title %></p>
+  
+  <p>ミッションカテゴリ:<%= @job.job_category.name %></p>
+  
+  <p>受注者:<%= link_to "#{@job.hero.name}", hero_path(@job.hero.id) %>さん</p>
+  
+  <p>報酬額:<%= @job.price %> 円</p>
+  
+  <p>仕事内容:<%= @job.service %></p>
+  
+  <p>どんな人に受けてほしいか:<%= @job.expect %></p>
+  
+  <p>クライアント名:<%= link_to @job.client.name, client_path(@job.client.id) %></p>
+  
+  <p>開始時間:<%= @job.start_datetime %></p>
+  
+  <p>終了時間:<%= @job.end_datetime %></p>
+
+<p>---------------------------------------------------------------</p>
+
+<h2><%= @job.hero.name %>さんの活躍を評価しましょう！</h2>
+
+<% form_for @review do |f| %>
+  <div class="field">
+    <%= f.label "れいぎ" %><br />
+    <%= f.radio_button :behavior, 0 %>--<%= f.radio_button :behavior, 1 %>--<%= f.radio_button :behavior, 2 %>--<%= f.radio_button :behavior, 3 %>--<%= f.radio_button :behavior, 4 %>--<%= f.radio_button :behavior, 5 %><br />
+    0--1--2--3--4--5<br />
+  </div>
+  
+  <div class="field">
+    <%= f.label "あかるさ" %><br />
+    <%= f.radio_button :smile, 0 %>--<%= f.radio_button :smile, 1 %>--<%= f.radio_button :smile, 2 %>--<%= f.radio_button :smile, 3 %>--<%= f.radio_button :smile, 4 %>--<%= f.radio_button :smile, 5 %><br />
+    0--1--2--3--4--5<br />
+  </div>
+  
+  <div class="field">
+    <%= f.label "せいけつさ" %><br />
+    <%= f.radio_button :cleaniless, 0 %>--<%= f.radio_button :cleaniless, 1 %>--<%= f.radio_button :cleaniless, 2 %>--<%= f.radio_button :cleaniless, 3 %>--<%= f.radio_button :cleaniless, 4 %>--<%= f.radio_button :cleaniless, 5 %><br />
+    0--1--2--3--4--5<br />
+  </div>
+  
+  <div class="field">
+    <%= f.label "ていねいさ" %><br />
+    <%= f.radio_button :politeness, 0 %>--<%= f.radio_button :politeness, 1 %>--<%= f.radio_button :politeness, 2 %>--<%= f.radio_button :politeness, 3 %>--<%= f.radio_button :politeness, 4 %>--<%= f.radio_button :politeness, 5 %><br />
+    0--1--2--3--4--5<br />
+  </div>
+  
+  <div class="field">
+    <%= f.label "たいりょく" %><br />
+    <%= f.radio_button :physical, 0 %>--<%= f.radio_button :physical, 1 %>--<%= f.radio_button :physical, 2 %>--<%= f.radio_button :physical, 3 %>--<%= f.radio_button :physical, 4 %>--<%= f.radio_button :physical, 5 %><br />
+    0--1--2--3--4--5<br />
+  </div>
+<% end %>
