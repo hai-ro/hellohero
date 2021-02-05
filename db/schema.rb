@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_21_131415) do
+ActiveRecord::Schema.define(version: 2021_02_02_114758) do
 
   create_table "admins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -61,7 +61,8 @@ ActiveRecord::Schema.define(version: 2021_01_21_131415) do
     t.integer "gender"
     t.string "special_skill"
     t.date "birthday"
-    t.string "performance"
+    t.string "eto"
+    t.integer "performance"
     t.text "profile"
     t.decimal "evaluation", precision: 10
     t.integer "money"
@@ -101,7 +102,6 @@ ActiveRecord::Schema.define(version: 2021_01_21_131415) do
     t.text "whec_file"
     t.text "dementia_care_file"
     t.text "confirmation_file"
-    t.string "eto"
     t.index ["email"], name: "index_heros_on_email", unique: true
     t.index ["reset_password_token"], name: "index_heros_on_reset_password_token", unique: true
   end
@@ -169,6 +169,11 @@ ActiveRecord::Schema.define(version: 2021_01_21_131415) do
     t.integer "job_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "behavior"
+    t.integer "smile"
+    t.integer "cleaniless"
+    t.integer "politeness"
+    t.integer "physical"
   end
 
   create_table "rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

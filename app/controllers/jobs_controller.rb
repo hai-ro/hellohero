@@ -14,7 +14,9 @@ before_action :authenticate_hero!, only: [
   def show
     @job = Job.find(params[:id])
     @progress = @job.progress
-    if @job.progress == 4
+    
+    # 受注したヘルパーがログインしていて、かつ、進捗が4（事業所評価済み）の場合のみ、更新
+    if hero_signed_in? && @job.progress == 4
       @job.update(progress: 5)
     end
   end
@@ -84,17 +86,17 @@ before_action :authenticate_hero!, only: [
     @nursing_home = NursingHome.find(params[:id])
   end
   
-  def index_progress2_nursing_home #発注済み
+  def index_2_nursing_home #発注済み
     @jobs = Job.order("created_at DESC").where(progress: 2)
     @nursing_home = NursingHome.find(params[:id])
   end
   
-  def index_progress3_nursing_home #条件提示承認済み
+  def index_3_nursing_home #条件提示承認済み
     @jobs = Job.order("created_at DESC").where(progress: 3)
     @nursing_home = NursingHome.find(params[:id])
   end
   
-  def index_progress4_nursing_home #完了済み
+  def index_4_nursing_home #完了済み
     @jobs = Job.order("created_at DESC").where(progress: 4)
     @nursing_home = NursingHome.find(params[:id])
   end

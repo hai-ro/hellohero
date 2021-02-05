@@ -7,6 +7,17 @@
   <p><%= link_to "仕事を発注する", new_job_path %></p>
   <p><%= link_to "登録クライアント一覧", clients_path %></p>
   <p><%= link_to "登録情報を変更する",  edit_nursing_home_registration_path(current_nursing_home.id) %></p>
+  <br />
+  <% if current_nursing_home.jobs.where(progress: 1).count == 0 %>
+  <% else %>
+    <p>ヒーローがエントリーしたミッションが<%= current_nursing_home.jobs.where(progress: 1).count.to_i %>件あります!すぐに確認しましょう!</p>
+    <%= link_to "エントリーされたミッションを確認する", "/jobs/index/1/nursing_home/#{current_nursing_home.id}" %><br />
+  <% end %>
+  <% if current_nursing_home.jobs.where(progress: 3).count == 0 %>
+  <% else %>
+    <p>ヒーローの遂行待ちミッションが<%= current_nursing_home.jobs.where(progress: 3).count.to_i %>件あります！完了を確認したら評価を行ってください！）</p>
+    <%= link_to "契約中のミッションを確認する", "/jobs/index/3/nursing_home/#{current_nursing_home.id}" %><br />
+  <% end %>
 <% end %>
 
 

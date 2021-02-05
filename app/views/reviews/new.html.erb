@@ -7,7 +7,7 @@
   
   <p>ミッションカテゴリ:<%= @job.job_category.name %></p>
   
-  <p>受注者:<%= link_to "#{@job.hero.name}", hero_path(@job.hero.id) %>さん</p>
+  <p>受注者:<%= link_to "#{@job.hero.last_name} #{@job.hero.first_name}", hero_path(@job.hero.id) %>さん</p>
   
   <p>報酬額:<%= @job.price %> 円</p>
   
@@ -23,9 +23,9 @@
 
 <p>---------------------------------------------------------------</p>
 
-<h2><%= @job.hero.name %>さんの活躍を評価しましょう！</h2>
+<h2><%= @job.hero.last_name %> <%= @job.hero.first_name %>さんの活躍を評価しましょう！</h2>
 
-<% form_for @review do |f| %>
+<%= form_for [@job, @review] do |f| %>
   <div class="field">
     <%= f.label "れいぎ" %><br />
     <%= f.radio_button :behavior, 0 %>--<%= f.radio_button :behavior, 1 %>--<%= f.radio_button :behavior, 2 %>--<%= f.radio_button :behavior, 3 %>--<%= f.radio_button :behavior, 4 %>--<%= f.radio_button :behavior, 5 %><br />
@@ -40,7 +40,7 @@
   
   <div class="field">
     <%= f.label "せいけつさ" %><br />
-    <%= f.radio_button :cleaniless, 0 %>--<%= f.radio_button :cleaniless, 1 %>--<%= f.radio_button :cleaniless, 2 %>--<%= f.radio_button :cleaniless, 3 %>--<%= f.radio_button :cleaniless, 4 %>--<%= f.radio_button :cleaniless, 5 %><br />
+    <%= f.radio_button :cleanliness, 0 %>--<%= f.radio_button :cleanliness, 1 %>--<%= f.radio_button :cleanliness, 2 %>--<%= f.radio_button :cleanliness, 3 %>--<%= f.radio_button :cleanliness, 4 %>--<%= f.radio_button :cleanliness, 5 %><br />
     0--1--2--3--4--5<br />
   </div>
   
@@ -55,4 +55,17 @@
     <%= f.radio_button :physical, 0 %>--<%= f.radio_button :physical, 1 %>--<%= f.radio_button :physical, 2 %>--<%= f.radio_button :physical, 3 %>--<%= f.radio_button :physical, 4 %>--<%= f.radio_button :physical, 5 %><br />
     0--1--2--3--4--5<br />
   </div>
+  
+  <div class="field">
+    <%= f.label "#{@job.hero.last_name} #{@job.hero.first_name}さんへ感謝の言葉を贈りましょう！" %><br />
+    <%= f.text_area :text, autofocus: true, autocomplete: "お礼の言葉を贈りましょう！" %>
+  </div>
+  
+  <%= f.hidden_field :nursing_home_id, value: @job.nursing_home_id %>
+  <%= f.hidden_field :hero_id, value: @job.hero_id %>
+  <%= f.hidden_field :job_id, value: @job.id %>
+  
+  <br />
+  <%= f.submit "#{@job.hero.last_name} #{@job.hero.first_name}さんへ送る" %>
+  
 <% end %>
