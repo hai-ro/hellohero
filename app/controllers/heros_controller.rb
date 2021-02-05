@@ -3,7 +3,7 @@ class HerosController < ApplicationController
 
   def show
     @hero = Hero.includes(:jobs).find(params[:id])
-    @jobs = Job.where(progress: 0).includes([:hero, nursing_home: :client])
+    @jobs = Job.includes(:hero, :nursing_home).where(progress: 0)
   end
   
   # フォロー機能を実装するときに要検討（現在未実装）

@@ -11,7 +11,7 @@
       <p>発注済み、条件提示書の承認待ちです。</p>
     <% elsif @progress == 3 %>
       <p>契約成立済、業務遂行待ちです。</p>
-      <%= link_to "業務完了を確認した場合はこちら", "/jobs/order_close_confirm/#{@job.id}" %>
+      <%= link_to "業務完了を確認した場合はこちら", new_job_review_path(params[:id]) %>
     <% elsif @progress == 4 %>
       <p>業務完了済</p>
     <% end %>

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root "tops#index"
   
-  resources :job do 
+  resources :jobs do 
   
     resources :reviews
   
@@ -29,11 +29,12 @@ Rails.application.routes.draw do
   get "jobs/order_close_complete/:id" => "jobs#order_close_complete"
   
   # 進捗ごとに一覧を表示するためのルーティング（事業所）
-  get "jobs/index_progress1_nursing_home/:id" => "jobs#index_progress1_nursing_home"
-  get "jobs/index_progress2_nursing_home/:id" => "jobs#index_progress2_nursing_home"
-  get "jobs/index_progress3_nursing_home/:id" => "jobs#index_progress3_nursing_home"
-  get "jobs/index_progress4_nursing_home/:id" => "jobs#index_progress4_nursing_home"
-  
+  get "jobs/index/1/nursing_home/:id" => "jobs#index_1_nursing_home" # エントリー済のjob
+  get "jobs/index/2/nurding_home/:id" => "jobs#index_2_nursing_home" # 事業者がヘルパーに発注済みのjob
+  get "jobs/index/3/nursing_home/:id" => "jobs#index_3_nursing_home" # 契約が成立し、業務遂行待ちのjob
+  get "jobs/index/4/nursing_home/:id" => "jobs#index_4_nursing_home" # 業務遂行完了を事業者が確認、ヘルパーが完了報告を未確認のjob
+  get "jobs/index/5/nursing_home/:id" => "jobs#index_5_nursing_home" # 業務遂行完了を事業者が確認、ヘルパーも完了報告を確認済のjob
+
   resources :clients, only: [:index, :show, :new, :create, :destroy]
   resources :rooms
   resources :heros_rules, only: [:index]
