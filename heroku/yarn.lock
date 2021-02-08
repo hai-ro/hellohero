@@ -124,10 +124,10 @@
     tslib "^1"
     urijs "^1.19.1"
 
-"@heroku-cli/plugin-auth@^7.47.10":
-  version "7.47.10"
-  resolved "https://registry.yarnpkg.com/@heroku-cli/plugin-auth/-/plugin-auth-7.47.10.tgz#3d293481b7f09725bdacdb9a4b3691c89df21fe4"
-  integrity sha512-gHT9Y+/4sLgImGsXbvSuUk23MJNzyC51f9kRxIemIqtVNeU0l32QI+swf92vPTk5B2mULpQeihJQrSdvCR+7YA==
+"@heroku-cli/plugin-auth@^7.47.12":
+  version "7.47.12"
+  resolved "https://registry.yarnpkg.com/@heroku-cli/plugin-auth/-/plugin-auth-7.47.12.tgz#866157ab7c1a02d2851d60bcb1d86132451ba087"
+  integrity sha512-YoAKSiQt0HR/BfvtpRh6W5x6qcAHaENwyDKwanSSdvwta3jVJWV2XPVun4Gqpec1tv5k+G9JbruxaR6TldDpqA==
   dependencies:
     "@heroku-cli/color" "^1.1.14"
     "@heroku-cli/command" "^8.4.0"
@@ -324,10 +324,10 @@
     tunnel-ssh "^4.1.4"
     uuid "^8.3.1"
 
-"@heroku-cli/plugin-pipelines@^7.47.2":
-  version "7.47.2"
-  resolved "https://registry.yarnpkg.com/@heroku-cli/plugin-pipelines/-/plugin-pipelines-7.47.2.tgz#b2007d1bd31c96f0a07964edf3b96991fdaa9649"
-  integrity sha512-GGBh4ccKJ1MyPQAPW7/qbdSOCgCMEkm3NH/tKwDV4SQtTJwWS2yLictXDGad+9l4TKkhXP9XZgIE7usOMHCkpw==
+"@heroku-cli/plugin-pipelines@^7.47.12":
+  version "7.47.12"
+  resolved "https://registry.yarnpkg.com/@heroku-cli/plugin-pipelines/-/plugin-pipelines-7.47.12.tgz#78ab3c28a7a4814fdda8ffc1100c5c3d4d923ae9"
+  integrity sha512-Z7pPNBxSqYVwIkyaMsE7ylkexP9F08FwLkGuLnr18WFqlGbzqSPG0DmKfDTxTfTN0n7MWHSdoP84EV9Vm/4Icw==
   dependencies:
     "@heroku-cli/color" "^1.1.14"
     "@heroku-cli/command" "^8.4.0"
