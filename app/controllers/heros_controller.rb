@@ -2,8 +2,17 @@ class HerosController < ApplicationController
   before_action :authenticate_hero!, only: [:show]
 
   def show
-    @hero = Hero.includes(:jobs).find(params[:id])
+    @hero = Hero.includes(:jobs, :reviews).find(params[:id])
     @jobs = Job.includes(:hero, :nursing_home).where(progress: 0)
+    
+    @eto = @hero.birthday.year % 12
+    
+    @behavior = @hero.reviews.sum(:behavior) / @hero.performance
+    @smile = @hero.reviews.sum(:smile) / @hero.performance
+    @cleanliness = @hero.reviews.sum(:cleanliness) / @hero.performance
+    @politeness = @hero.reviews.sum(:politeness) / @hero.performance
+    @physical = @hero.reviews.sum(:physical) / @hero.performance
+    
   end
   
   # フォロー機能を実装するときに要検討（現在未実装）

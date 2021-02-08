@@ -18,6 +18,17 @@
   <h2><%= @hero.last_name %> <%= @hero.first_name %>さんのページ</h2>
   
   <p>-----------------------------------------------------------------------------------</p>
+  
+  <h2>ステータス</h2>
+  <p>れいぎ：<%= @behavior %></p>
+  <p>あかるさ：<%= @smile %></p>
+  <p>せいけつさ：<%= @cleanliness %></p>
+  <p>ていねいさ：<%= @politeness %></p>
+  <p>たいりょく：<%= @physical %></p>
+  
+  
+  
+  <p>-----------------------------------------------------------------------------------</p>
   <h3>登録情報</h3>
   <br />
   <br />
@@ -45,7 +56,33 @@
   </p>
   <p>誕生日：
     <% if @hero.birthday? %>
-      <%= @hero.birthday.strftime("%Y年%-m月%-d日") %>
+      <%= @hero.birthday.strftime("%Y年%-m月%-d日") %>（
+        <% if @eto == 0 %>
+          サル
+        <% elsif @eto == 1 %>
+          トリ
+        <% elsif @eto == 2 %>
+          イヌ
+        <% elsif @eto == 3 %>
+          イノシシ
+        <% elsif @eto == 4 %>
+          ネズミ
+        <% elsif @eto == 5 %>
+          ウシ
+        <% elsif @eto == 6 %>
+          トラ
+        <% elsif @eto == 7 %>
+          ウサギ
+        <% elsif @eto == 8 %>
+          タツ
+        <% elsif @eto == 9 %>
+          ヘビ
+        <% elsif @eto == 10 %>
+          ウマ
+        <% elsif @eto == 11 %>
+          ヒツジ
+        <% end %>
+        年）
     <% else %>
       未設定
     <% end %>
