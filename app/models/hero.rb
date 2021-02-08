@@ -5,6 +5,7 @@ class Hero < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   # アソシエーション
+  has_many :reviews
   has_many :tag_maps
   has_many :messages
   has_many :rooms

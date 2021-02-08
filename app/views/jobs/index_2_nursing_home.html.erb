@@ -15,11 +15,11 @@
   <% @jobs.each do |job| %>
     <p>--------------------------------------------------------------------------------</p>
   
-    <p>お仕事名:<%= job.title %></p>
+    <p>ミッション名:<%= job.title %></p>
     
-    <p>お仕事カテゴリ:<%= job.job_category.name %></p>
+    <p>ミッションカテゴリ:<%= job.job_category.name %></p>
     
-    <p>発注者:<%= job.nursing_home.id %></p>
+    <p>受注者:<%= link_to "#{job.hero.last_name} #{job.hero.first_name}", hero_path(job.hero_id) %></p>
     
     <p>報酬額:<%= job.price %>円</p>
     
