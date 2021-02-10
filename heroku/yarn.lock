@@ -124,17 +124,10 @@
     tslib "^1"
     urijs "^1.19.1"
 
-<<<<<<< HEAD
 "@heroku-cli/plugin-auth@^7.47.12":
   version "7.47.12"
   resolved "https://registry.yarnpkg.com/@heroku-cli/plugin-auth/-/plugin-auth-7.47.12.tgz#866157ab7c1a02d2851d60bcb1d86132451ba087"
   integrity sha512-YoAKSiQt0HR/BfvtpRh6W5x6qcAHaENwyDKwanSSdvwta3jVJWV2XPVun4Gqpec1tv5k+G9JbruxaR6TldDpqA==
-=======
-"@heroku-cli/plugin-auth@^7.47.10":
-  version "7.47.10"
-  resolved "https://registry.yarnpkg.com/@heroku-cli/plugin-auth/-/plugin-auth-7.47.10.tgz#3d293481b7f09725bdacdb9a4b3691c89df21fe4"
-  integrity sha512-gHT9Y+/4sLgImGsXbvSuUk23MJNzyC51f9kRxIemIqtVNeU0l32QI+swf92vPTk5B2mULpQeihJQrSdvCR+7YA==
->>>>>>> devise
   dependencies:
     "@heroku-cli/color" "^1.1.14"
     "@heroku-cli/command" "^8.4.0"
