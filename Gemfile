@@ -82,3 +82,5 @@ gem 'acts_as_follower', github: "tcocca/acts_as_follower"
 
 gem 'devise-i18n'
 gem 'devise-i18n-views'
+
+gem 'dotenv-rails', groups: [:development, :test, :production]
