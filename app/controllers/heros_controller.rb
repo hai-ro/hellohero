@@ -5,13 +5,21 @@ class HerosController < ApplicationController
     @hero = Hero.includes(:jobs, :reviews).find(params[:id])
     @jobs = Job.includes(:hero, :nursing_home).where(progress: 0)
     
-    @eto = @hero.birthday.year % 12
+    @eto = @hero.birthday.strftime('%Y').to_i % 12
     
-    @behavior = @hero.reviews.sum(:behavior) / @hero.performance
-    @smile = @hero.reviews.sum(:smile) / @hero.performance
-    @cleanliness = @hero.reviews.sum(:cleanliness) / @hero.performance
-    @politeness = @hero.reviews.sum(:politeness) / @hero.performance
-    @physical = @hero.reviews.sum(:physical) / @hero.performance
+    if @hero.performance == 0
+      @behavior = 0
+      @smile = 0
+      @cleanliness = 0
+      @politeness = 0
+      @physical = 0
+    else
+      @behavior = @hero.reviews.sum(:behavior) / @hero.performance
+      @smile = @hero.reviews.sum(:smile) / @hero.performance
+      @cleanliness = @hero.reviews.sum(:cleanliness) / @hero.performance
+      @politeness = @hero.reviews.sum(:politeness) / @hero.performance
+      @physical = @hero.reviews.sum(:physical) / @hero.performance
+    end
     
   end
   
