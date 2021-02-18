@@ -7,18 +7,20 @@ class HerosController < ApplicationController
     
     @eto = @hero.birthday.strftime('%Y').to_i % 12
     
-    if @hero.performance == 0
+    job_count = @hero.jobs.count
+    
+    if @hero.jobs.count == 0
       @behavior = 0
       @smile = 0
       @cleanliness = 0
       @politeness = 0
       @physical = 0
     else
-      @behavior = @hero.reviews.sum(:behavior) / @hero.performance
-      @smile = @hero.reviews.sum(:smile) / @hero.performance
-      @cleanliness = @hero.reviews.sum(:cleanliness) / @hero.performance
-      @politeness = @hero.reviews.sum(:politeness) / @hero.performance
-      @physical = @hero.reviews.sum(:physical) / @hero.performance
+      @behavior = @hero.reviews.sum(:behavior) / job_count.to_i
+      @smile = @hero.reviews.sum(:smile) / job_count.to_i
+      @cleanliness = @hero.reviews.sum(:cleanliness) / job_count.to_i
+      @politeness = @hero.reviews.sum(:politeness) / job_count.to_i
+      @physical = @hero.reviews.sum(:physical) / job_count.to_i
     end
     
   end
