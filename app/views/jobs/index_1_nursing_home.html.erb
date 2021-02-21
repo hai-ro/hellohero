@@ -19,7 +19,7 @@
     
     <p>お仕事カテゴリ:<%= job.job_category.name %></p>
     
-    <p>エントリー:<%= link_to "#{job.hero.last_name} #{job.hero.last_name}", hero_path(job.hero_id) %></p>
+    <p>エントリー:<%= link_to "#{job.hero.last_name} #{job.hero.first_name}", hero_path(job.hero_id) %></p>
     
     <p>報酬額:<%= job.price %>円</p>
     

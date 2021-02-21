@@ -1,11 +1,6 @@
 class JobsController < ApplicationController
-before_action :authenticate_nursing_home!, only: [
-  :new, :create, :edit, :update, :destroy, 
-  :order_confirm, :order_complete, :order_rejection
-]
-before_action :authenticate_hero!, only: [
-  :order_request_confirm, :order_request_complete, :order_request_cancel
-]
+before_action :authenticate_nursing_home!, only: [ :new, :create, :edit, :update, :destroy, :order_confirm, :order_complete, :order_rejection ]
+before_action :authenticate_hero!, only: [ :order_request_confirm, :order_request_complete, :order_request_cancel ]
 
   def index
     @jobs = Job.order("created_at DESC").where(progress: 0)
@@ -25,7 +20,6 @@ before_action :authenticate_hero!, only: [
     @job = Job.new
     @nursing_home = NursingHome.find(current_nursing_home.id)
     @job_categories = JobCategory.all
-    @clients = Client.where(nursing_home_id: current_nursing_home.id)
   end
   
   def create
@@ -36,7 +30,6 @@ before_action :authenticate_hero!, only: [
     @job = Job.find(params[:id])
     @nursing_home = NursingHome.find(current_nursing_home.id)
     @job_categories = JobCategory.all
-    @clients = Client.where(nursing_home_id: current_nursing_home.id)
   end
   
   def update

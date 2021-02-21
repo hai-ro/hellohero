@@ -9,7 +9,7 @@
   <% end %>
   <% if current_hero.jobs.where(progress: 4).count == 0 %>
   <% else %>
-    <p>事業者からあなたのお仕事の完了を確認しました！（未確認：<%= current_hero.jobs.where(progress: 2).count.to_i %>件）</p>
+    <p>事業者からあなたのお仕事の完了を確認しました！（未確認：<%= current_hero.jobs.where(progress: 4).count.to_i %>件）</p>
     <%= link_to "完了した仕事を確認する", "/jobs/index/4/hero/#{current_hero.id}" %><br />
   <% end %>
 <% else %>
@@ -20,8 +20,8 @@
   <p>-----------------------------------------------------------------------------------</p>
   
   <h2>ステータス</h2>
-  <p>れいぎ：<%= @behavior %></p>
-  <p>あかるさ：<%= @smile %></p>
+  <p>れいぎ    ：<%= @behavior %></p>
+  <p>あかるさ  ：<%= @smile %></p>
   <p>せいけつさ：<%= @cleanliness %></p>
   <p>ていねいさ：<%= @politeness %></p>
   <p>たいりょく：<%= @physical %></p>
@@ -123,40 +123,3 @@
   <p><%= link_to "募集中の仕事一覧へ", jobs_path %></p>
   
   <p><%= link_to "トップへ戻る", root_path %></p>
-  
-  
-  
-  
-  
-  
-  
-  
-  <!--小沼さんへの引き継ぎ用-->
-  
-  <p>募集中の仕事一覧</p>
-    <% @jobs.each do |job| %>
-      <p>仕事タイトル：<%= job.title %></p>
-      <p>報酬額：<%= job.price %></p>
-      <p>仕事内容：<%= job.service %></p>
-      <p>どんな人を希望するか：<%= job.expect %></p>
-      <p>発注者ID：<%= job.nursing_home_id %></p>
-      <p>クライアントID：<%= job.client_id %></p>
-      <p>仕事カテゴリID：<%= job.job_category_id %></p>
-      <p>開始日時：<%= job.start_datetime %></p>
-      <p>終了日時：<%= job.end_datetime %></p>
-      <p>発注の進捗：<%= job.progress %></p>
-      <p>受注者ID：<%= job.hero_id %></p>
-    <% end %>
-    
-    <p>ヘルパー本人がエントリーした仕事</p>
-      <% @hero.jobs.where(progress: 1).each do |job| %>
-        <p>仕事タイトル（エントリー済み）：<%= job.title %></p>
-      <% end %>
-
-    <!--以後、”progress”の数値を変更すると、進捗状況に合わせた仕事一覧が表示されます。-->
-    <!--1 = エントリー済み-->
-    <!--2 = 発注済み（事業者がエントリーを承認）、ヘルパー労働条件通知書承認待ち-->
-    <!--3 = 契約成立済み、業務遂行待ち-->
-    <!--4 = 業務完了（ヘルパー未確認）-->
-    <!--5 = 業務完了（ヘルパー確認済み）-->
-    

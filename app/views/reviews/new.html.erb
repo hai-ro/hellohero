@@ -15,8 +15,6 @@
   
   <p>どんな人に受けてほしいか:<%= @job.expect %></p>
   
-  <p>クライアント名:<%= link_to @job.client.name, client_path(@job.client.id) %></p>
-  
   <p>開始時間:<%= @job.start_datetime %></p>
   
   <p>終了時間:<%= @job.end_datetime %></p>

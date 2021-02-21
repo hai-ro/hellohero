@@ -23,15 +23,13 @@
   
   <p>お仕事カテゴリ:<%= @job.job_category.name %></p>
   
-  <p>発注者:<%= @job.nursing_home.id %></p>
+  <p>発注者:<%= @job.nursing_home.name %></p>
   
   <p>報酬額:<%= @job.price %> 円</p>
   
   <p>仕事内容:<%= @job.service %></p>
   
   <p>どんな人に受けてほしいか:<%= @job.expect %></p>
-  
-  <p>クライアント名:<%= link_to @job.client.name, client_path(@job.client.id) %></p>
   
   <p>開始時間:<%= @job.start_datetime %></p>
   

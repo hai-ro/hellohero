@@ -1,15 +1,10 @@
 <h2>仕事発注画面</h2>
 
-<% if @clients.exists? && @job_categories.exists? %>
+<% if @job_categories.exists? %>
   <%= form_for(@job) do |f| %>
     <div class="field">
       <%= f.label "お仕事名" %></br>
       <%= f.text_field :title %>
-    </div>
-    
-    <div class="field">
-      <%= f.label "クライアント名" %></br>
-      <%= f.collection_select( :client_id, @clients, :id, :name) %>
     </div>
     
     <div class="field">
@@ -52,8 +47,7 @@
   <% end %>
 
 <% else %>
-  <p>クライアントを先に登録してください。</p>
-  <%= link_to "クライアント登録画面へ", new_client_path %>
+  <p>仕事カテゴリの登録がありません。</p>
 <% end %>
 <br/>
 <%= link_to "管理ページへ", nursing_home_path(current_nursing_home.id) %>
