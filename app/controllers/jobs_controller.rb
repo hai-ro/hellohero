@@ -8,7 +8,7 @@ before_action :authenticate_hero!, only: [
 ]
 
   def index
-    @jobs = Job.order("created_at DESC").where(progress: 0)
+    @jobs = Job.includes(:nursing_home, :hero, :job_category).order("created_at DESC").where(progress: 0)
   end
   
   def show

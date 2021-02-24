@@ -7,7 +7,7 @@
   
   <p>お仕事カテゴリ:<%= job.job_category.name %></p>
   
-  <p>発注者:<%= job.nursing_home.id %></p>
+  <p>発注者:<%= job.nursing_home.name %></p>
   
   <p>報酬額:<%= job.price %>円</p>
   
@@ -16,7 +16,11 @@
   <p>終了時間:<%= job.end_datetime %></p>
   
   <%= link_to "仕事の詳細を見る", job_path(job.id) %>
-
+  
+  <% if nursing_home_signed_in? && job.nursing_home_id == current_nursing_home.id %>
+    <%= link_to "編集",  edit_job(job.id) %>
+    <%= link_to "削除",  "/jobs/#{job.id}" %>
+  <% end %>
   <p>--------------------------------------------------------------------------------</p>
 <% end %>
 
