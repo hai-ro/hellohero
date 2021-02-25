@@ -47,7 +47,12 @@
   <% end %>
 
 <% else %>
+<<<<<<< HEAD
   <p>仕事カテゴリの登録がありません。</p>
+=======
+  <p>カテゴリの登録がありません</p>
+  <%= link_to "カテゴリ設定", new_job_category_path %>
+>>>>>>> add_job_edit
 <% end %>
 <br/>
 <%= link_to "管理ページへ", nursing_home_path(current_nursing_home.id) %>

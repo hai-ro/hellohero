@@ -3,7 +3,7 @@ before_action :authenticate_nursing_home!, only: [ :new, :create, :edit, :update
 before_action :authenticate_hero!, only: [ :order_request_confirm, :order_request_complete, :order_request_cancel ]
 
   def index
-    @jobs = Job.order("created_at DESC").where(progress: 0)
+    @jobs = Job.includes(:nursing_home, :hero, :job_category).order("created_at DESC").where(progress: 0)
   end
   
   def show
@@ -166,7 +166,7 @@ before_action :authenticate_hero!, only: [ :order_request_confirm, :order_reques
   
   private
   def job_params
-    params.require(:job).permit(:title, :price, :service, :expect, :nursing_home_id, :client_id, :job_category_id, :start_datetime, :end_datetime, :progress, :hero_id)
+    params.require(:job).permit(:title, :price, :service, :expect, :nursing_home_id, :job_category_id, :start_datetime, :end_datetime, :progress, :hero_id)
   end
   
 end
