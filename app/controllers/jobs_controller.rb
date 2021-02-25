@@ -25,7 +25,6 @@ before_action :authenticate_hero!, only: [
     @job = Job.new
     @nursing_home = NursingHome.find(current_nursing_home.id)
     @job_categories = JobCategory.all
-    @clients = Client.where(nursing_home_id: current_nursing_home.id)
   end
   
   def create
@@ -173,7 +172,7 @@ before_action :authenticate_hero!, only: [
   
   private
   def job_params
-    params.require(:job).permit(:title, :price, :service, :expect, :nursing_home_id, :client_id, :job_category_id, :start_datetime, :end_datetime, :progress, :hero_id)
+    params.require(:job).permit(:title, :price, :service, :expect, :nursing_home_id, :job_category_id, :start_datetime, :end_datetime, :progress, :hero_id)
   end
   
 end

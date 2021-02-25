@@ -34,8 +34,7 @@ Rails.application.routes.draw do
   get "jobs/index/3/nursing_home/:id" => "jobs#index_3_nursing_home" # 契約が成立し、業務遂行待ちのjob
   get "jobs/index/4/nursing_home/:id" => "jobs#index_4_nursing_home" # 業務遂行完了を事業者が確認、ヘルパーが完了報告を未確認のjob
   get "jobs/index/5/nursing_home/:id" => "jobs#index_5_nursing_home" # 業務遂行完了を事業者が確認、ヘルパーも完了報告を確認済のjob
-
-  resources :clients, only: [:index, :show, :new, :create, :destroy]
+  
   resources :rooms
   resources :heros_rules, only: [:index]
   resources :job_categories, only: [:new, :create]

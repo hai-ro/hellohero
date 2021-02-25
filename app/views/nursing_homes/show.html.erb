@@ -2,10 +2,8 @@
 <p><%= @nursing_home.name %> 様の管理ページ</p>
 
 <% if nursing_home_signed_in? && @nursing_home.id == current_nursing_home.id %>
-  <p><%= link_to "クライアントを登録する", new_client_path %></p>
   <p><%= link_to "仕事カテゴリを登録する", new_job_category_path %></p>
   <p><%= link_to "仕事を発注する", new_job_path %></p>
-  <p><%= link_to "登録クライアント一覧", clients_path %></p>
   <p><%= link_to "登録情報を変更する",  edit_nursing_home_registration_path(current_nursing_home.id) %></p>
   <br />
   <% if current_nursing_home.jobs.where(progress: 1).count == 0 %>

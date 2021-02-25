@@ -4,9 +4,6 @@
   <%= f.label "お仕事名" %>
   <%= f.text_field :title %>
   </br>
-  <%= f.label "クライアント名" %>
-  <%= f.collection_select( :client_id, @clients, :id, :name) %>
-  </br>
   <%= f.label "報酬" %>
   <%= f.number_field :price %>
   </br>
