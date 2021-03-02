@@ -1,19 +1,11 @@
 class JobsController < ApplicationController
+before_action :getdata, only: [:copied_new]
 before_action :authenticate_nursing_home!, only: [ :new, :create, :edit, :update, :destroy, :order_confirm, :order_complete, :order_rejection ]
 before_action :authenticate_hero!, only: [ :order_request_confirm, :order_request_complete, :order_request_cancel ]
 
+
   def index
     @jobs = Job.includes(:nursing_home, :hero, :job_category).order("created_at DESC").where(progress: 0)
-  end
-  
-  def show
-    @job = Job.find(params[:id])
-    @progress = @job.progress
-    
-    # 受注したヘルパーがログインしていて、かつ、進捗が4（事業所評価済み）の場合のみ、更新
-    if hero_signed_in? && @job.progress == 4
-      @job.update(progress: 5)
-    end
   end
   
   def new
@@ -24,6 +16,34 @@ before_action :authenticate_hero!, only: [ :order_request_confirm, :order_reques
   
   def create
     Job.create(job_params)
+  end
+  
+  # ↓ココカラ 複製して投稿
+  def getdata
+      @data = Job.find(params[:format])
+  end
+  
+  def copied_new
+    @job = Job.new
+    getdata
+    @nursing_home = NursingHome.find(current_nursing_home.id)
+    @job_categories = JobCategory.all
+  end
+  
+  def copied_create
+    Job.create(job_params)
+  end
+  
+  # ↑ココマデ 複製して投稿
+  
+  def show
+    @job = Job.find(params[:id])
+    @progress = @job.progress
+    
+    # 受注したヘルパーがログインしていて、かつ、進捗が4（事業所評価済み）の場合のみ、更新
+    if hero_signed_in? && @job.progress == 4
+      @job.update(progress: 5)
+    end
   end
   
   def edit

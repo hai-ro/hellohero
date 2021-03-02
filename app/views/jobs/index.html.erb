@@ -15,11 +15,12 @@
   
   <p>終了時間:<%= job.end_datetime %></p>
   
-  <%= link_to "仕事の詳細を見る", job_path(job.id) %>
+  <%= link_to "仕事の詳細を見る", job_path(job.id) %><br />
   
   <% if nursing_home_signed_in? && job.nursing_home_id == current_nursing_home.id %>
-    <%= link_to "編集",  edit_job(job.id) %>
-    <%= link_to "削除",  "/jobs/#{job.id}" %>
+    <%= link_to "編集",  edit_job_path(job.id) %><br />
+    <%= link_to "仕事を取り下げる", job_path(job.id), method: :delete %><br />
+    <%= link_to "この仕事をコピーして新規発注", jobs_copied_new_path(job.id) %><br />
   <% end %>
   <p>--------------------------------------------------------------------------------</p>
 <% end %>

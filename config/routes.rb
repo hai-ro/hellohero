@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
   root "tops#index"
   
+  get "jobs/copied_new" => "jobs#copied_new"
+  post "jobs/copied_create" => "jobs#copied_create"
   resources :jobs do 
   
     resources :reviews
   
   end
+  
   # ヘルパーがエントリーする際のルーティング
   get "jobs/order_request_confirm/:id" => "jobs#order_request_confirm"
   get "jobs/order_request_complete/:id" => "jobs#order_request_complete"
