@@ -5,12 +5,12 @@
   <% if current_hero.jobs.where(progress: 2).count == 0 %>
   <% else %>
     <p>事業者から条件が提示されているお仕事が<%= current_hero.jobs.where(progress: 2).count.to_i %>件あります!すぐに確認しましょう!</p>
-    <%= link_to "承認待ちの仕事を確認する", "/jobs/index/2/hero/#{current_hero.id}" %><br />
+    <%= link_to "承認待ちの仕事を確認する", jobs_index_path(2) %><br />
   <% end %>
   <% if current_hero.jobs.where(progress: 4).count == 0 %>
   <% else %>
     <p>事業者からあなたのお仕事の完了を確認しました！（未確認：<%= current_hero.jobs.where(progress: 4).count.to_i %>件）</p>
-    <%= link_to "完了した仕事を確認する", "/jobs/index/4/hero/#{current_hero.id}" %><br />
+    <%= link_to "完了した仕事を確認する", jobs_index_path(4) %><br />
   <% end %>
 <% else %>
   <h1>Hero page</h1>
@@ -118,7 +118,10 @@
   
 <% if hero_signed_in? && @hero.id == current_hero.id %>
   <p><%= link_to "登録情報を編集する", edit_hero_registration_path(current_hero.id) %></p>
-  <p><%= link_to "仕事の経歴を見る", "/jobs/index/5/hero/#{current_hero.id}" %></p>
+  <p><%= link_to "エントリー中", jobs_index_path(1) %></p>
+  <p><%= link_to "労働条件通知書承認待ち", jobs_index_path(2) %></p>
+  <p><%= link_to "契約中", jobs_index_path(3) %></p>
+  <p><%= link_to "過去の経歴", jobs_index_path(5) %></p>
 <% end %>
   <p><%= link_to "募集中の仕事一覧へ", jobs_path %></p>
   

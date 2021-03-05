@@ -1,12 +1,24 @@
 class JobsController < ApplicationController
 before_action :getdata, only: [:copied_new]
-before_action :authenticate_nursing_home!, only: [ :new, :create, :edit, :update, :destroy, :order_confirm, :order_complete, :order_rejection ]
-before_action :authenticate_hero!, only: [ :order_request_confirm, :order_request_complete, :order_request_cancel ]
+before_action :getprogress, only: [:index_progress]
+before_action :authenticate_nursing_home!, only: [ :new, :create, :edit, :update, :destroy, :order_confirm, :order_complete, :order_rejection, :index_process ]
+before_action :authenticate_hero!, only: [ :order_request_confirm, :order_request_complete, :order_request_cancel, :index_process ]
 
 
   def index
     @jobs = Job.includes(:nursing_home, :hero, :job_category).order("created_at DESC").where(progress: 0)
   end
+  
+  def index_progress
+    getprogress
+    if hero_signed_in?
+      @jobs = Job.includes(:nursing_home, :hero, :job_category).order("created_at DESC").where(hero_id: current_hero.id, progress: @progress)
+    elsif nursing_home_signed_in?
+      @jobs = Job.includes(:nursing_home, :hero, :job_category).order("created_at DESC").where(nursing_home_id: current_nursing_home.id, progress: @progress)
+    end
+  end
+  
+  
   
   def new
     @job = Job.new
@@ -19,9 +31,7 @@ before_action :authenticate_hero!, only: [ :order_request_confirm, :order_reques
   end
   
   # ↓ココカラ 複製して投稿
-  def getdata
-      @data = Job.find(params[:format])
-  end
+  
   
   def copied_new
     @job = Job.new
@@ -60,58 +70,6 @@ before_action :authenticate_hero!, only: [ :order_request_confirm, :order_reques
   def destroy
     @job = Job.find(params[:id])
     @job.destroy
-  end
-  
-  # 【ヘルパー側】進捗ごとに一覧が表示できるようにアクションを追加
-  def index_1_hero #エントリー済
-    @hero = Hero.find(params[:id])
-    @jobs = Job.order("created_at DESC").where(progress: 1, hero_id: @hero.id)
-    @count = @jobs.count
-  end
-  
-  def index_2_hero #発注済み
-    @hero = Hero.find(params[:id])
-    @jobs = Job.order("created_at DESC").where(progress: 2, hero_id: @hero.id)
-    @count = @jobs.count
-  end
-  
-  def index_3_hero #条件提示承認済み
-    @hero = Hero.find(params[:id])
-    @jobs = Job.order("created_at DESC").where(progress: 3, hero_id: @hero.id)
-    @count = @jobs.count
-  end
-  
-  def index_4_hero #完了済み
-    @hero = Hero.find(params[:id])
-    @jobs = Job.order("created_at DESC").where(progress: 4, hero_id: @hero.id)
-    @count = @jobs.count
-  end
-  
-  def index_5_hero #完了済み
-    @hero = Hero.find(params[:id])
-    @jobs = Job.order("created_at DESC").where(progress: 5, hero_id: @hero.id)
-    @count = @jobs.count
-  end
-  
-  # 【事業所側】進捗ごとに一覧が表示できるようにアクションを追加
-  def index_1_nursing_home #エントリー済
-    @jobs = Job.order("created_at DESC").where(progress: 1)
-    @nursing_home = NursingHome.find(params[:id])
-  end
-  
-  def index_2_nursing_home #発注済み
-    @jobs = Job.order("created_at DESC").where(progress: 2)
-    @nursing_home = NursingHome.find(params[:id])
-  end
-  
-  def index_3_nursing_home #条件提示承認済み
-    @jobs = Job.order("created_at DESC").where(progress: 3)
-    @nursing_home = NursingHome.find(params[:id])
-  end
-  
-  def index_4_nursing_home #完了済み
-    @jobs = Job.order("created_at DESC").where(progress: 4)
-    @nursing_home = NursingHome.find(params[:id])
   end
   
   # ヘルパーがエントリーをするときのアクション
@@ -189,4 +147,13 @@ before_action :authenticate_hero!, only: [ :order_request_confirm, :order_reques
     params.require(:job).permit(:title, :price, :service, :expect, :nursing_home_id, :job_category_id, :start_datetime, :end_datetime, :progress, :hero_id)
   end
   
+  # 進捗ごとに仕事を表示する（進捗取得用メソッド）
+  def getprogress
+    @progress = params[:format]
+  end
+  
+  # 投稿済みjobのレコードを取得する
+  def getdata
+      @data = Job.find(params[:format])
+  end
 end

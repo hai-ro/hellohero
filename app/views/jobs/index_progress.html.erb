@@ -1,0 +1,61 @@
+<% if @progress.to_i == 1 %>
+  <% if hero_signed_in? %>
+    <h2>エントリー中</h2>
+  <% elsif nursing_home_signed_in? %>
+    <h2>エントリーのある仕事</h2>
+  <% end %>
+<% elsif @progress.to_i == 2 %>
+  <% if hero_signed_in? %>
+    <h2>労働条件提示書 承認待ち</h2>
+  <% elsif nursing_home_signed_in? %>
+    <h2>労働条件提示中</h2>
+  <% end %>
+<% elsif @progress.to_i == 3 %>
+  <h2>契約中</h2>
+<% elsif @progress.to_i == 4 %>
+  <% if nursing_home_signed_in? %>
+    <h2>完了した仕事</h2>
+  <% elsif hero_signed_in? %>
+    <h2>完了したミッション</h2>
+  <% end %>
+<% elsif @progress.to_i == 5 %>
+  <% if nursing_home_signed_in? %>
+    <h2>過去発注した仕事</h2>
+  <% elsif hero_signed_in? %>
+    <h2>過去の経歴</h2>
+  <% end %>
+<% end %>
+
+<% @jobs.each do |job| %>
+  <p>--------------------------------------------------------------------------------</p>
+
+  <p>お仕事名:<%= job.title %></p>
+  
+  <p>お仕事カテゴリ:<%= job.job_category.name %></p>
+  
+  <p>発注者:<%= job.nursing_home.name %></p>
+  
+  <p>報酬額:<%= job.price %>円</p>
+  
+  <p>開始時間:<%= job.start_datetime %></p>
+  
+  <p>終了時間:<%= job.end_datetime %></p>
+  
+  <%= link_to "仕事の詳細を見る", job_path(job.id) %><br />
+  
+  <% if nursing_home_signed_in? && job.nursing_home_id == current_nursing_home.id %>
+    <%= link_to "編集",  edit_job_path(job.id) %><br />
+    <%= link_to "仕事を取り下げる", job_path(job.id), method: :delete %><br />
+    <%= link_to "この仕事をコピーして新規発注", jobs_copied_new_path(job.id) %><br />
+  <% end %>
+  <p>--------------------------------------------------------------------------------</p>
+<% end %>
+
+<% if hero_signed_in? %>
+  <%= link_to "マイページへ戻る", hero_path(current_hero.id) %>
+<% elsif nursing_home_signed_in? %>
+  <%= link_to "管理ページへ戻る", nursing_home_path(current_nursing_home.id) %>
+<% end %>
+
+
+<p><%= link_to "トップへ戻る", root_path %></p>
