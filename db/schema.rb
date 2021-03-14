@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_02_114758) do
+ActiveRecord::Schema.define(version: 2021_03_13_054715) do
 
   create_table "admins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -121,11 +121,13 @@ ActiveRecord::Schema.define(version: 2021_02_02_114758) do
     t.integer "client_id"
     t.integer "job_category_id"
     t.datetime "start_datetime"
-    t.datetime "end_datetime"
+    t.float "time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "progress"
     t.integer "hero_id"
+    t.string "area"
+    t.string "image"
   end
 
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -137,6 +139,11 @@ ActiveRecord::Schema.define(version: 2021_02_02_114758) do
   end
 
   create_table "nursing_homes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "website"
+    t.string "contact_person"
+    t.integer "phone"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -146,18 +153,14 @@ ActiveRecord::Schema.define(version: 2021_02_02_114758) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
-    t.string "name"
-    t.string "address"
     t.string "latitude"
     t.string "longitude"
     t.string "area"
-    t.string "website"
     t.string "authorization"
     t.integer "type_id"
-    t.string "contact_person"
-    t.integer "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "detail"
     t.index ["email"], name: "index_nursing_homes_on_email", unique: true
     t.index ["reset_password_token"], name: "index_nursing_homes_on_reset_password_token", unique: true
   end
@@ -171,7 +174,7 @@ ActiveRecord::Schema.define(version: 2021_02_02_114758) do
     t.datetime "updated_at", null: false
     t.integer "behavior"
     t.integer "smile"
-    t.integer "cleaniless"
+    t.integer "cleanliness"
     t.integer "politeness"
     t.integer "physical"
   end

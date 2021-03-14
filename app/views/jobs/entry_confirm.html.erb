@@ -1,0 +1,27 @@
+<h2>エントリーを承認し、この人に発注しますか？</h2>
+    <%= link_to "承認する", "/jobs/entry_confirm_complete/#{@job.id}" %>
+    <br/>
+    <%= link_to "非承認とする", "/jobs/entry_rejection/#{@job.id}" %>
+    <br/>
+    <%= link_to "仕事詳細に戻る", job_path(@job.id) %>
+  <br/>
+  <h3>発注内容</h3>
+    <p>----------------------------------------------------------</p>
+    <p>エントリーしているヘルパー：<%= link_to "#{@job.hero.last_name} #{@job.hero.first_name}", hero_path(@job.hero_id) %></p>
+    
+    <p>お仕事名:<%= @job.title %></p>
+    
+    <p>お仕事カテゴリ:<%= @job.job_category.name %></p>
+    
+    <p>報酬額:<%= @job.price %> 円</p>
+    
+    <p>仕事内容:<%= @job.service %></p>
+    
+    <p>どんな人に受けてほしいか:<%= @job.expect %></p>
+    
+    <p>開始時間:<%= @job.start_datetime %></p>
+    
+    <p>終了時間:<%= @job.end_datetime %></p>
+    <p>----------------------------------------------------------</p>
+  
+  

@@ -1,0 +1,56 @@
+<h2>発注している業務一覧</h2>
+
+<% @jobs.each do |job| %>
+  <p>--------------------------------------------------------------------------------</p>
+
+  <div class="image_field">
+    <% if job.image? %>
+      <%= image_tag job.image.url(:thumb), alt:"Image", class:"style-smboder style-imgcontain" %>
+    <% else %>
+      <img src="assets/Heros-Logo.png" alt="Image" class="style-smboder style-imgcontain";>
+    <% end %>
+  </div>
+
+  <p>ミッション:<%= job.title %></p>
+  
+  <p>カテゴリ:<%= job.job_category.name %></p>
+  
+  <% if job.progress == 0 %>
+    <p>エントリーされていません</p>
+  <% elsif job.progress == 1 %>
+    <p>エントリー：<%= link_to "#{job.hero.last_name} #{job.hero.first_name}", "/heros/profile/#{job.hero_id}" %></p>
+  <% else %>
+    <p>受注者:<%= link_to "#{job.hero.last_name} #{job.hero.first_name}", "/heros/profile/#{job.hero_id}" %></p>
+  <% end %>
+  
+  <p>報酬額:<%= job.price %>円</p>
+  
+  <%= link_to "仕事の詳細を見る", job_path(job.id) %><br />
+  
+  <% if @progress == 1 %>
+    <p><%= link_to "承認", "/jobs/entry_confirm_complete/#{job.id}" %></p>
+    <p><%= link_to "却下", "/jobs/entry_rejection/#{job.id}" %></p>
+  <% elsif @progress == 3 %>
+    <p><%= link_to "評価入力", new_job_review(job.id) %></p>
+  <% end %>
+
+  <% if @progress == 1 %>
+    <p><%= link_to "取り下げ", "/jobs/entry_cancel/#{job.id}" %></p>
+  <% elsif @progress == 2 %>
+    <p><%= link_to "労働条件提示書確認", "/jobs/condition_confirm/#{job.id}" %></p>
+  <% end %>
+  
+  <%= link_to "編集",  edit_job_path(job.id) %><br />
+  <%= link_to "仕事を取り下げる", job_path(job.id), method: :delete %><br />
+  <%= link_to "この仕事をコピーして新規発注", jobs_copied_new_path(job.id) %><br />
+  <p>--------------------------------------------------------------------------------</p>
+<% end %>
+
+<% if hero_signed_in? %>
+  <%= link_to "マイページへ戻る", hero_path(current_hero.id) %>
+<% elsif nursing_home_signed_in? %>
+  <%= link_to "管理ページへ戻る", nursing_home_path(current_nursing_home.id) %>
+<% end %>
+
+
+<p><%= link_to "トップへ戻る", root_path %></p>

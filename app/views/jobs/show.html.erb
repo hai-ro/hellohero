@@ -1,4 +1,18 @@
-<h2>お仕事詳細</h2>
+<% if nursing_home_signed_in? %>
+  <h2>業務詳細</h2>
+<% else %>
+  <h2>ミッション詳細</h2>
+<% end %>
+
+<% if hero_signed_in? && @job.hero_id == current_hero.id && @progress >= 4 %>
+  <h4>あなたへの評価</h4>
+  <p>れいぎ    ：<%= @job.behavior %></p>
+  <p>あかるさ  ：<%= @job.smile %></p>
+  <p>せいけつさ：<%= @job.cleanliness %></p>
+  <p>ていねいさ：<%= @job.politeness %></p>
+  <p>たいりょく：<%= @job.physical %></p>
+<% end %>
+
 <% if nursing_home_signed_in? %>
   <% if @job.nursing_home_id == current_nursing_home.id %>
     <p>-----------------------------------------------------</p>
@@ -6,12 +20,13 @@
     <% if @progress == 0 %>
       <p>現在、エントリーしている人はいません。</p>
     <% elsif @progress == 1 %>
-      <%= link_to "エントリーがあります。確認してください。", "/jobs/order_confirm/#{@job.id}" %>
+      <%= link_to "エントリーがあります。確認してください。", "/jobs/entry_confirm/#{@job.id}" %>
     <% elsif @progress == 2 %>
       <p>発注済み、条件提示書の承認待ちです。</p>
     <% elsif @progress == 3 %>
       <p>契約成立済、業務遂行待ちです。</p>
-      <%= link_to "業務完了を確認した場合はこちら", new_job_review_path(params[:id]) %>
+      <p>※業務の完了を確認したら、ヘルパーの評価を入力してください。</p>
+      <%= link_to "ヘルパー評価へ", new_job_review_path(params[:id]) %>
     <% elsif @progress == 4 %>
       <p>業務完了済</p>
     <% end %>
@@ -23,7 +38,7 @@
   
   <p>お仕事カテゴリ:<%= @job.job_category.name %></p>
   
-  <p>発注者:<%= @job.nursing_home.name %></p>
+  <p>発注者:<%= link_to "#{@job.nursing_home.name}", nursing_home_path(@job.nursing_home_id) %></p>
   
   <p>報酬額:<%= @job.price %> 円</p>
   
@@ -33,34 +48,32 @@
   
   <p>開始時間:<%= @job.start_datetime %></p>
   
-  <p>終了時間:<%= @job.end_datetime %></p>
-  
   <% if hero_signed_in? %>
     <p>-----------------------------------------------------</p>
     <h4>受注状況</h4>
     <% if @progress == 5 %>
-      <p>この仕事は完了しています。</p>
+      <p>このミッションは完了しました。</p>
     <% else %>
       <% if @progress == 0 %>
-        <%= link_to "この仕事にエントリーする", "/jobs/order_request_confirm/#{@job.id}" %>
+        <%= link_to "この仕事にエントリーする", "/jobs/entry/#{@job.id}" %>
       <% elsif @progress == 1 %>
-        <p>この仕事はすでに受注依頼が出されています。</p>
+        <p>このミッションはすでにエントリーされています。</p>
         <% if @job.hero_id == current_hero.id %>
-          <p>※この仕事はあなたが受注依頼しています。※</p>
-          <%= link_to "エントリーをキャンセルする", "/jobs/order_request_cancel/#{@job.id}" %>
+          <p>※このミッションはあなたがエントリーしています。※</p>
+          <%= link_to "エントリーをキャンセルする", "/jobs/entry_cancel/#{@job.id}" %>
         <% end %>
       <% elsif @progress == 2 %>
-        <p>この仕事はすでに受注依頼が出されています。</p>
+        <p>このミッションは契約手続き中です。</p>
         <% if @job.hero_id == current_hero.id %>
-          <%= link_to "事業者から条件提示書が送付されています。確認してください。", "/jobs/order_agreement_confirm/#{@job.id}" %>
+          <%= link_to "事業者から労働条件提示書が送付されています。確認してください。", "/jobs/condition_confirm/#{@job.id}" %>
         <% end %>
       <% elsif @progress == 3 %>
-        <p>この仕事はすでに受注者が確定しています。</p>
+        <p>このミッションは他の方が契約中です。</p>
         <% if @job.hero_id == current_hero.id %>
-          <p>※この仕事はあなたが受注しています。※</p>
+          <p>※このミッションはあなたが受注しています。※</p>
         <% end %>
-      <% elsif @progress == 4 %>
-        <p>この仕事は完了しました!お疲れさまでした！</p>
+      <% elsif @progress >= 4 %>
+        <p>このミッションは完了しました!お疲れさまでした！</p>
       <% end %>
     <% end %>
     <p>-----------------------------------------------------</p>

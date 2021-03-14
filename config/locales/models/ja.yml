@@ -1,0 +1,90 @@
+ja:
+ activerecord:
+  models:
+   admin: 管理者
+   hero: ヒーロー
+   job: 業務
+   job_category: カテゴリ
+   nursing_home: 事業所
+   review: 評価
+  attributes:
+    admin:
+      id: ID
+      email: メールアドレス
+      name: 名前
+    hero:
+      id: ID
+      email: メールアドレス
+      first_name: 名
+      last_name: 姓
+      first_name_kana: メイ
+      last_name_kana: セイ
+      address: 住所
+      gender: 性別
+      special_skill: 得意なこと
+      birthday: 誕生日
+      eto: 干支
+      performance: 受注実績
+      profile: プロフィール
+      money: 受け取った報酬額
+      pool_money: 未払いの報酬額
+      like: 好きなこと
+      cinfirmation: 本人確認
+      behavior: れいぎ
+      smile: あかるさ
+      cleanliness: せいけつさ
+      politeness: ていねいさ
+      physical: たいりょく
+    job:
+      id: ID
+      title: ミッション
+      price: 報酬
+      service: 業務内容
+      expect: 希望する人材
+      nursing_home_id: 事業所ID
+      job_category_id: カテゴリID
+      start_datetime: 開始日時
+      created_at: 登録日
+      updated_at: 最終更新日
+      progress: 進捗
+      hero_id: ヒーローID
+      area: 業務エリア
+      image: イメージ画像
+    job_category:
+      id: ID
+      name: カテゴリ名
+      created_at: 登録日
+      updated_at: 最終更新日
+    nursing_home:
+      id: ID
+      name: 事業所名
+      address: 住所
+      website: ウェブサイト
+      contact_person: 担当者
+      phone: 電話番号
+      email: メールアドレス
+      latitude: 緯度
+      longitude: 経度
+      authorization: 許認可
+      type_id: 事業所種別ID
+      created_at: 登録日
+      updated_at: 最終更新日
+      detail: 紹介文
+    review:
+      id: ID
+      text: レビュー
+      nursing_home_id: 事業所ID
+      hero_id: ヒーローID
+      job_id: 業務ID
+      created_at: 登録日
+      updated_at: 最終更新日
+      behavior: れいぎ
+      smile: あかるさ
+      cleanliness: せいけつさ
+      politeness: ていねいさ
+      physical: たいりょく
+      
+      
+      
+   
+    

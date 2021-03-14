@@ -1,79 +1,114 @@
-<h2>ヒーロー会員登録/heroes/app/views/heros/registrations/new.html.erb</h2>
+<main class="style-main">
+    <section class="container style-login-back">
+      <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+          <%= link_to root_path do %>
+            <img class="" src="/assets/Heros-Logo.png" alt="ヒーローズロゴ画像" height="80px" width="200px">
+          <% end %>
+        </div>
+        <div class="col-md-3">
+        </div>
+        <!--画面の１２分の４を使って表現する（col-md-4）-->
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <h1 class="style-centertext style-lightbeigeback my-4 ">★ヘルパーさん登録情報入力画面★</h1>
+            <p class="">以下のフォームにお客様の情報を入力してください<br>※メールアドレス及びパスワードはログイン時に必要となります。</p>
+            <%= render "heros/shared/error_messages", resource: resource %>
+            <div class="my-5">
+              <h3 class="style-text-bold style-leftbar-lightred my-3">氏名</h3>
+              <div class="row">
+                <div class="col-lg-6">
+                  <%= f.text_field :last_name, autofocus: true, autocomplete: true, placeholder: "姓", class: "style-rg-sminput" %>
+                </div>
+                <div class="col-lg-6">
+                  <%= f.text_field :first_name, autofocus: true, autocomplete: true, placeholder: "名", class: "style-rg-sminput" %>
+                </div>
+              </div>
+              <h3 class="style-text-bold style-leftbar-lightred my-3">氏名（フリガナ）</h3>
+              <div class="row">
+                <div class="col-lg-6">
+                  <%= f.text_field :last_name_kana, autofocus: true, autocomplete: true, placeholder: "セイ", class: "style-rg-sminput" %>
+                </div>
+                <div class="col-lg-6">
+                  <%= f.text_field :first_name_kana, autofocus: true, autocomplete: true, placeholder: "メイ", class: "style-rg-sminput" %>
+                </div>
+              </div>
+              <h3 class="style-text-bold style-leftbar-lightred my-3">性別</h3>
+              <%= f.select :gender, [ ["男性", 1], ["女性", 2], ["その他", 3] ], class: "ml-2" %>
+              <h3 class="style-text-bold style-leftbar-lightred my-3">生年月日</h3>
+              <%= raw sprintf(
+                f.date_select(:birthday, use_month_numbers: true, start_year: (Time.now.year - 18), end_year: (Time.now.year - 80),
+                date_separator: '%s'), '年 ', '月 ') + '日' %>
+              <h3 class="style-text-bold style-leftbar-lightred my-3">メールアドレス</h3>
+              <div class="field">
+                <%= f.email_field :email, autofocus: true, autocomplete: true, placeholder: "例:example@example.com", class: "style-rg-lginput" %>
+              </div>
+              <h3 class="style-text-bold style-leftbar-lightred my-3">パスワード</h3>
+              <div class="field">
+                <% if @minimum_password_length %>
+                  <em>(<%= @minimum_password_length %>文字以上)</em>
+                <% end %><br />
+                <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワード", class:"style-rg-sminput" %>
+              </div>
+              <h3 class="style-text-bold style-leftbar-lightred my-3">パスワード（確認）</h3>
+              <div class="field">
+                <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "パスワード（確認）", class: "style-rg-sminput" %>
+              </div>
+            </div>
+            <!--本人確認の初期設定-->
+            <%= f.hidden_field :confirmation, value: 0 %>
+            <!--受注実績の初期設定-->
+            <%= f.hidden_field :performance, value: 0 %>
+            <!--各種資格の情報の初期設定-->
+            <!--介護初任者研修-->
+            <%= f.hidden_field :initial_training, value: 0 %>
+            <!--実務者研修-->
+            <%= f.hidden_field :practical_training, value: 0 %>
+            <!--社会福祉士-->
+            <%= f.hidden_field :social_worker, value: 0 %>
+            <!--ケアマネジャー-->
+            <%= f.hidden_field :care_manager, value: 0 %>
+            <!--精神保健福祉士-->
+            <%= f.hidden_field :mhwp, value: 0 %>
+            <!--福祉用具専門相談員-->
+            <%= f.hidden_field :csdw, value: 0 %>
+            <!--介護事務-->
+            <%= f.hidden_field :interventional_services, value: 0 %>
+            <!--福祉環境コーディネーター-->
+            <%= f.hidden_field :whec, value: 0 %>
+            <!--認知症ケア-->
+            <%= f.hidden_field :dementia_care, value: 0 %>
+            <!--介護福祉士-->
+            <%= f.hidden_field :care_worker, value: 0 %>
+            <br />
+            <div class="style-centertext mb-3">
+              <%= f.submit "登録する", class: "style-boder-smallradius style-login-btn" %>
+            </div>
+          <% end %>
+        </div>
+        <div class="col-md-3">
+        </div>
+      </div>
+    </section>
+    <%= render "heros/shared/links" %>
+  </main>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "heros/shared/error_messages", resource: resource %>
+<!--Androidのthe Android stock broswerのサイドバーのエラーを修正する-->
+<script>
+  var nua = navigator.userAgent;
+  var is_android = ((nua.indexOf('Mozilla/5.0') > -1 && nua.indexOf('Android ') > -1 && nua.indexOf('AppleWebKit') > -1) && !(nua.indexOf('Chrome') > -1));
+  if (is_android) { $('select.form-control').removeClass('form-control').css('width', '100%'); }
+</script>
 
-  <div class="field">
-    <%= f.label "名前" %><br />
-    <%= f.text_field :last_name, autofocus: true, autocomplete: true, placeholder: "姓" %> <%= f.text_field :first_name, autofocus: true, autocomplete: true, placeholder: "名" %>
-  </div>
+<!-- オプションのJavaScript -->
+<!-- 最初にjQuery、次にPopper.js、次にBootstrap JS -->
+<script src="./../../../assets/javascripts/application.js"></script>
+<script src="https://kit.fontawesome.com/de95f90de5.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-  <div class="field">
-    <%= f.label "フリガナ" %><br />
-    <%= f.text_field :last_name_kana, autofocus: true, autocomplete: true, placeholder: "セイ" %> <%= f.text_field :first_name_kana, autofocus: true, autocomplete: true, placeholder: "メイ" %>
-  </div>
-
-  <div class="field">
-    <%= f.label "性別" %><br />
-    <%= f.select :gender, [ ["男性", 1], ["女性", 2], ["その他", 3] ] %>
-  </div>
-
-  <div class="field">
-    <%= f.label "生年月日" %><br />
-    <%= raw sprintf(
-        f.date_select(:birthday, use_month_numbers: true, start_year: (Time.now.year - 18), end_year: (Time.now.year - 80),
-        date_separator: '%s'), '年 ', '月 ') + '日' %>
-  </div>
-
-  <div class="field">
-    <%= f.label "メールアドレス" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: true, placeholder: "メールアドレス" %>
-  </div>
-
-  <div class="field">
-    <%= f.label "パスワード" %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %>文字以上)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワード" %>
-  </div>
-
-  <div class="field">
-    <%= f.label "パスワード（確認用）" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "パスワード（確認用）" %>
-  </div>
-  
-  <!--本人確認の初期設定-->
-  <%= f.hidden_field :confirmation, value: 0 %>
-  
-  <!--受注実績の初期設定-->
-  <%= f.hidden_field :performance, value: 0 %>
-  
-  <!--各種資格の情報の初期設定-->
-  <!--介護初任者研修-->
-  <%= f.hidden_field :initial_training, value: 0 %>
-  <!--実務者研修-->
-  <%= f.hidden_field :practical_training, value: 0 %>
-  <!--社会福祉士-->
-  <%= f.hidden_field :social_worker, value: 0 %>
-  <!--ケアマネジャー-->
-  <%= f.hidden_field :care_manager, value: 0 %>
-  <!--精神保健福祉士-->
-  <%= f.hidden_field :mhwp, value: 0 %>
-  <!--福祉用具専門相談員-->
-  <%= f.hidden_field :csdw, value: 0 %>
-  <!--介護事務-->
-  <%= f.hidden_field :interventional_services, value: 0 %>
-  <!--福祉環境コーディネーター-->
-  <%= f.hidden_field :whec, value: 0 %>
-  <!--認知症ケア-->
-  <%= f.hidden_field :dementia_care, value: 0 %>
-  <!--介護福祉士-->
-  <%= f.hidden_field :care_worker, value: 0 %>
-  <br />
-  <div class="actions">
-    <%= f.submit "登録" %>
-  </div>
-<% end %>
-
-<%= render "heros/shared/links" %>

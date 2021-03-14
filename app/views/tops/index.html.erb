@@ -1,20 +1,180 @@
-<h2>トップページ</h2>
+<!--ログイン前トップページ-->
+<% @page_title = 'トップページ' %>
+  <!--CSSのスタイルシートから持ってきているものはクラスにstyle-が入っている 基本的に初めがbootstrapのCSS 位置調整は1番右-->
+  <header class="style-header">
+    <section class="container-fluid">
+      <div class="row">
+        <nav class="navbar navbar-expand-lg fixed-top style-nav style-shadow-rightblack" id="mainNav">
+          <!--.navbar-brand はブランドを表示します。-->
+          <div class="">
+            <a href="#" class="navbar-brand">
+              <figure>
+                <img class="" src="/assets/Heros-Logo.png" alt="ヒーローズロゴ画像" height="60px" width="200px">
+              </figure>
+            </a>
+          </div>
+          <div class="navbar-nav style-midtext style-ma-rauto">
+            <div class="d-none d-lg-block">
+              <%= link_to  new_nursing_home_registration_path do %>
+                <button class="style-topoffices-newmenbtn mr-5 style-boder-smallradius">事業所新規登録</button>
+              <% end %>
+              <%= link_to  heros_rules_path do %>
+                <button class="style-helper-topnewmenbtn mr-5 style-boder-smallradius">ヒーローズ新規登録</button>
+              <% end %>
+              <%= link_to  new_hero_session_path do %>
+                <button class="style-helper-toploginbtn style-boder-smallradius">ヒーローログイン</button>
+              <% end %>
+              <%= link_to  new_nursing_home_session_path do %>
+                <button class="style-helper-toploginbtn style-boder-smallradius">事業所ログイン</button>
+              <% end %>
+            </div>
+            <div class="d-lg-none d-inline-block">
+              <a class="nav-link dropdown-toggle style-text-black" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                メニュー
+              </a>
+              <div class="dropdown-menu dropdown-menu-right style-midtext" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">ヒーローズとは</a>
+                <a class="dropdown-item" href="#">よくある質問</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="./index.html">ログアウト</a>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </section>
+  </header>
 
-<% if hero_signed_in? %>
-  <p><%= link_to 'ヒーローログアウト', destroy_hero_session_path, method: :delete %></p>
-  <p><%= link_to 'ヒーローマイページ', hero_path(current_hero.id) %></p>
-<% elsif nursing_home_signed_in? %>
-  <p><%= link_to '事業所ログアウト', destroy_nursing_home_session_path, method: :delete %></p>
-  <p><%= link_to '管理ページ', nursing_home_path(current_nursing_home.id) %></p>
-<% else %>
-  <P><%= link_to 'ヒーロー登録', heros_rules_path %></P>
-  <P><%= link_to 'ヒーローサインイン', new_hero_session_path %></P>
-  <br/>
-  <p><%= link_to '事業所登録（テスト）', new_nursing_home_registration_path %></p>
-  <P><%= link_to '事業所サインイン（テスト）', new_nursing_home_session_path %></P>
-<% end %>
-<% if hero_signed_in? %>
-<p>ログイン後テスト</p>
-<% else %>
-<p>ログイン前テスト</p>
-<% end %>
+  <!--タイトル画像表示-->
+  <main class="style-main">
+    <section class="container-fluid">
+      <div class="style-pd-high">
+        <div class="row">
+          <div class="col-12">
+            <div class="style-centertext mt-5 style-ma-bhigh">
+              <h1 class="style-lgtext style-redorengeback">いますぐ、ヒーローになろう</h1>
+              <p class="style-midtext mt-4">少しの時間で参加できる。『好き』を自己成長の力に。</p>
+            </div>
+            <div class="row style-ma-bhigh">
+              <div class="col-lg-1 my-5">
+              </div>
+              <div class="col-lg-2 col-md-6 my-5">
+                <figure class="style-centertext">
+                  <img src="/assets/character/Rabbit-Icon.png" alt="ヘルパートップアイコン" class="ml-5 " height="100px" width="100px">
+                </figure>
+              </div>
+              <div class="col-lg-3 col-md-6 my-5">
+                <div class="mt-5">
+                    <%= link_to heros_rules_path do %>
+                    <button class="style-helper-topnewmenbtn style-boder-smallradius mr-3 py-3 px-2">ヒーローズ新規登録</button>
+                    <% end %>
+                    <%= link_to new_hero_session_path do %>
+                    <button class="style-helper-toploginbtn style-boder-smallradius py-3 px-2">ログイン</button>
+                    <% end %>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-6 my-5">
+                <figure class="style-centertext">
+                  <img src="/assets/character/Lion-Icon.png" alt="事業所トップアイコン" class="ml-5 " height="100px" width="100px">
+                </figure>
+              </div>
+              <div class="col-lg-3 col-md-6 my-5">
+                <div class="mt-5">
+                  <%= link_to new_nursing_home_registration_path do %>
+                  <button class="style-topoffices-newmenbtn style-boder-smallradius mr-3 py-3 px-2">事業所新規登録</button>
+                  <% end %>
+                  <%= link_to new_nursing_home_session_path do %>
+                  <button class="style-topoffices-btn style-boder-smallradius py-3 px-2" >ログイン</button>
+                  <% end %>
+                </div>
+              </div>
+              <div class="col-lg-1 my-5">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--今日のミッション表示-->
+      <div class="row">
+        <div class="col-lg-12">
+          <!--全体をcontainer-fluidにして再度containerをすると中央にまとめられたデザインになる-->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="style-centertext style-heading-width mx-auto mb-5">
+                  <h1 class="style-heading style-lgtext"><span class="style-heading-icon"><i class="fas fa-user-plus"></i></span>ミッション紹介</h1>
+                </div>
+                <div class="row">
+                  <% @jobs.each do |job| %>
+                    <div class="col-lg-3 col-md-6">
+                      <div class="card style-shadow-rightblack  my-3" style="width: 250px;">
+                        <figure>
+                          <% if job.image? %>
+                            <%= image_tag job.image.url(:thumb), alt:"Image", class:"style-smboder style-imgcontain", height:"150px", width:"100%" %>
+                          <% else %>
+                            <img src="assets/Heros-Logo.png" alt="Image" class="style-smboder style-imgcontain" height="150px" width="100%";>
+                          <% end %>
+                        </figure>
+                        <div class="card-body">
+                          <span class="style-tag-lightred"><%= job.job_category.name %></span>
+                          <h2 class="card-title style-text-bold"><%= link_to "#{job.title}", job_path(job.id) %></h2>
+                          <p><%= job.service %></p>
+                          <ul class="style-ftlist">
+                            <li class=""><i class="fas fa-calendar-alt style-work-icon"></i><span>&nbsp;</span><%= shape_job_date(job.start_datetime) %></li>
+                            <li class=""><i class="far fa-clock style-work-icon"></i><span>&nbsp;</span><%= shape_job_start_time(job.start_datetime) %>~<%= shape_job_end_time(job.start_datetime + (job.time * 3600)) %></li>
+                            <div class="style-disflex">
+                              <li class="mr-3"><i class="fas fa-map-marker-alt style-work-icon"></i><span>&nbsp;</span><%= job.area %></li>
+                              <li class=""><i class="fa fa-yen style-work-icon"></i><span>&nbsp;</span><%= job.price.to_s(:delimited) %></li>
+                            </div>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="style-centertext">
+            <div class="style-centertext style-heading-width style-ma-thigh mx-auto mb-5">
+              <h1 class="style-heading style-lgtext"><span class="style-heading-icon"><i class="fas fa-users"></i></span>ハロヒロとは</h1>
+            </div>
+            <img src="assets/Heros-Logo.png" alt="" height="80%" width="80%" class="mb-5">
+            <p class="style-smlineheight my-5 ">「ハロヒロ」とは、すきま時間を活用して働きたい、スキルをシェアしたい、という方々と<br>
+                        人手を必要としている介護施設を マッチングするサービス です。<br>
+                        「私も何か人に喜ばれることがしたい」<br>
+                        「でも、何をしたらいいのかわからない」<br>
+                        そんな風に思っていませんか？<br>
+                        実は、介護施設では「介護」以外のミッションもたくさんあり、それをすべて介護職員さんが行っています。<br>
+                        お話相手や食事の準備、お掃除、IT業務…。<br>
+                        専門的な知識がなくても出来る、ほんの少しのお手伝いで、大きな笑顔が生まれる事はたくさんあるのです。<br>
+                        あなた の温かい気持ちとスキル、介護施設で活かしてみませんか？</p>
+            <div class="">
+              <figure>
+                <img src="/assets/About-Heros.jpg" alt="" height="30%" width="30%">
+              </figure>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 style-lightbeigeback style-centertext mt-5">
+          <h1 class="mt-5">登録はこちらから</h1>
+          <div class="row">
+            <div class="col-lg-6 mt-3 my-lg-5">
+              <%= link_to  heros_rules_path do %>
+                  <button class="style-helper-topnewmenbtn style-lg-btn style-boder-smallradius">ヒーローズの新規登録</button>
+              <% end %>
+            </div>
+            <div class="col-lg-6 my-3 my-lg-5">
+              <%= link_to  new_nursing_home_registration_path do %>
+                <button class="style-topoffices-newmenbtn style-lg-btn style-boder-smallradius">事業所の新規登録</button>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>

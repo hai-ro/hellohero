@@ -1,13 +1,12 @@
-<h1>レビュー投稿画面</h1>
+<h1>受注者を評価する</h1>
 
-<h2>発注したミッション</h2>
-
+<h2>発注業務</h2>
 <p>---------------------------------------------------------------</p>
-  <p>ミッション名:<%= @job.title %></p>
+  <p>仕事名:<%= @job.title %></p>
   
-  <p>ミッションカテゴリ:<%= @job.job_category.name %></p>
+  <p>カテゴリ:<%= @job.job_category.name %></p>
   
-  <p>受注者:<%= link_to "#{@job.hero.last_name} #{@job.hero.first_name}", hero_path(@job.hero.id) %>さん</p>
+  <p>受注者:<%= link_to "#{@job.hero.last_name} #{@job.hero.first_name}", hero_path(@job.hero.id) %></p>
   
   <p>報酬額:<%= @job.price %> 円</p>
   
@@ -21,7 +20,7 @@
 
 <p>---------------------------------------------------------------</p>
 
-<h2><%= @job.hero.last_name %> <%= @job.hero.first_name %>さんの活躍を評価しましょう！</h2>
+<h2>評価項目入力</h2>
 
 <%= form_for [@job, @review] do |f| %>
   <div class="field">
@@ -64,6 +63,12 @@
   <%= f.hidden_field :job_id, value: @job.id %>
   
   <br />
-  <%= f.submit "#{@job.hero.last_name} #{@job.hero.first_name}さんへ送る" %>
+  <%= f.submit "#{@job.hero.last_name} #{@job.hero.first_name}さんへ評価を送る" %>
   
 <% end %>
+
+<br />
+<br />
+<br />
+
+<%= link_to "業務が完遂されなかった", "/jobs/entry_rejection/#{@job.id}" %>

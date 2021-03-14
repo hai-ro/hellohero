@@ -1,128 +1,26 @@
-<% if hero_signed_in? && @hero.id == current_hero.id %>
-  <h1>My page</h1>
+  <h1>マイページ</h1>
+  <p><%= current_hero.last_name %> <%= current_hero.first_name %>さん</p>
   <br />
   <br />
   <% if current_hero.jobs.where(progress: 2).count == 0 %>
   <% else %>
     <p>事業者から条件が提示されているお仕事が<%= current_hero.jobs.where(progress: 2).count.to_i %>件あります!すぐに確認しましょう!</p>
-    <%= link_to "承認待ちの仕事を確認する", jobs_index_path(2) %><br />
+    <%= link_to "確認する", jobs_index_path(2) %><br />
   <% end %>
   <% if current_hero.jobs.where(progress: 4).count == 0 %>
   <% else %>
-    <p>事業者からあなたのお仕事の完了を確認しました！（未確認：<%= current_hero.jobs.where(progress: 4).count.to_i %>件）</p>
-    <%= link_to "完了した仕事を確認する", jobs_index_path(4) %><br />
+    <p>事業者があなたの仕事ぶりを評価しました！（未確認：<%= current_hero.jobs.where(progress: 4).count.to_i %>件）</p>
+    <%= link_to "確認する", jobs_index_path(4) %><br />
   <% end %>
-<% else %>
-  <h1>Hero page</h1>
-<% end %>
-  <h2><%= @hero.last_name %> <%= @hero.first_name %>さんのページ</h2>
-  
-  <p>-----------------------------------------------------------------------------------</p>
-  
-  <h2>ステータス</h2>
-  <p>れいぎ    ：<%= @behavior %></p>
-  <p>あかるさ  ：<%= @smile %></p>
-  <p>せいけつさ：<%= @cleanliness %></p>
-  <p>ていねいさ：<%= @politeness %></p>
-  <p>たいりょく：<%= @physical %></p>
-  
-  
-  
-  <p>-----------------------------------------------------------------------------------</p>
-  <h3>登録情報</h3>
-  <br />
-  <br />
-  <% if hero_signed_in? %>
-    <% if @hero.id == current_hero.id %>
-      <p><%= link_to "#{current_hero.last_name} #{current_hero.first_name}さんがエントリーしている仕事を確認する", "/jobs/index/1/hero/#{current_hero.id}" %> </p>
-      <p>メールアドレス：<%= @hero.email %></p>
-      <p>住所：
-        <% if @hero.address? %>
-          <%= @hero.address %>
-        <% else %>
-          未設定
-        <% end %>
-      </p>
-    <% end %>
-  <% end %>
-  <p>性別：
-    <% if @hero.gender == 1 %>
-      男性
-    <% elsif @hero.gender == 2 %>
-      女性
-    <% else %>
-      その他
-    <% end %>
-  </p>
-  <p>誕生日：
-    <% if @hero.birthday? %>
-      <%= @hero.birthday.strftime("%Y年%-m月%-d日") %>（
-        <% if @eto == 0 %>
-          サル
-        <% elsif @eto == 1 %>
-          トリ
-        <% elsif @eto == 2 %>
-          イヌ
-        <% elsif @eto == 3 %>
-          イノシシ
-        <% elsif @eto == 4 %>
-          ネズミ
-        <% elsif @eto == 5 %>
-          ウシ
-        <% elsif @eto == 6 %>
-          トラ
-        <% elsif @eto == 7 %>
-          ウサギ
-        <% elsif @eto == 8 %>
-          タツ
-        <% elsif @eto == 9 %>
-          ヘビ
-        <% elsif @eto == 10 %>
-          ウマ
-        <% elsif @eto == 11 %>
-          ヒツジ
-        <% else %>
-          <%= @eto %>
-        <% end %>
-        年）
-    <% else %>
-      未設定
-    <% end %>
-  </p>
-  <p>得意なこと：
-    <% if @hero.special_skill? %>
-      <%= @hero.special_skill %>
-    <% else %>
-      未設定
-    <% end %>
-  </p>
-  <p>好きなこと：
-    <% if @hero.like? %>
-      <%= @hero.like %>
-    <% else %>
-      未設定
-    <% end %>
-  </p>
-  <p>自己紹介：
-    <% if @hero.profile %>
-      <%= @hero.profile %>
-    <% else %>
-      未設定
-    <% end %>
-  </p>
-  <p>-----------------------------------------------------------------------------------</p>
-  
-<br />
-<br />
-<br />
-  
-<% if hero_signed_in? && @hero.id == current_hero.id %>
-  <p><%= link_to "登録情報を編集する", edit_hero_registration_path(current_hero.id) %></p>
-  <p><%= link_to "エントリー中", jobs_index_path(1) %></p>
-  <p><%= link_to "労働条件通知書承認待ち", jobs_index_path(2) %></p>
-  <p><%= link_to "契約中", jobs_index_path(3) %></p>
-  <p><%= link_to "過去の経歴", jobs_index_path(5) %></p>
-<% end %>
-  <p><%= link_to "募集中の仕事一覧へ", jobs_path %></p>
-  
-  <p><%= link_to "トップへ戻る", root_path %></p>
+
+<p>------------------------------------------------------------------</p>  
+
+<p><%= link_to "エントリー中", jobs_index_path(1) %></p>
+<p><%= link_to "労働条件通知書承認待ち", jobs_index_path(2) %></p>
+<p><%= link_to "契約中", jobs_index_path(3) %></p>
+<p><%= link_to "過去の経歴", jobs_index_path(5) %></p>
+<p><%= link_to "募集中の仕事一覧へ", jobs_path %></p>
+<p>------------------------------------------------------------------</p>
+
+<p><%= link_to "プロフィールを確認する", "/heros/profile/#{@hero.id}" %></p>
+<p><%= link_to "ログアウト", destroy_hero_session_path, method: :delete %></p>

@@ -7,17 +7,17 @@
   <h3>変更する情報を入力してください。</h3>
   
    <div class="field">
-    <%= f.label "事業所名" %><br />
+    <%= f.label :name %><br />
     <%= f.text_field :name, autofocus: true, autocomplete: true, placeholder: "事業所名" %>
   </div>
 
   <div class="field">
-    <%= f.label "事業所住所" %><br />
+    <%= f.label :address %><br />
     <%= f.text_field :address, autofocus: true, autocomplete: true, placeholder: "事業所住所" %>
   </div>
   
   <div class="field">
-    <%= f.label "メールアドレス" %><br />
+    <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "メールアドレス" %>
   </div>
 
@@ -26,17 +26,17 @@
   <% end %>
   
   <div class="contact_person">
-    <%= f.label "担当者名" %>
+    <%= f.label :contact_person %>
     <%= f.text_field :contact_person, autofocus: true, autocomplete: "担当者名" %>
   </div>
   
   <div class="phone">
-    <%= f.label "電話番号" %>
+    <%= f.label :phone %>
     <%= f.text_field :phone, autofocus: true, autocomplete: "電話番号" %>
   </div>
   
   <div class="field">
-    <%= f.label "企業サイト" %>
+    <%= f.label :website %>
     <%= f.text_field :website, autofocus: true, autocomplete: "企業サイト" %>
   </div>
 
@@ -50,12 +50,12 @@
   </div>
 
   <div class="field">
-    <%= f.label "新しいパスワード（確認用）" %><br />
+    <%= f.label "新しいパスワード（確認）" %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
   <div class="field">
-    <%= f.label "現在のパスワード" %> <i>（変更内容を更新するには現在のパスワードの入力が必要です)</i><br />
+    <%= f.label :current_password %> <i>（変更内容を更新するには現在のパスワードの入力が必要です)</i><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
   

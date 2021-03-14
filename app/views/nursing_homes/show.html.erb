@@ -1,5 +1,4 @@
-<p>事業所ページ</p>
-<p><%= @nursing_home.name %> 様の管理ページ</p>
+<p><%= @nursing_home.name %> 様 管理画面</p>
 
 <% if nursing_home_signed_in? && @nursing_home.id == current_nursing_home.id %>
   <p><%= link_to "仕事カテゴリを登録する", new_job_category_path %></p>
@@ -19,6 +18,7 @@
 <% end %>
 
 <% if nursing_home_signed_in? && @nursing_home.id == current_nursing_home.id %>
+  <p><%= link_to "募集している仕事", jobs_ordered_index_path %></p>
   <p><%= link_to "エントリーされた仕事", jobs_index_path(1) %></p>
   <p><%= link_to "労働条件通知書承認待ち", jobs_index_path(2) %></p>
   <p><%= link_to "契約中", jobs_index_path(3) %></p>
@@ -26,5 +26,6 @@
   <p><%= link_to "過去の仕事", jobs_index_path(5) %></p>
 <% end %>
 
-<p><%= link_to "募集中の仕事一覧へ", jobs_path %></p>
-<p><%= link_to "トップへ戻る", root_path %></p>
+<p><%= link_to "事業所プロフィールへ", "/nursing_homes/profile/#{current_nursing_home.id}" %></p>
+<p><%= link_to "仕事一覧", jobs_path %></p>
+<p><%= link_to "ログアウト", destroy_nursing_home_session_path, method: :delete %></p>

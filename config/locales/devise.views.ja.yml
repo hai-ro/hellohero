@@ -2,7 +2,22 @@ ja:
   activerecord:
     errors:
       models:
-        user:
+        hero:
+          attributes:
+            email:
+              taken: "は既に使用されています。"
+              blank: "が入力されていません。"
+              too_short: "は%{count}文字以上に設定して下さい。"
+              too_long: "は%{count}文字以下に設定して下さい。"
+              invalid: "は有効でありません。"
+            password:
+              taken: "は既に使用されています。"
+              blank: "が入力されていません。"
+              too_short: "は%{count}文字以上に設定して下さい。"
+              too_long: "は%{count}文字以下に設定して下さい。"
+              invalid: "は有効でありません。"
+              confirmation: "が内容とあっていません。"
+        nursing_home:
           attributes:
             email:
               taken: "は既に使用されています。"
@@ -18,15 +33,31 @@ ja:
               invalid: "は有効でありません。"
               confirmation: "が内容とあっていません。"
     attributes:
-      user:
+      hero:
         current_password: "現在のパスワード"
         name: "名前"
         email: "メールアドレス"
         password: "パスワード"
         password_confirmation: "確認用パスワード"
         remember_me: "次回から自動的にログイン"
+      nursing_home:
+        current_password: "現在のパスワード"
+        name: "名前"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "確認用パスワード"
+        remember_me: "次回から自動的にログイン"
+      admin:
+        current_password: "現在のパスワード"
+        name: "名前"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード（確認）"
+        remember_me: "次回から自動的にログイン"
     models:
-      user: "ユーザ"
+      hero: "ヒーロー"
+      nursing_home: "事業所"
+      admin: "管理者"
   devise:
     confirmations:
       new:

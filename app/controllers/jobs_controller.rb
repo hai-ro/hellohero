@@ -1,24 +1,33 @@
 class JobsController < ApplicationController
 before_action :getdata, only: [:copied_new]
 before_action :getprogress, only: [:index_progress]
-before_action :authenticate_nursing_home!, only: [ :new, :create, :edit, :update, :destroy, :order_confirm, :order_complete, :order_rejection, :index_process ]
-before_action :authenticate_hero!, only: [ :order_request_confirm, :order_request_complete, :order_request_cancel, :index_process ]
+before_action :authenticate_nursing_home!, only: [:new, :create, :edit, :update, :destroy, :order_confirm, :order_complete, :order_rejection, :ordered_index]
+before_action :authenticate_hero!, only: [:order_request_confirm, :order_request_complete, :order_request_cancel]
 
 
   def index
-    @jobs = Job.includes(:nursing_home, :hero, :job_category).order("created_at DESC").where(progress: 0)
+    @jobs = Job.includes(:nursing_home, :hero, :job_category).order("updated_at DESC").where(progress: 0)
+  end
+  
+  def ordered_index
+    @jobs = Job.includes(:nursing_home, :hero, :job_category).order("updated_at DESC").where.not(progress: 5).where(nursing_home_id: current_nursing_home.id)
   end
   
   def index_progress
     getprogress
     if hero_signed_in?
-      @jobs = Job.includes(:nursing_home, :hero, :job_category).order("created_at DESC").where(hero_id: current_hero.id, progress: @progress)
+      if @progress == 0
+        redirect_to jobs_path
+      else
+        @jobs = Job.includes(:nursing_home, :hero, :job_category).order("updated_at DESC").where(hero_id: current_hero.id, progress: @progress)
+      end
     elsif nursing_home_signed_in?
-      @jobs = Job.includes(:nursing_home, :hero, :job_category).order("created_at DESC").where(nursing_home_id: current_nursing_home.id, progress: @progress)
+      @jobs = Job.includes(:nursing_home, :hero, :job_category).order("updated_at DESC").where(nursing_home_id: current_nursing_home.id, progress: @progress)
+    else
+      # ログインせずにアクセスしようとすると、トップページにリダイレクトされる
+      redirect_to root_path
     end
   end
-  
-  
   
   def new
     @job = Job.new
@@ -27,12 +36,12 @@ before_action :authenticate_hero!, only: [ :order_request_confirm, :order_reques
   end
   
   def create
-    Job.create(job_params)
+    Job.create!(job_params)
+  rescue ActiveRecord::RecordInvalid => e
+    pp e.record.errors
   end
   
   # ↓ココカラ 複製して投稿
-  
-  
   def copied_new
     @job = Job.new
     getdata
@@ -41,9 +50,8 @@ before_action :authenticate_hero!, only: [ :order_request_confirm, :order_reques
   end
   
   def copied_create
-    Job.create(job_params)
+    Job.create!(job_params)
   end
-  
   # ↑ココマデ 複製して投稿
   
   def show
@@ -72,84 +80,65 @@ before_action :authenticate_hero!, only: [ :order_request_confirm, :order_reques
     @job.destroy
   end
   
-  # ヘルパーがエントリーをするときのアクション
-  def order_request_confirm
+  # ヘルパーがエントリー
+  def entry
     @job = Job.find(params[:id])
   end
   
-  def order_request_complete
+  
+  def entry_complete
     @job = Job.find(params[:id])
     @job.update( progress: 1, hero_id: current_hero.id)
   end
+  
   # ヘルパーがエントリーをキャンセル
-  def order_request_cancel
+  def entry_cancel
     @job = Job.find(params[:id])
-    @job.update( progress: 0)
+    @job.update( progress: 0, hero_id: 1)
   end
   
   # ヘルパーが事業所からの条件を承認
-  def order_agreement_confirm
+  def conditon_confirm
     @job = Job.find(params[:id])
   end
   
-  def order_agreement_complete
+  # 条件承認完了画面
+  def conditon_confirm_complete
     @job = Job.find(params[:id])
     @job.update( progress: 3)
   end
   
-  # 事業所がヘルパーのエントリーを承認するためのアクション
-  def order_confirm
+  # 事業所がヘルパーのエントリーを承認
+  def entry_confirm
     @job = Job.find(params[:id])
   end
   
-  def order_complete
+  # エントリー承認完了
+  def entry_comfirm_complete
     @job = Job.find(params[:id])
     @job.update( progress: 2)
   end
+  
   # 事業所がエントリーを却下
-  def order_rejection
+  def entry_rejection
     @job = Job.find(params[:id])
-    @job.update( progress: 0)
+    @job.update( progress: 0, hero_id: 1)
   end
   
-  # ヘルパーが仕事を終えた際に入力
-  def order_close_confirm
-    @job = Job.find(params[:id])
-  end
-  
-  def order_close_complete
+  # reviewコントローラのcreateアクションの後でリダイレクト
+  def job_close_complete
     @job = Job.find(params[:id])
     @job.update( progress: 4)
   end
   
-  # def follow
-  #   @job = Job.find(params[:job_id])
-  #   current_hero.follow(@job)
-  #   redirect_to hero_path(@job)
-  # end
-  
-  # def unfollow
-  #   @job = Job.find(params[:job_id])
-  #   current_hero.stop_following(@hero)
-  #   redirect_to hero_path(@hero)
-  # end
-  
-  # def follow_list
-  #   @job = Job.find(params[:job_id])
-  # end
-  
-  # def follower_list
-  #   @job = Job.find(params[:job_id])
-  # end
-  
-  private
+private
   def job_params
-    params.require(:job).permit(:title, :price, :service, :expect, :nursing_home_id, :job_category_id, :start_datetime, :end_datetime, :progress, :hero_id)
+    params.require(:job).permit(:title, :price, :service, :expect, :nursing_home_id, :job_category_id, :start_datetime, :time, :progress, :hero_id, :area, :image, :image_cache, :remove_image)
   end
   
   # 進捗ごとに仕事を表示する（進捗取得用メソッド）
   def getprogress
-    @progress = params[:format]
+    @progress = params[:format].to_i
   end
   
   # 投稿済みjobのレコードを取得する

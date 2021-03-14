@@ -1,0 +1,105 @@
+  <h1><%= @hero.last_name %> <%= @hero.first_name %>さんのプロフィール</h1>
+  <p>-----------------------------------------------------------------------------------</p>
+  
+  <h2>ステータス</h2>
+  <p>れいぎ    ：<%= @behavior %></p>
+  <p>あかるさ  ：<%= @smile %></p>
+  <p>せいけつさ：<%= @cleanliness %></p>
+  <p>ていねいさ：<%= @politeness %></p>
+  <p>たいりょく：<%= @physical %></p>
+  
+  <p>-----------------------------------------------------------------------------------</p>
+  
+  <h3>登録情報</h3>
+  <br />
+  <br />
+  <% if hero_signed_in? %>
+    <% if @hero.id == current_hero.id %>
+      <p>メールアドレス：<%= @hero.email %></p>
+      <p>住所：
+        <% if @hero.address? %>
+          <%= @hero.address %>
+        <% else %>
+          未設定
+        <% end %>
+      </p>
+    <% end %>
+  <% end %>
+  <p>性別：
+    <% if @hero.gender == 1 %>
+      男性
+    <% elsif @hero.gender == 2 %>
+      女性
+    <% else %>
+      その他
+    <% end %>
+  </p>
+  <p>誕生日：
+    <% if @hero.birthday? %>
+      <%= @hero.birthday.strftime("%Y年%-m月%-d日") %>（
+        <% if @eto == 0 %>
+          サル
+        <% elsif @eto == 1 %>
+          トリ
+        <% elsif @eto == 2 %>
+          イヌ
+        <% elsif @eto == 3 %>
+          イノシシ
+        <% elsif @eto == 4 %>
+          ネズミ
+        <% elsif @eto == 5 %>
+          ウシ
+        <% elsif @eto == 6 %>
+          トラ
+        <% elsif @eto == 7 %>
+          ウサギ
+        <% elsif @eto == 8 %>
+          タツ
+        <% elsif @eto == 9 %>
+          ヘビ
+        <% elsif @eto == 10 %>
+          ウマ
+        <% elsif @eto == 11 %>
+          ヒツジ
+        <% else %>
+          <%= @eto %>
+        <% end %>
+        年）
+    <% else %>
+      未設定
+    <% end %>
+  </p>
+  <p>得意なこと：
+    <% if @hero.special_skill? %>
+      <%= @hero.special_skill %>
+    <% else %>
+      未設定
+    <% end %>
+  </p>
+  <p>好きなこと：
+    <% if @hero.like? %>
+      <%= @hero.like %>
+    <% else %>
+      未設定
+    <% end %>
+  </p>
+  <p>自己紹介：
+    <% if @hero.profile %>
+      <%= @hero.profile %>
+    <% else %>
+      未設定
+    <% end %>
+  </p>
+  <p>-----------------------------------------------------------------------------------</p>
+  
+<br />
+<br />
+<br />
+  
+  <% if hero_signed_in? %>
+    <% if @hero.id == current_hero.id %>
+    <p><%= link_to "登録情報を編集する", edit_hero_registration_path(current_hero.id) %></p>
+    <p><%= link_to "マイページへ戻る", hero_path(current_hero.id) %></p>
+    <% end %>
+  <% end %>
+  <p><%= link_to "トップへ戻る", root_path %></p>

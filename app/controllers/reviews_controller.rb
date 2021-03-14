@@ -14,7 +14,7 @@ class ReviewsController < ApplicationController
   
   def create
     Review.create(review_params)
-    redirect_to("/jobs/order_close_complete/#{params[:job_id]}")
+    redirect_to("/jobs/job_close_complete/#{params[:job_id]}")
   end
   
   def edit

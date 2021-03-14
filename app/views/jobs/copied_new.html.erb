@@ -2,37 +2,54 @@
 
   <%= form_for @job, url: jobs_copied_create_path do |f| %>
     <div class="field">
-      <%= f.label "お仕事名" %></br>
+      <%= f.label :title %></br>
       <%= f.text_field :title, value: @data.title %>
     </div>
     
     <div class="field">
-      <%= f.label "報酬" %></br>
+      <%= f.label :area %></br>
+      <%= f.text_field :area, value: @data.area %>
+    </div>
+    
+    <div class="field">
+      <% if @job.image? %>
+        <div class="thumbnail">
+          <%= image_tag @job.image.url %>
+        </div>
+      <% end %><br>
+      <%= f.label :image %><br>
+      <%= f.file_field :image %><br>
+      <p><%= f.check_box :remove_image %>画像を削除する</p>
+      <%= f.hidden_field :image_cache %>
+    </div>
+    
+    <div class="field">
+      <%= f.label :price %></br>
       <%= f.number_field :price, value: @data.price %>
     </div>
     <div class-"field">
-      <%= f.label "仕事内容" %><br/>
+      <%= f.label :service %><br/>
       <%= f.text_area :service, value: @data.service %>
     </div>
     
     <div class="field">
-      <%= f.label "どんな人に受けてもらいたいか" %><br/>
+      <%= f.label :expect %><br/>
       <%= f.text_field :expect, value: @data.expect %>
     </div>
     
     <div class="fiela">
-      <%= f.label "仕事カテゴリ" %></br>
+      <%= f.label :job_category %></br>
       <%= f.collection_select( :job_category_id, @job_categories, :id, :name, value: @data.job_category_id) %>
     </div>
     
     <div class="field">
-      <%= f.label "開始時間" %></br>
+      <%= f.label :start_datetime %></br>
       <%= f.datetime_field :start_datetime, value: @data.start_datetime %>
     </div>
     
     <div class="field">
-      <%= f.label "終了時間" %></br>
-      <%= f.datetime_field :end_datetime, value: @data.end_datetime %>
+      <%= f.label :time %></br>
+      <%= f.select :time, [ ["0.5", 0.5], ["1", 1], ["1.5", 1.5], ["2", 2], ["2.5", 2.5], ["3", 3], ["3.5", 3.5], ["4", 4], ["4.5", 4.5], ["5", 5], ["5.5", 5.5], ["6", 6], ["6.5", 6.5], ["7", 7], ["7.5", 7.5], ["8", 8], ["8.5", 8.5], ["9", 9], ["9.5", 9.5], ["10", 10], ["10.5", 10.5], ["11", 11], ["11.5", 11.5], ["12", 12], ["12.5", 12.5], ["13", 13], ["13.5", 13.5], ["14", 14], ["14.5", 14.5], ["15", 15], ["15.5", 15.5], ["16", 16], ["16.5", 16.5], ["17", 17], ["17.5", 17.5], ["18", 18], ["18.5", 18.5], ["19", 19], ["19.5", 19.5], ["20", 20] ] %>
     </div>
     
     <%= f.hidden_field :nursing_home_id, value: @nursing_home.id %>

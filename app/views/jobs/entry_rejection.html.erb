@@ -1,0 +1,9 @@
+<% if @job.progress == 3 %>
+  <h2>業務が完遂されなかったため、契約を解除しました</h2>
+<% else %>
+  <h2>エントリーを却下しました</h2>
+<% end %>
+
+<%= link_to "却下した仕事を確認する", job_path(@job.id) %>
+
+<%= link_to "管理ページへ戻る", nursing_home_path(current_nursing_home.id) %>

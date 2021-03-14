@@ -32,7 +32,6 @@ class Heros::RegistrationsController < Devise::RegistrationsController
   # 資格情報の承認のために追加
   def confirmation
     super
-    
   end
 
   # GET /resource/cancel
@@ -66,8 +65,8 @@ class Heros::RegistrationsController < Devise::RegistrationsController
     super(resource)
   end
   
-  # ユーザーの情報更新後にマイページへ繊維
+  # ユーザーの情報更新後にマイページへ遷移
   def after_update_path_for(resource)
-    hero_path(resource)
+    "/heros/profile/#{resource.id}"
   end
 end

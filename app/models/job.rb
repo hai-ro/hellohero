@@ -5,8 +5,7 @@ class Job < ApplicationRecord
   belongs_to :hero
   has_one :review
   
-  # #フォロー・フォロワー関係をあらわすアソシエーション
-  # acts_as_followable
-  # acts_as_follower
+  # アップロード
+  mount_uploader :image, ImageUploader
   
 end
