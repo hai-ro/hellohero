@@ -1,26 +1,197 @@
-  <h1>マイページ</h1>
-  <p><%= current_hero.last_name %> <%= current_hero.first_name %>さん</p>
-  <br />
-  <br />
-  <% if current_hero.jobs.where(progress: 2).count == 0 %>
-  <% else %>
-    <p>事業者から条件が提示されているお仕事が<%= current_hero.jobs.where(progress: 2).count.to_i %>件あります!すぐに確認しましょう!</p>
-    <%= link_to "確認する", jobs_index_path(2) %><br />
-  <% end %>
-  <% if current_hero.jobs.where(progress: 4).count == 0 %>
-  <% else %>
-    <p>事業者があなたの仕事ぶりを評価しました！（未確認：<%= current_hero.jobs.where(progress: 4).count.to_i %>件）</p>
-    <%= link_to "確認する", jobs_index_path(4) %><br />
-  <% end %>
+<%= render partial: "layouts/header" %>
 
-<p>------------------------------------------------------------------</p>  
-
-<p><%= link_to "エントリー中", jobs_index_path(1) %></p>
-<p><%= link_to "労働条件通知書承認待ち", jobs_index_path(2) %></p>
-<p><%= link_to "契約中", jobs_index_path(3) %></p>
-<p><%= link_to "過去の経歴", jobs_index_path(5) %></p>
-<p><%= link_to "募集中の仕事一覧へ", jobs_path %></p>
-<p>------------------------------------------------------------------</p>
-
-<p><%= link_to "プロフィールを確認する", "/heros/profile/#{@hero.id}" %></p>
-<p><%= link_to "ログアウト", destroy_hero_session_path, method: :delete %></p>
+<main class="style-main">
+  <section class="container-fluid">
+    <div class="row">
+      <!--ナブバーはPC版の時は左にスマホやタブレットの時は下に表示する（dviを二つ書いている）-->
+      <%= render partial: "layouts/sidebar" %>
+      <div class="col-lg-9">
+        <ol class="breadcrumb style-ma-thigh">
+          <li>
+            <%= link_to hero_path(current_hero.id) do %>
+                <em class="fa fa-home"></em>
+            <% end %>
+          </li>
+          <li class="active">/マイページ</li>
+        </ol>
+        <div class="row">
+          <div class="col-lg-3 mt-5">
+            <% if @hero.image? %>
+              <%= image_tag @hero.image.url(:thumb), alt: "プロフィール画像", class: "style-boder style-boder-radius ml-5", height: "200px", width: "200px" %>
+            <% else %>
+              <img src="/assets/character/Lion-Stand.jpg" alt="プロフィール画像" class="style-boder style-boder-radius ml-5" height="200px" width="200px">
+            <% end %>
+          </div>
+          <div class="col-lg-3 mt-5">
+            <h1 class="ml-lg-3"><p><%= current_hero.last_name %> <%= current_hero.first_name %>さん</p></h1>
+          </div>
+          <div class="col-lg-6 mt-5">
+            <ul class="style-titlelist">
+              <li>ステータス</li>
+              <li>れいぎ：<span class="style-text-red"><%= @behavior %></span></li>
+              <li>あかるさ：<span class="style-text-red"><%= @smile %></span></li>
+              <li>せいけつさ：<span class="style-text-red"><%= @cleanliness %></span></li>
+              <li>ていねいさ：<span class="style-text-red"><%= @politeness %></span></li>
+              <li>たいりょく：<span class="style-text-red"><%= @physical %></span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 mt-5">
+            <ul class="nav nav-tabs nav-pills">
+              <li class="nav-item">
+                <a href="#mypage1" class="nav-link active style-text-black" data-toggle="tab">お知らせ</a>
+              </li>
+              <li class="nav-item">
+                <a href="#mypage2" class="nav-link style-text-black" data-toggle="tab">やることリスト</a>
+              </li>
+            </ul>
+            <!-- 切り替えコンテンツ -->
+            <div class="tab-content">
+              <div id="mypage1" class="active tab-pane style-boder">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-12">
+                      <ul class="style-mypage-list">
+                        <li class="style-smunderbar">
+                          <% if current_hero.jobs.where(progress: 2).count == 0 %>
+                            <span class="style-mypage-listitem">契約手続き中のお仕事はありません。</span>
+                          <% else %>
+                            <%= link_to "契約手続き中のお仕事が#{ current_hero.jobs.where(progress: 2).count.to_i }件あります!すぐに確認しましょう!", jobs_index_path(2), class: "style-mypage-listitem" %>
+                          <% end %>
+                        </li>
+                        <li class="style-smunderbar">
+                          <% if current_hero.jobs.where(progress: 4).count == 0 %>
+                            <span class="style-mypage-listitem">事業者が評価をつけた仕事はありません。</span>
+                          <% else %>
+                            <%= link_to jobs_index_path(4) do %>
+                              事業者があなたの仕事ぶりを評価しました！（未確認：<%= current_hero.jobs.where(progress: 4).count %>件）</p>
+                            <% end %>
+                          <% end %>
+                        </li>
+                        <!--<li class="style-smunderbar">-->
+                        <!--  <a href="#" class="style-mypage-listitem">-->
+                        <!--    <i class="far fa-envelope"></i> 事業所からお知らせがきています。メールを確認してください-->
+                        <!--    <i class="fas fa-chevron-right style-mypage-navicon"></i>-->
+                        <!--  </a>-->
+                        <!--</li>-->
+                        <!--<li class="style-smunderbar">-->
+                        <!--  <a href="#" class="style-mypage-listitem">-->
+                        <!--    <i class="far fa-money-bill-alt"></i> ２月２日のお仕事の振り込みが完了しました-->
+                        <!--    <i class="fas fa-chevron-right style-mypage-navicon"></i>-->
+                        <!--  </a>-->
+                        <!--</li>-->
+                        <!--<li class="style-smunderbar">-->
+                        <!--  <a href="#" class="style-mypage-listitem">-->
+                        <!--    <i class="far fa-user"></i> 身分証の提出が完了していません-->
+                        <!--    <i class="fas fa-chevron-right style-mypage-navicon"></i>-->
+                        <!--  </a>-->
+                        <!--</li>-->
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="mypage2" class="tab-pane style-boder">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-12">
+                      <ul class="style-mypage-list">
+                        <li class="style-smunderbar">
+                          <a href="#" class="style-mypage-listitem">
+                            <i class="far fa-user"></i> お仕事の開始時時間になりました。開始ボタンを押してください
+                            <i class="fas fa-chevron-right style-mypage-navicon"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div id="sidebar-collapse" class="col-12 sidebar d-lg-none d-block style-ma-thigh">
+            <ul class="nav style-dblock">
+              <li class="style-smunderbar style-lightblueback">
+                <%= link_to hero_path(current_hero.id), class: "style-mypage-listitem" do %>
+                  マイページ
+                  <i class="fas fa-chevron-right style-mypage-navicon"></i>
+                <% end %>
+              </li>
+              <li class="style-smunderbar">
+                <a href="#" class="style-mypage-listitem">
+                  お知らせ
+                  <i class="fas fa-chevron-right style-mypage-navicon"></i>
+                </a>
+              </li>
+              <li class="style-smunderbar">
+                <a href="#" class="style-mypage-listitem">
+                  やることリスト
+                  <i class="fas fa-chevron-right style-mypage-navicon"></i>
+                </a>
+              </li>
+              <li class="style-smunderbar">
+                <a href="#" class="style-mypage-listitem">
+                  いいね！一覧
+                  <i class="fas fa-chevron-right style-mypage-navicon"></i>
+                </a>
+              </li>
+              <li class="style-smunderbar">
+                <%= link_to jobs_index_path(1), class:"style-mypage-listitem" do %>
+                  応募中ミッション
+                  <i class="fas fa-chevron-right style-mypage-navicon"></i>
+                <% end %>
+              </li>
+              <li class="style-smunderbar">
+                <%= link_to jobs_index_path(2), class:"style-mypage-listitem" do %>
+                  契約処理待ちミッション
+                  <i class="fas fa-chevron-right style-mypage-navicon"></i>
+                <% end %>
+              </li>
+              <li class="style-smunderbar">
+                <%= link_to jobs_index_path(3), class:"style-mypage-listitem" do %>
+                  実施中ミッション
+                  <i class="fas fa-chevron-right style-mypage-navicon"></i>
+                <% end %>
+              </li>
+              <li class="style-smunderbar">
+                <%= link_to jobs_index_path(4), class:"style-mypage-listitem" do %>
+                  完了ミッション
+                  <i class="fas fa-chevron-right style-mypage-navicon"></i>
+                <% end %>
+              </li>
+              <li class="style-smunderbar">
+                <%= link_to jobs_index_path(5), class:"style-mypage-listitem" do %>
+                  ミッション履歴
+                  <i class="fas fa-chevron-right style-mypage-navicon"></i>
+                <% end %>
+              </li>
+            </ul>
+            <p class="style-text-bold mt-4">設定</p>
+            <ul class="nav style-dblock">
+              <li class="style-smunderbar">
+                <%= link_to edit_hero_registration_path(current_hero.id), class:"style-mypage-listitem" do %>
+                  プロフィール・パスワード変更
+                  <i class="fas fa-chevron-right style-mypage-navicon"></i>
+                <% end %>
+              </li>
+              <li class="style-smunderbar">
+                <a href="./../heros/registrations/confirmation.html" class="style-mypage-listitem">
+                  ミッション必要書類提出
+                  <i class="fas fa-chevron-right style-mypage-navicon"></i>
+                </a>
+              <li class="style-smunderbar">
+                <a href="#" class="style-mypage-listitem">
+                  残高・振込確認
+                  <i class="fas fa-chevron-right style-mypage-navicon"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

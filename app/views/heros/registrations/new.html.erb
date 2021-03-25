@@ -4,9 +4,7 @@
         <div class="col-md-3">
         </div>
         <div class="col-md-6">
-          <%= link_to root_path do %>
-            <img class="" src="/assets/Heros-Logo.png" alt="ヒーローズロゴ画像" height="80px" width="200px">
-          <% end %>
+          <%= render "layouts/form_logo" %>
         </div>
         <div class="col-md-3">
         </div>
@@ -88,13 +86,15 @@
             <div class="style-centertext mb-3">
               <%= f.submit "登録する", class: "style-boder-smallradius style-login-btn" %>
             </div>
+            <div class="my-1">
+              <%= render "heros/shared/links" %>
+            </div>
           <% end %>
         </div>
         <div class="col-md-3">
         </div>
       </div>
     </section>
-    <%= render "heros/shared/links" %>
   </main>
 
 <!--Androidのthe Android stock broswerのサイドバーのエラーを修正する-->

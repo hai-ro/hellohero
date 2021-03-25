@@ -1,0 +1,86 @@
+<div id="sidebar-collapse" class="col-lg-3 sidebar style-ma-thigh d-lg-block d-none">
+  <ul class="nav style-dblock">
+    <li class="style-smunderbar">
+      <%= link_to hero_path(current_hero.id), class: "style-mypage-listitem" do %>
+        マイページ
+        <i class="fas fa-chevron-right style-mypage-navicon"></i>
+      <% end %>
+    </li>
+    <!--実装まで外す-->
+    <!--<li class="style-smunderbar">-->
+    <!--  <a href="./../heros/show.html" class="style-mypage-listitem">-->
+    <!--    お知らせ-->
+    <!--    <i class="fas fa-chevron-right style-mypage-navicon"></i>-->
+    <!--  </a>-->
+    <!--</li>-->
+    <!--<li class="style-smunderbar">-->
+    <!--  <a href="./../heros/show.html" class="style-mypage-listitem">-->
+    <!--    やることリスト-->
+    <!--    <i class="fas fa-chevron-right style-mypage-navicon"></i>-->
+    <!--  </a>-->
+    <!--</li>-->
+    <!--<li class="style-smunderbar">-->
+    <!--  <a href="./../heros/chat-heros.html" class="style-mypage-listitem">-->
+    <!--    チャット画面-->
+    <!--    <i class="fas fa-chevron-right style-mypage-navicon"></i>-->
+    <!--  </a>-->
+    <!--</li>-->
+    <li class="style-smunderbar style-lightblueback">
+      <%= link_to jobs_index_path(1), class: "style-mypage-listitem" do %>
+        応募中ミッション
+        <i class="fas fa-chevron-right style-mypage-navicon"></i>
+      <% end %>
+    </li>
+    <li class="style-smunderbar">
+      <%= link_to jobs_index_path(2), class: "style-mypage-listitem" do %>
+        契約処理待ちミッション
+        <i class="fas fa-chevron-right style-mypage-navicon"></i>
+      <% end %>
+    </li>
+    <li class="style-smunderbar">
+      <%= link_to jobs_index_path(3), class: "style-mypage-listitem" do %>
+        実施中ミッション
+        <i class="fas fa-chevron-right style-mypage-navicon"></i>
+      <% end %>
+    </li>
+    <li class="style-smunderbar">
+      <%= link_to jobs_index_path(4), class: "style-mypage-listitem" do %>
+        完了ミッション
+        <i class="fas fa-chevron-right style-mypage-navicon"></i>
+      <% end %>
+    </li>
+    <li class="style-smunderbar">
+      <%= link_to jobs_index_path(5), class: "style-mypage-listitem" do %>
+        ミッション履歴
+        <i class="fas fa-chevron-right style-mypage-navicon"></i>
+      <% end %>
+    </li>
+  </ul>
+  <p class="style-text-bold mt-4">設定</p>
+  <ul class="nav style-dblock">
+    <li class="style-smunderbar">
+      <%= link_to edit_hero_registration_path, class: "style-mypage-listitem" do %>
+        プロフィール・パスワード変更
+        <i class="fas fa-chevron-right style-mypage-navicon"></i>
+      <% end %>
+    </li>
+    <!--実装まで外す-->
+    <!--<li class="style-smunderbar">-->
+    <!--  <a href="./../heros/registrations/confirmation.html" class="style-mypage-listitem">-->
+    <!--    ミッション必要書類提出-->
+    <!--    <i class="fas fa-chevron-right style-mypage-navicon"></i>-->
+    <!--  </a>-->
+    <!--<li class="style-smunderbar">-->
+    <!--  <a href="#" class="style-mypage-listitem">-->
+    <!--    残高・振込確認-->
+    <!--    <i class="fas fa-chevron-right style-mypage-navicon"></i>-->
+    <!--  </a>-->
+    <!--</li>-->
+    <li class="style-smunderbar">
+      <%= link_to destroy_hero_session_path, method: :delete, data: { confirm: "ログアウトしてよろしいですか？" }, id: "Destroy-btn-Show1", onclick: "LogoutFormHeros()" , class: "style-mypage-listitem" do %>
+        ログアウト
+        <i class="fas fa-chevron-right style-mypage-navicon"></i>
+      <% end %>
+    </li>
+  </ul>
+</div>

@@ -1,72 +1,73 @@
-<h2>仕事を発注する</h2>
-
-<% if @job_categories.exists? %>
-  <%= form_for(@job) do |f| %>
-    <div class="field">
-      <%= f.label :title %></br>
-      <%= f.text_field :title %>
+<main class="style-main mb-5">
+  <section class="container style-login-back">
+    <div class="row">
+      <div class="col-lg-3">
+      </div>
+      <div class="col-lg-6">
+        <%= render "layouts/form_logo" %>
+        <h1 class="style-centertext style-lightbeigeback my-4">★お仕事情報登録画面★</h1>
+        <%= form_for(@job) do |f| %>
+          <p class="">以下のフォームにお仕事の情報を入力してください<br>※登録後からヘルパーさんが内容を見ることができます</p>
+          <div class="mt-5 mb-3">
+            <h3 class="style-text-bold style-leftbar-lightred my-3">お仕事名</h3>
+            <%= f.text_field :title, placeholder: "例：介護初心者の方歓迎！見守りや掃除のお手伝い", class: "style-rg-sminput", autofocus: true %>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <h3 class="style-text-bold style-leftbar-lightred">カテゴリー</h3>
+              <%= f.collection_select :job_category_id, @job_categories, :id, :name, class: "style-rg-sminput", prompt: "選択してください" %>
+            </div>
+            <div class="col-lg-6">
+              <h3 class="style-text-bold style-leftbar-lightred">報酬</h3>
+              <%= f.number_field :price, placeholder: "5000", class: "style-rg-sminput", autofocus: true %>
+            </div>
+          </div>
+          <h3 class="style-text-bold style-leftbar-lightred my-3">日時と業務時間</h3>
+          <div class="mb-3">
+            <div class="row">
+              <div class="col-lg-6">
+                <%= f.datetime_field :start_datetime, class: "" %><span>〜</span>
+              </div>
+              <div class="col-lg-6 my-lg-0 my-2">
+                <%= f.select :time, [ ["0.5", 0.5], ["1", 1], ["1.5", 1.5], ["2", 2], ["2.5", 2.5], ["3", 3], ["3.5", 3.5], ["4", 4], ["4.5", 4.5], ["5", 5], ["5.5", 5.5], ["6", 6], ["6.5", 6.5], ["7", 7], ["7.5", 7.5], ["8", 8], ["8.5", 8.5], ["9", 9], ["9.5", 9.5], ["10", 10], ["10.5", 10.5], ["11", 11], ["11.5", 11.5], ["12", 12], ["12.5", 12.5], ["13", 13], ["13.5", 13.5], ["14", 14], ["14.5", 14.5], ["15", 15], ["15.5", 15.5], ["16", 16], ["16.5", 16.5], ["17", 17], ["17.5", 17.5], ["18", 18], ["18.5", 18.5], ["19", 19], ["19.5", 19.5], ["20", 20] ], class: "style-jobs-time" %><span>時間</span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-5 mb-3">
+            <h3 class="style-text-bold style-leftbar-lightred my-3">お仕事住所</h3>
+            <%= f.text_field :area, placeholder: "例:東京都新宿区西新宿1-1-1", class: "style-rg-sminput", autofocus: true %>
+          </div>
+          <h3 class="style-text-bold style-leftbar-lightred my-3">お仕事内容</h3>
+          <%= f.text_area :service, rows: "10", cols: "40", class: "style-rg-textarea mt-3", placeholder: "【訪問介護の現場を体験してみませんか？】
+訪問介護とは、介護職員がご利用者さんの自宅に直接訪問して身体介助や生活援助を行うサービスです。
+なかなか実際のお仕事の様子を見ることが少ない訪問介護。
+「訪問介護ってよく聞くけど、具体的にどんな仕事？」
+「施設での仕事とどう違うの？」
+「人の家でサービスを行うのは正直不安」
+こんな疑問や思いを持っている方、いらっしゃいませんか？スタッフ全員ウェルカムで、ヒーローのみなさんのお気軽なご質問、お問い合わせお待ちしております！" %>
+          <!--実装まで外す-->
+          <!--<h3 class="style-text-bold style-leftbar-lightred my-3">持ち物</h3>-->
+          <!--<textarea name="nursing-homes-info" rows="2" cols="40" class="style-rg-textarea mt-3" placeholder="筆記用具&#13;&#10;資格をお持ちの方は資格証明書をお願い致します。"></textarea>-->
+          <h3 class="style-text-bold style-leftbar-lightred my-3">どんなヘルパーさんに来てもらいたいか</h3>
+          <%= f.text_field :expect, rows: "2", cols: "40", class: "style-rg-textarea mt-3", placeholder: "明るく笑顔が素敵な方募集中。無資格でも大丈夫です" %>
+          <!--実装まで外す-->
+          <!--<h3 class="style-text-bold style-leftbar-lightred my-3">備考</h3>-->
+          <!--<textarea name="nursing-homes-info" rows="2" cols="40" class="style-rg-textarea mt-3" placeholder="当日はジャージ・ジーパンは避けて頂き、動きやすい恰好でお願い致します。"></textarea>-->
+          <h3 class="style-text-bold style-leftbar-lightred my-3">お仕事イメージ画像</h3>
+          <%= f.file_field :image, class: "style-rg-textarea mt-3" %><br>
+          <p><%= f.check_box :remove_image %>画像を削除する</p>
+          <%= f.hidden_field :image_cache %>
+          
+          <%= f.hidden_field :nursing_home_id, value: @nursing_home.id %>
+          <%= f.hidden_field :progress, value: 0 %>
+          <%= f.hidden_field :hero_id, value: 1 %>
+          <div class="style-midtext style-centertext my-5">
+            <%= f.submit "お仕事を登録する", class: "style-boder-smallradius style-btn-redorenge" %>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-md-3">
+      </div>
     </div>
-    
-    <div class="field">
-      <%= f.label :area %></br>
-      <%= f.text_field :area %>
-    </div>
-    
-    <div class="field">
-      <% if @job.image? %>
-        <div class="thumbnail">
-          <%= image_tag @job.image.url %>
-        </div>
-      <% end %><br>
-      <%= f.label :image %><br>
-      <%= f.file_field :image %><br>
-      <p><%= f.check_box :remove_image %>画像を削除する</p>
-      <%= f.hidden_field :image_cache %>
-    </div>
-    
-    <div class="field">
-      <%= f.label :price %></br>
-      <%= f.number_field :price %>
-    </div>
-    <div class-"field">
-      <%= f.label :service %><br/>
-      <%= f.text_area :service %>
-    </div>
-    
-    <div class="field">
-      <%= f.label :expect %><br/>
-      <%= f.text_field :expect %>
-    </div>
-    
-    <div class="fiela">
-      <%= f.label :job_category %></br>
-      <%= f.collection_select( :job_category_id, @job_categories, :id, :name) %>
-    </div>
-    
-    <div class="field">
-      <%= f.label :start_datetime %></br>
-      <%= f.datetime_field :start_datetime %></br>
-      </br>
-      <%= f.select :time, [ ["0.5", 0.5], ["1", 1], ["1.5", 1.5], ["2", 2], ["2.5", 2.5], ["3", 3], ["3.5", 3.5], ["4", 4], ["4.5", 4.5], ["5", 5], ["5.5", 5.5], ["6", 6], ["6.5", 6.5], ["7", 7], ["7.5", 7.5], ["8", 8], ["8.5", 8.5], ["9", 9], ["9.5", 9.5], ["10", 10], ["10.5", 10.5], ["11", 11], ["11.5", 11.5], ["12", 12], ["12.5", 12.5], ["13", 13], ["13.5", 13.5], ["14", 14], ["14.5", 14.5], ["15", 15], ["15.5", 15.5], ["16", 16], ["16.5", 16.5], ["17", 17], ["17.5", 17.5], ["18", 18], ["18.5", 18.5], ["19", 19], ["19.5", 19.5], ["20", 20] ] %><span>時間</span>
-    </div>
-      
-    <br />
-    <%= f.hidden_field :nursing_home_id, value: @nursing_home.id %>
-    <%= f.hidden_field :progress, value: 0 %>
-    <%= f.hidden_field :hero_id, value: 1 %>
-    
-    <div class="action">
-      <%= f.submit "登録" %>
-    </div>
-    </br>
-  <% end %>
-
-<% else %>
-  
-  <p>カテゴリの登録がありません</p>
-  <%= link_to "カテゴリ設定", new_job_category_path %>
-  
-<% end %>
-<br/>
-<%= link_to "管理ページへ", nursing_home_path(current_nursing_home.id) %>
-<%= link_to "仕事一覧へ", jobs_path %>
+  </section>
+</main>

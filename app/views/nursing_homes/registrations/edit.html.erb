@@ -1,76 +1,115 @@
-<h2>登録情報変更</h2>
+<main class="style-main mb-5">
+  <section class="container style-login-back">
+    <div class="row">
+      <div class="col-lg-3">
+      </div>
+      <div class="col-lg-6">
+        <%= link_to root_path do %>
+          <img class="" src="/assets/Heros-Logo.png" alt="ハロヒロロゴ画像" height="40px" width="134px">
+        <% end %>
+      </div>
+      <div class="col-lg-3">
+      </div>
+      <div class="col-lg-3">
+      </div>
+      <div class="col-lg-6">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <h1 class="style-centertext style-lightbeigeback my-4">★事業所さん登録情報編集画面★</h1>
+          <p class="">情報を編集して「更新する」ボタンを教えてください</p>
+          <%= render "nursing_homes/shared/error_messages", resource: resource %>
+          <div class="my-5">
+            <div class="row">
+              <div class="col-lg-6">
+                <h3 class="style-text-bold style-leftbar-lightred my-3">事業所名</h3>
+                <%= f.text_field :name, autofocus: true, autocomplete: true, placeholder: "例：介護戦士事業所", class: "style-rg-ssminput" %>
+              </div>
+              <div class="col-lg-6">
+                <!--実装まで外す-->
+                <!--<h3 class="style-text-bold style-leftbar-lightred my-3">事務所種別</h3>-->
+                <!--<select name=”nursing-homes-type” class="style-rg-ssminput">-->
+                <!--  <option hidden>選択してください</option>-->
+                <!--  <option value=”houstation”>訪問看護ステーション</option>-->
+                <!--  <option value=”kyojimusyo”>居宅介護支援事業所</option>-->
+                <!--  <option value=”houjimsusyo”>訪問介護事業所</option>-->
+                <!--</select>-->
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <h3 class="style-text-bold style-leftbar-lightred my-3">担当者</h3>
+                <%= f.text_field :contact_person, autofocus: true, autocomplete: "例：介護太郎", class: "style-rg-ssminput" %>
+              </div>
+              <div class="col-lg-6">
+                <h3 class="style-text-bold style-leftbar-lightred my-3">電話番号</h3>
+                <%= f.text_field :phone, autofocus: true, autocomplete: true, placeholder: "例:0312345678", class: "style-rg-ssminput" %>
+              </div>
+            </div>
+            <h3 class="style-text-bold style-leftbar-lightred my-3">住所</h3>
+            <%= f.text_field :address, autofocus: true, autocomplete: true, placeholder: "例:東京都新宿区西新宿1-1-1", class: "style-rg-sminput"%>
+            <!--実装まで外す-->
+            <!--<h3 class="style-text-bold style-leftbar-lightred my-3">アクセス情報</h3>-->
+            <!--<input type="access" placeholder="例:〇〇駅より徒歩１５分" name="access-info" class="style-rg-sminput">-->
+            <h3 class="style-text-bold style-leftbar-lightred my-3">ウェブサイト</h3>
+            <%= f.text_area :website, autofocus: true, autocomplete: true, placeholder: "例:https://test.com", class: "style-rg-textarea mt-3" %>
+            <h3 class="style-text-bold style-leftbar-lightred my-3">事業所情報</h3>
+            <%= f.text_area :detail, autofocus: true, autocomplete: true, rows: "10", cols: "40", class: "style-rg-textarea mt-3", placeholder: "≪事務所概要≫
+新宿区西新宿にある訪問介護事業所を運営する小さな会社です。地域を元気にするを目標に日々活動しています。
+≪経営理念≫
+ご利用者様を笑顔にする②職員がいつまでも安心して働きつづけられる職場にする
+≪事業所の雰囲気≫
+若い人、ベテランの人みんながどうやったら利用者様の笑顔を増やせるかを相談し合いながら毎日楽しく働いています。
+≪スタッフ≫
+女性が多いですが、もちろん男性も活躍されています！年齢層は20代～60代の方で、お互いに得意なことを生かしながら働いています。
+≪交通≫
+お車での来訪も可能です！（無料駐車場あり）ご希望の方は事前にご相談ください！
+スタッフ全員ウェルカムで、ヒーローのみなさんのお気軽なご質問、お問い合わせお待ちしております！" %>
+            <!--実装まで外す-->
+            <!--<h3 class="style-text-bold style-leftbar-lightred my-3">事業所番号（指定番号）</h3>-->
+            <!--<input type="access" placeholder="例:1234-567890-1(番号がない場合は0)" name="access-info" class="style-rg-sminput">-->
+            <h3 class="style-text-bold style-leftbar-lightred my-3">メールアドレス</h3>
+            <div class="field">
+              <%= f.email_field :email, autofocus: true, autocomplete: true, placeholder: "例:test@kaigo.co.jp", class: "style-rg-sminput" %>
+              <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                <div>認証前のメールアドレスです: <%= resource.unconfirmed_email %></div>
+              <% end %>
+              <h3 class="style-text-bold style-leftbar-lightred my-3">新しいパスワード（更新しない場合は空欄のままにしてください。）</h3>
+              <div class="field">
+                <%= f.password_field :password, placeholder: "英数字6文字以上", class: "style-rg-sminput"  %>
+                <% if @minimum_password_length %>
+                  <br />
+                  <em><%= @minimum_password_length %>文字以上</em>
+                <% end %>
+                <%= f.password_field :password_confirmation, placeholder: "確認要", class: "style-rg-sminput" %>
+              </div>
+              
+              <h3 class="style-text-bold style-leftbar-lightred my-3">現在のパスワード（変更内容を更新するには現在のパスワードの入力が必要です)</h3>
+              <div class="field">
+                <%= f.password_field :current_password, placeholder:  "現在のパスワード", class: "style-rg-sminput" %>
+              </div>
+              
+              <div class="style-centertext my-3">
+                <button onclick="NursinghomesEditComp()" class="style-boder-smallradius style-login-btn">更新する</button>
+              </div>
+            </div>
+            <div class="col-lg-3">
+            </div>
+          </div>
+          <!--登録完了ボタン-->
+          <section id="NursinghomesEditCompForm" class="fixed-top style-alert-form">
+            <p>情報の更新が完了しました</p>
+            <a href="./../show.html">
+              <button class="mr-3" onclick="">OK</button>
+            </a>
+          </section>
+        <% end %>
+      </div>
+    </div>
+  </section>
+</main>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "nursing_homes/shared/error_messages", resource: resource %>
-  
-  <p>------------------------------------------------------------------------------------------------------------------------</p>
-  <h3>変更する情報を入力してください。</h3>
-  
-   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true, autocomplete: true, placeholder: "事業所名" %>
-  </div>
 
-  <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address, autofocus: true, autocomplete: true, placeholder: "事業所住所" %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "メールアドレス" %>
-  </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>認証前のメールアドレスです: <%= resource.unconfirmed_email %></div>
-  <% end %>
-  
-  <div class="contact_person">
-    <%= f.label :contact_person %>
-    <%= f.text_field :contact_person, autofocus: true, autocomplete: "担当者名" %>
-  </div>
-  
-  <div class="phone">
-    <%= f.label :phone %>
-    <%= f.text_field :phone, autofocus: true, autocomplete: "電話番号" %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :website %>
-    <%= f.text_field :website, autofocus: true, autocomplete: "企業サイト" %>
-  </div>
 
-  <div class="field">
-    <%= f.label "新しいパスワード" %> <i>(変更しない場合は空欄のままにしてください。)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %>文字以上</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label "新しいパスワード（確認）" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>（変更内容を更新するには現在のパスワードの入力が必要です)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-  
-  <p>------------------------------------------------------------------------------------------------------------------------</p>
-  <br />
-  
-  <div class="actions">
-    <%= f.submit "更新する" %>
-  </div>
-<% end %>
-
-<br />
-<%= link_to "管理ページに戻る", nursing_home_path(resource) %>
-<br />
-<br />
 
 <h3>アカウントを削除する</h3>
 

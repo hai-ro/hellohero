@@ -70,6 +70,7 @@ gem 'hirb-unicode'
 
 #ページネーション
 gem 'kaminari'
+gem 'bootstrap4-kaminari-views'
 
 #会員登録機能
 gem 'devise'

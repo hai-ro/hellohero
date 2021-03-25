@@ -6,7 +6,9 @@ before_action :authenticate_hero!, only: [:order_request_confirm, :order_request
 
 
   def index
-    @jobs = Job.includes(:nursing_home, :hero, :job_category).order("updated_at DESC").where(progress: 0)
+    @search_params = job_search_params
+    @all_jobs = Job.search(@search_params).includes(:nursing_home, :hero, :job_category).order("updated_at DESC").where(progress: 0)
+    @jobs = @all_jobs.page(params[:page]).per(8)
   end
   
   def ordered_index
@@ -78,6 +80,7 @@ before_action :authenticate_hero!, only: [:order_request_confirm, :order_request
   def destroy
     @job = Job.find(params[:id])
     @job.destroy
+    redirect_to jobs_ordered_index_path
   end
   
   # ヘルパーがエントリー
@@ -98,12 +101,12 @@ before_action :authenticate_hero!, only: [:order_request_confirm, :order_request
   end
   
   # ヘルパーが事業所からの条件を承認
-  def conditon_confirm
+  def condition_confirm
     @job = Job.find(params[:id])
   end
   
   # 条件承認完了画面
-  def conditon_confirm_complete
+  def condition_complete
     @job = Job.find(params[:id])
     @job.update( progress: 3)
   end
@@ -114,7 +117,7 @@ before_action :authenticate_hero!, only: [:order_request_confirm, :order_request
   end
   
   # エントリー承認完了
-  def entry_comfirm_complete
+  def entry_confirm_complete
     @job = Job.find(params[:id])
     @job.update( progress: 2)
   end
@@ -144,5 +147,10 @@ private
   # 投稿済みjobのレコードを取得する
   def getdata
       @data = Job.find(params[:format])
+  end
+  
+  # 検索
+  def job_search_params
+    params.fetch(:search, {}).permit(:title, :job_category_id, :start_datetime, :time)
   end
 end

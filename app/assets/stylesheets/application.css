@@ -31,7 +31,28 @@ body{
 label{
   cursor: pointer;
 }
-
+figure{
+  margin: 0px;
+}
+figcaption{
+  margin: 0px;
+}
+textarea{
+  resize: none;
+}
+@media(max-width:1024px){
+  h1{
+    font-size: 24px;
+  }
+}
+.navbar{
+  padding: 5px 15px;
+}
+.dropdown-custom.dropdown-menu {
+  position: absolute;
+  left: initial;
+  right: 0;
+}
 /*印刷時のsafariのバグを解消する*/
 @media print {
   .container {
@@ -48,6 +69,9 @@ label{
 }
 .style-header{
   width: 100%;
+}
+.style-lgwidth{
+  width: 80%;
 }
 
 /*テキスト系*/
@@ -205,6 +229,9 @@ label{
 .style-float-right{
   float:right;
 }
+.style-float-clear{
+  clear: both;
+}
 .style-pd-high{
   padding-top:100px;
 }
@@ -226,6 +253,11 @@ label{
 }
 .style-ma-bhigh{
   margin-bottom:100px;
+}
+@media(max-width:1024px){
+.style-ma-bhigh{
+  margin-bottom:50px;
+}
 }
 .style-ma-thigh{
   margin-top: 150px;
@@ -293,6 +325,65 @@ label{
   width: 100%;
 }
 
+/*スマホ時の横からスライドするナブバー*/
+#SidebarMenu{
+  height: 100%;
+  position: fixed;
+  right: 0;
+  width: 100%;
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+  background: #4C90F5;
+  z-index: 11;
+}
+.style-sidebarMenuInner{
+  text-align: center;
+  margin:30px;
+  padding:0;
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+}
+.style-sidebarMenuInner li{
+  list-style: none;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 20px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+.style-sidebarMenuInner li span{
+  display: block;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.50);
+}
+.style-sidebarMenuInner li a{
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+input[type="checkbox"]:checked ~ #SidebarMenu {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+
+input[type=checkbox] {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  box-sizing: border-box;
+  display: none;
+}
+.style-sidebarIcon{
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  box-sizing: border-box;
+  cursor: pointer;
+  position: static;;
+  z-index: 99;
+}
+
 /*ボタンなど共通の部品*/
 .style-alert-form{
   background-color: #FFF;
@@ -321,8 +412,11 @@ label{
 .style-nav{
   height:80px;
   background-color: #fff;
+  box-sizing:border-box;
 }
-
+.style-smnav-line{
+  line-height: 80px;
+}
 
 /*トップページ*/
 .style-titlehead{
@@ -353,6 +447,9 @@ label{
   height:50px;
   border:1px solid;
   border-color:#F57564;
+}
+.test{
+  background:#E83820;
 }
 .style-helper-newmenbtn{
   display:inline-block;
@@ -462,14 +559,16 @@ label{
   position: absolute;
   top: 50%;
   left:50%;
+  -webkit-transform: translateY(-50%) translateX(-50%);
   transform: translateY(-50%) translateX(-50%);
 }
 .style-btn-text-black{
   color:black;
-  position: absolute;/*テキストの高さを中段に揃える*/
-  top: 50%; /*親要素を起点に上から50%*/
+  position: absolute;
+  top: 50%;
   left:50%;
-  transform: translateY(-50%) translateX(-50%); /*要素の大きさの半分ずつを戻す*/
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  transform: translateY(-50%) translateX(-50%);
 }
 .style-btn-lineicon{
   background:#fff url("./../images/logos/Line-Logo.jpg") no-repeat;
@@ -641,14 +740,19 @@ label{
 /*ヒーローズマイページ*/
 .style-mypage-workbtn{
   padding: 5px 40px;
+  background-color: #D9F57D;
+  border-radius: 8px;
+  box-shadow: 3px 3px #cccccc;
 }
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: white;
   background-color:#F57564;
 }
 .style-mypage-workimg{
-  height: 200px;
-  width: 200px;
+  width:100%;
+  height: 100%;
+  max-width: 100px;
+  max-height: 100px;
 }
 .style-mypage-btn{
   border: 1px solid;
@@ -700,8 +804,86 @@ label{
   right:0;
   left:auto;
 }
-
-/*ヒーローズプロフィール変更ページ*/
+/*ヒーローズチャット画面*/
+.style-comment-time{
+  color: #777777;
+}
+.style-comment-helper {
+  margin: 10px;
+}
+.style-comment-helper p {
+  display: inline-block;
+  position: relative;
+  padding: 8px;
+  width: 90%;
+  border-radius: 12px;
+  background: #D9F57D;
+}
+.style-comment-helper p:after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  right: -19px;
+  border: 8px solid transparent;
+  border-left: 18px solid #D9F57D;
+  -webkit-transform: rotate(-35deg);
+  transform: rotate(-35deg);
+}
+.style-comment-office{
+  margin: 10px;
+}
+.style-comment-office p {
+  display: inline-block;
+  position: relative;
+  padding: 8px;
+  width: 90%;
+  border-radius: 12px;
+  background: #EEEEEE;
+}
+.style-comment-office p::before{
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: -19px;
+  border: 8px solid transparent;
+  border-right: 18px solid #EEEEEE;
+  -webkit-transform: rotate(35deg);
+  transform: rotate(35deg);
+}
+#StyleChatTextarea{
+  display: block;
+  width: 90%;
+  max-width: 100%;
+  min-height: 104px;
+  padding: 10px;
+  border: 2px solid #ccc;
+  background: #fff;
+  line-height: 1.5;
+}
+  .style-chat-sendbtn{
+    width: 90%;
+    padding: 10px 0px;
+    color: #FFFFFF;
+    background-color:#F57564;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 2px 2px 4px #FF3399;
+  }
+@media(max-width:768px){
+  .style-comment-helper p {
+    width: 80%;
+  }
+  .style-comment-office p {
+    width: 80%;
+  }
+  .style-comment-helper {
+    margin: 10px;
+  }
+  .style-comment-office{
+    margin: 10px;
+  }
+}
+  /*ヒーローズプロフィール変更ページ*/
 /*介護事業所新規登録*/
 /*初期値の文字を灰色にするみずらいので却下
 select:first-child{
@@ -711,6 +893,7 @@ select:first-child{
   width: 95%;
   margin: 0px 5px;
 }
+
 
 /*介護事業所トップページ*/
 .style-nursingtop-title{
@@ -756,6 +939,7 @@ select:first-child{
   text-align: center;
   font-weight: bold;
   box-shadow: inset 0 2px 0px rgba(255, 255, 255, 0.25), inset 0 -2px 0px rgba(0, 0, 0, 0.18);
+  -webkit-transition: .2s;
   transition: .2s;
 }
 .btn-social-circle .fa {
@@ -781,6 +965,7 @@ select:first-child{
   text-decoration: none;
 }.btn-social-icon-instagram:hover {
   color:#668ad8;
+  -webkit-transition: .5s;
   transition: .5s;
 }
 .btn-social-icon-instagram-square {

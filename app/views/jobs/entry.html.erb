@@ -1,24 +1,53 @@
-<h2>この仕事にエントリーしますか？</h2>
-    <%= link_to "エントリーする", "/jobs/entry_complete/#{@job.id}" %>
-    <br/>
-    <%= link_to "募集中のミッション一覧へ", job_path(@job.id) %>
-  <br/>
-  <h3>受注内容</h3>
-    <p>----------------------------------------------------------</p>
-    <p>お仕事名:<%= @job.title %></p>
-    
-    <p>お仕事カテゴリ:<%= @job.job_category.name %></p>
-    
-    <p>発注者:<%= link_to "#{@job.nursing_home.name}", "/nursing_homes/profile/#{@job.nursing_home_id}" %></p>
-    
-    <p>報酬額:<%= @job.price %> 円</p>
-    
-    <p>仕事内容:<%= @job.service %></p>
-    
-    <p>どんな人に受けてほしいか:<%= @job.expect %></p>
-    
-    <p>開始時間:<%= @job.start_datetime %></p>
-    
-    <p>終了時間:<%= @job.end_datetime %></p>
-    <p>----------------------------------------------------------</p>
-  
+<main class="style-main style-ma-tlow mb-5">
+  <section class="container-fluid">
+    <div class="row">
+      <div class="col-lg-3">
+      </div>
+      <div class="col-lg-6">
+        <h2 class="style-centertext mb-3">このミッションにエントリーしますか？</h2>
+        <div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="style-centertext mb-3">
+                <%= link_to "jobs/entry_complete/#{@job.id}" do %>
+                  <button class="style-boder-smallradius style-orderreq-entrybtn">エントリーする</button>
+                <% end %>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="style-centertext mb-3">
+                <%= link_to :back do  %>
+                  <button class="style-boder-smallradius style-orderreq-cancelbtn">キャンセル</button>
+                </a>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="my-5">
+            <h2 class="style-centertext"><i class="fas fa-building"></i><span>&nbsp;</span>ミッション内容</h2>
+            <div class="row style-boder">
+              <div class="col-lg-6 mt-3">
+                <div class="">
+                  <p class="style-leftbar-lightred my-3">ミッション名:<%= @job.title %></p>
+                  <p class="style-leftbar-lightred mb-3">発注者:<%= link_to "#{@job.nursing_home.name}", nursing_home_path(@job.nursing_home.id) %></p>
+                  <p class="style-leftbar-lightred mb-3">報酬額:<%= @job.price.to_i(:delimited) %>円</p>
+                  <!--クライアント名は廃止？-->
+                  <!--<p class="style-leftbar-lightred mb-3">クライアント名:７０代男性</p>-->
+                  <p class="style-leftbar-lightred mb-3">実行日:<%= shape_job_date(@job.start_datetime) %></p>
+                  <p class="style-leftbar-lightred mb-3">時間:<%= shape_job_start_time(@job.start_datetime) %>~<%= shape_job_end_time(@job.start_datetime + (@job.time * 3600)) %></p>
+                </div>
+              </div>
+              <div class="col-lg-6 mt-3">
+                <figure class="style-centertext">
+                  <img src="/assets/character/Lion-Guts-Coment.jpg" alt="お仕事エントリー画像" width="80%" height="80%">
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+    </div>
+  </section>
+</main>

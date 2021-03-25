@@ -1,0 +1,100 @@
+<% jobs.each do |job| %>
+  <div class="col-lg-3 col-md-6">
+    <div class="card style-shadow-rightblack  my-3" style="max-width: 250px;">
+      <figure>
+        <% if job.image? %>
+          <%= image_tag job.image.url(:thumb), alt:"Image", class:"style-smboder style-imgcontain", height:"150px", width:"100%" %>
+        <% else %>
+          <img src="assets/Heros-Logo.png" alt="Image" class="style-smboder style-imgcontain" height="150px" width="100%";>
+        <% end %>
+      </figure>
+      <div class="card-body">
+        <span class="style-tag-lightred"><%= job.job_category.name %></span>
+        <h2 class="card-title style-text-bold"><%= link_to "#{job.title.truncate(10)}", job_path(job.id) %></h2>
+        <p><%= job.service.truncate(20) %></p>
+        <ul class="style-ftlist">
+          <li class=""><i class="fas fa-calendar-alt style-work-icon"></i><span>&nbsp;</span><%= shape_job_date(job.start_datetime) %></li>
+          <li class=""><i class="far fa-clock style-work-icon"></i><span>&nbsp;</span><%= shape_job_start_time(job.start_datetime) %>~<%= shape_job_end_time(job.start_datetime + (job.time * 3600)) %></li>
+          <div class="style-disflex">
+            <li class="mr-3"><i class="fas fa-map-marker-alt style-work-icon"></i><span>&nbsp;</span><%= job.area %></li>
+            <li class=""><i class="fa fa-yen style-work-icon"></i><span>&nbsp;</span><%= job.price.to_s(:delimited) %></li>
+          </div>
+        </ul>
+        <% if hero_signed_in? %>
+          <% if job.progress == 0 %>
+            <div class="my-3">
+              <%= link_to job_path(job.id) do %>
+                <button class="style-jobs-entrybtn style-boder-smallradius ">挑戦する</button>
+              <% end %>
+            </div>
+          <% elsif job.progress == 1 %>
+            <div class="my-3">
+              <% if job.hero_id == current_hero.id %>
+                <%= link_to job_path(job.id) do %>
+                  <button class="style-jobs-entrybtn style-boder-smallradius ">エントリー済</button>
+                <% end %>
+              <% else %>
+                <button class="style-jobs-entrybtn style-boder-smallradius ">エントリー済</button>
+              <% end %>
+            </div>
+          <% elsif job.progress == 2 && job.hero_id == current_hero.id %>
+            <div class="my-3">
+              <%= link_to job_path(job.id) do %>
+                <button class="style-jobs-entrybtn style-boder-smallradius ">契約手続き中</button>
+              <% end %>
+            </div>
+          <% elsif job.progress == 3 && job.hero_id == current_hero.id %>
+            <div class="my-3">
+              <%= link_to job_path(job.id) do %>
+                <button class="style-jobs-entrybtn style-boder-smallradius ">契約中</button>
+              <% end %>
+            </div>
+          <% elsif job.progress == 4 && job.hero_id == current_hero.id %>
+            <div class="my-3">
+              <%= link_to job_path(job.id) do %>
+                <button class="style-jobs-entrybtn style-boder-smallradius ">評価が登録されました</button>
+              <% end %>
+            </div>
+          <% elsif job.progress == 5 && job.hero_id == current_hero.id %>
+            <div class="my-3">
+              <%= link_to job_path(job.id) do %>
+                <button class="style-jobs-entrybtn style-boder-smallradius ">完了済み</button>
+              <% end %>
+            </div>
+          <% end %>
+        <% elsif nursing_home_signed_in? && job.nursing_home_id == current_nursing_home.id %>
+          <div>
+            <%= link_to jobs_copied_new_path(job.id) do %>
+              <button class="style-boder-smallradius my-3">コピーして新規登録</button>
+            <% end %>
+          </div>
+          <div>
+            <% if job.progress == 0 %>
+              <%= link_to edit_job_path(job.id) do  %>
+                <button class="style-jobs-editbtn style-boder-smallradius">編集する</button>
+              <% end %>
+              <%= button_to "削除する", job_path(job.id), method: :delete, data: { confirm: "このお仕事を削除してよろしいですか？" }, id: "Destroy-btn-Show1", onclick: "Destroyjobshow()" , class: "style-jobsshow-destroybtn style-boder-smallradius my-3" %>
+            <% elsif job.progress == 1 %>
+              <%= link_to "jobs/entry_confirm/#{job.id}" do %>
+                <button class="style-jobs-editbtn style-boder-smallradius">エントリー有</button>
+              <% end %>
+            <% elsif job.progress == 2 %>
+              <%= link_to job_path(job.id) do %>
+                <button class="style-jobs-editbtn style-boder-smallradius">契約手続き中</button>
+              <% end %>
+            <% elsif job.progress == 3 %>
+              <button class="style-jobs-editbtn style-boder-smallradius">契約中</button>
+              <%= link_to job_path(job.id) do %>
+                <button class="style-jobs-editbtn style-boder-smallradius">完了確認</button>
+              <% end %>
+            <% elsif job.progress >= 4 %>
+              <%= link_to job_path(job.id) do %>
+                <button class="style-jobs-editbtn style-boder-smallradius">完了済み</button>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

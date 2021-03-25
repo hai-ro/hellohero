@@ -1,101 +1,125 @@
-<% if nursing_home_signed_in? %>
-  <h2>業務詳細</h2>
-<% else %>
-  <h2>ミッション詳細</h2>
-<% end %>
+<%= render partial: 'layouts/header' %>
 
-<% if hero_signed_in? && @job.hero_id == current_hero.id && @progress >= 4 %>
-  <h4>あなたへの評価</h4>
-  <p>れいぎ    ：<%= @job.behavior %></p>
-  <p>あかるさ  ：<%= @job.smile %></p>
-  <p>せいけつさ：<%= @job.cleanliness %></p>
-  <p>ていねいさ：<%= @job.politeness %></p>
-  <p>たいりょく：<%= @job.physical %></p>
-<% end %>
-
-<% if nursing_home_signed_in? %>
-  <% if @job.nursing_home_id == current_nursing_home.id %>
-    <p>-----------------------------------------------------</p>
-    <p>《発注状況》</p>
-    <% if @progress == 0 %>
-      <p>現在、エントリーしている人はいません。</p>
-    <% elsif @progress == 1 %>
-      <%= link_to "エントリーがあります。確認してください。", "/jobs/entry_confirm/#{@job.id}" %>
-    <% elsif @progress == 2 %>
-      <p>発注済み、条件提示書の承認待ちです。</p>
-    <% elsif @progress == 3 %>
-      <p>契約成立済、業務遂行待ちです。</p>
-      <p>※業務の完了を確認したら、ヘルパーの評価を入力してください。</p>
-      <%= link_to "ヘルパー評価へ", new_job_review_path(params[:id]) %>
-    <% elsif @progress == 4 %>
-      <p>業務完了済</p>
-    <% end %>
-    <p>-----------------------------------------------------</p>
-  <% end %>
-<% end %>
-
-  <p>お仕事名:<%= @job.title %></p>
-  
-  <p>お仕事カテゴリ:<%= @job.job_category.name %></p>
-  
-  <p>発注者:<%= link_to "#{@job.nursing_home.name}", nursing_home_path(@job.nursing_home_id) %></p>
-  
-  <p>報酬額:<%= @job.price %> 円</p>
-  
-  <p>仕事内容:<%= @job.service %></p>
-  
-  <p>どんな人に受けてほしいか:<%= @job.expect %></p>
-  
-  <p>開始時間:<%= @job.start_datetime %></p>
-  
-  <% if hero_signed_in? %>
-    <p>-----------------------------------------------------</p>
-    <h4>受注状況</h4>
-    <% if @progress == 5 %>
-      <p>このミッションは完了しました。</p>
-    <% else %>
-      <% if @progress == 0 %>
-        <%= link_to "この仕事にエントリーする", "/jobs/entry/#{@job.id}" %>
-      <% elsif @progress == 1 %>
-        <p>このミッションはすでにエントリーされています。</p>
-        <% if @job.hero_id == current_hero.id %>
-          <p>※このミッションはあなたがエントリーしています。※</p>
-          <%= link_to "エントリーをキャンセルする", "/jobs/entry_cancel/#{@job.id}" %>
-        <% end %>
-      <% elsif @progress == 2 %>
-        <p>このミッションは契約手続き中です。</p>
-        <% if @job.hero_id == current_hero.id %>
-          <%= link_to "事業者から労働条件提示書が送付されています。確認してください。", "/jobs/condition_confirm/#{@job.id}" %>
-        <% end %>
-      <% elsif @progress == 3 %>
-        <p>このミッションは他の方が契約中です。</p>
-        <% if @job.hero_id == current_hero.id %>
-          <p>※このミッションはあなたが受注しています。※</p>
-        <% end %>
-      <% elsif @progress >= 4 %>
-        <p>このミッションは完了しました!お疲れさまでした！</p>
+<main class="style-main  style-ma-tlow">
+  <section class="container-fluid">
+    <div class="row">
+      <div class="col-lg-4">
+        <figure>
+          <% if @job.image? %>
+            <%= image_tag @job.image.url, alt: "仕事画像", height: "300px", width: "300px" %>
+          <% else %>
+            <img src="/assets/character/Rabbit-Phone.jpg" alt="仕事画像" height="300px" width="300px";>
+          <% end %>
+        </figure>
+      </div>
+      <div class="col-lg-8">
+        <h1 class="my-1" id="Jobname1-Show">ミッション名:<%= @job.title %></h1>
+        <p><span class="style-tag-lightred"><%= @job.job_category.name %></span></p>
+        <p><i class="fa fa-yen style-work-icon"></i><span>&nbsp;</span>報酬額:<%= @job.price.to_s(:delimited) %>円</p>
+        <p><i class="fas fa-map-marker-alt style-work-icon"></i><%= @job.area %></p>
+        <p><i class="fas fa-calendar-alt style-work-icon"></i><span>&nbsp;</span>始まり:<%= shape_datetime_ja(@job.start_datetime) %></p>
+        <p><i class="fas fa-calendar-alt style-work-icon"></i><span>&nbsp;</span>終わり:<%= shape_datetime_ja(@job.start_datetime + (@job.time * 3600)) %></p>
+        <!--↓ここのアイコンの設定をお願いします↓-->
+        <p><i class="fas fa-map-marker-alt style-work-icon"></i><%= link_to "#{@job.nursing_home.name}", "nursing_homes/profile/#{@job.nursing_home_id}" %></p>
+        <div class="style-midtext mt-2">
+          <% if hero_signed_in? %>
+            <% if @progress == 0 %>
+              <%= link_to "/jobs/entry_complete/#{@job.id}" do %>
+                <button class="style-btn-redorenge">ミッションに申し込む</button>
+              <% end %>
+            <% elsif @progress == 1 %>
+              <% if @job.hero_id == current_hero.id %>
+                <p>※このミッションはあなたがエントリーしています。※</p>
+                <%= link_to "/jobs/entry_cancel/#{@job.id}" do %>
+                  <!--↓ここのボタンの色変えた方が良いかも↓-->
+                  <button class="style-btn-redorenge">エントリーをキャンセルする</button>
+                <% end %>
+              <% else %>
+                <p>このミッションはすでにエントリーされています。</p>
+              <% end %>
+            <% elsif @progress == 2 %>
+              <p>このミッションは契約手続き中です。</p>
+              <% if @job.hero_id == current_hero.id %>
+                <%= link_to "/jobs/condition_confirm/#{@job.id}" do %>
+                  <button class="style-btn-redorenge">労働条件提示書</button>
+                <% end %>
+              <% end %>
+            <% elsif @progress == 3 %>
+              <p>このミッションは他の方が契約中です。</p>
+              <% if @job.hero_id == current_hero.id %>
+                <p>※このミッションはあなたが受注しています。※</p>
+              <% end %>
+            <% elsif @progress >= 4 %>
+              <p>このミッションは完了しました!お疲れさまでした！</p>
+            <% end %>
+          <% elsif nursing_home_signed_in? && @job.nursing_home_id == current_nursing_home.id %>
+            <div class="mt-4">
+              <%= link_to jobs_copied_new_path(@job.id) do %>
+                <button class="style-boder-smallradius my-3">コピーして新規登録</button>
+              <% end %>
+            </div>
+            <div class="mt-4">
+              <% if @progress == 0 %>
+                <p>現在、エントリーしている人はいません。</p>
+              <% elsif @progress == 1 %>
+                <%= link_to "エントリーがあります。確認してください。", "/jobs/entry_confirm/#{@job.id}" %>
+              <% elsif @progress == 2 %>
+                <p>発注済み、条件提示書の承認待ちです。</p>
+              <% elsif @progress == 3 %>
+                <p>契約成立済、業務遂行待ちです。</p>
+                <p>※業務の完了を確認したら、ヘルパーの評価を入力してください。</p>
+                <%= link_to "ヘルパー評価へ", new_job_review_path(params[:id]) %>
+              <% elsif @progress == 4 %>
+                <p>業務完了済</p>
+              <% end %>
+              <% if @progress < 3 %>
+                <%= link_to edit_job_path(@job.id) do %>
+                  <button class="style-jobsshow-editbtn style-boder-smallradius">編集する</button>
+                <% end %>
+                <br/>
+                <%= button_to "削除する", job_path(@job.id), method: :delete, data: { confirm: "このお仕事を削除してよろしいですか？" }, id: "Destroy-btn-Show1", onclick: "Destroyjobshow()" , class: "style-jobsshow-destroybtn style-boder-smallradius my-3" %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <!--↓事業者のレビュー後に表示させると良いかなと（この仕事でのヘルパー評価です）↓-->
+    <div>
+      <% if hero_signed_in? && @job.hero_id == current_hero.id && @progress >= 4 %>
+        <h4>このミッションでのあなたへの評価です</h4>
+        <p>れいぎ    ：<%= @job.behavior %></p>
+        <p>あかるさ  ：<%= @job.smile %></p>
+        <p>せいけつさ：<%= @job.cleanliness %></p>
+        <p>ていねいさ：<%= @job.politeness %></p>
+        <p>たいりょく：<%= @job.physical %></p>
       <% end %>
-    <% end %>
-    <p>-----------------------------------------------------</p>
-  <% elsif nursing_home_signed_in? %>
-    <% if @job.nursing_home_id == current_nursing_home.id %>
-      <% if @progress < 4 %>
-        <%= link_to "仕事内容を編集する", edit_job_path(@job.id) %>
-        <br/>
-        <%= link_to "この仕事を取り下げる", job_path(@job.id), method: :delete %>
-      <% end %>
-    <% else %>
-      
-    <% end %>
-  <% end %>
-  
-  <br/>
-  <%= link_to "仕事一覧へ", jobs_path %>
-  <br/>
-  <% if hero_signed_in? %>
-    <%= link_to "マイページへ", hero_path(current_hero.id) %>
-  <% elsif nursing_home_signed_in? %>
-    <%= link_to "管理ページへ", nursing_home_path(current_nursing_home.id) %>
-  <% end %>
-  <br/>
-  <%= link_to "ホームへ戻る", root_path %>
+    </div>
+    <div class="row">
+      <div class="col-12 mt-4">
+        <h1><i class="fas fa-clipboard"></i><span>&nbsp;</span>
+          仕事内容</h1>
+        <!--simple_formatで仕事登録時の改行を反映-->
+        <p><%= simple_format(@job.service) %></p>
+        
+        <h1><i class="fas fa-shopping-bag"></i><span>&nbsp;</span>持ち物</h1>
+        <p>派手ではない格好<br>上履き（スリッパは事業所にあります）</p>
+        
+        <h1><i class="fas fa-user-plus"></i><span>&nbsp;</span>どんなヘルパーさんに来てもらいたいか</h1>
+        <p><%= @job.expect %></p>
+        
+        <h1><i class="fas fa-lightbulb"></i><span>&nbsp;</span>備考</h1>
+        <p>当日はジャージ・ジーパンは避けて頂き、動きやすい恰好でお願い致します。</p>
+      </div>
+    </div>
+  </section>
+  <!--お仕事の削除ボタン-->
+  <section id="Destroyjob-Form-Show" class="fixed-top style-alert-form">
+    <div id="Destroyjob-Form-ShowTitle"></div>
+    <p>このお仕事を削除して良いでしょうか？</p>
+    <button class="mr-3" onclick="DestroyjobYesShow()">削除する</button>
+    <button onclick="DestroyjobNoShow()">いいえ</button>
+  </section>
+</main>
+
+

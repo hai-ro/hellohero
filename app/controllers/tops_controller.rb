@@ -7,6 +7,6 @@ class TopsController < ApplicationController
         redirect_to nursing_home_path(current_nursing_home.id)
       end
     end
-      @jobs = Job.includes(:nursing_home, :hero, :job_category).order("updated_at DESC").where(progress: 0)
+      @jobs = Job.includes(:nursing_home, :hero, :job_category).order("updated_at DESC").where(progress: 0).limit(8)
   end
 end

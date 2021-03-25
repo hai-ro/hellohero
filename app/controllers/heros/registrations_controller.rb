@@ -52,7 +52,7 @@ class Heros::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :first_name_kana, :last_name_kana, :gender, :address, :special_skill, :birthday, :profile, :like, :initial_training, :practical_training, :social_worker, :care_manager, :care_worker, :mhwp, :csdw, :interventional_services, :wehc, :dementia_care, :confirmation, :performance])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :first_name_kana, :last_name_kana, :gender, :address, :special_skill, :birthday, :profile, :like, :initial_training, :practical_training, :social_worker, :care_manager, :care_worker, :mhwp, :csdw, :interventional_services, :wehc, :dementia_care, :confirmation, :performance, :image, :image_cache, :remove_image])
   end
 
   # The path used after sign up.

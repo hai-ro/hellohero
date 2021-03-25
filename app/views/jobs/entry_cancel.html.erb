@@ -1,5 +1,41 @@
-<h2>エントリーを取り下げました！</h2>
+<%= render "layouts/header" %>
 
-<%= link_to "取り下げたミッションを確認する", job_path(@job.id) %>
-
-<%= link_to "マイページへ戻る", hero_path(current_hero.id) %>
+<main class="style-main style-ma-tlow mb-5">
+  <section class="container-fluid">
+    <div class="row">
+      <div class="col-lg-3">
+      </div>
+      <div class="col-lg-6">
+        <div class="mb-5">
+          <h1 class="style-centertext mb-3">エントリーを取り下げました</h1>
+          <!--<p class="style-centertext">事業所からの返答をお待ちください！</p>-->
+        </div>
+        <div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="style-centertext mb-3">
+                <%= link_to hero_path(current_hero.id) do  %>
+                  <button class="style-boder-smallradius style-orderreq-entrybtn">マイページへ</button>
+                <% end %>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="style-centertext mb-3">
+                <%= link_to jobs_path do %>
+                  <button class="style-boder-smallradius style-orderreq-cancelbtn">他のお仕事を探す</button>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="mt-5">
+            <figure class="style-centertext">
+              <img src="/assets/character/Rabbit-Phone-Coment.jpg" alt="エントリーキャンセル画像" width="80%" height="80%">
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+    </div>
+  </section>
+</main>

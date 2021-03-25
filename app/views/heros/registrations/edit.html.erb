@@ -1,96 +1,125 @@
-<h2>登録情報変更</h2>
+<%= render partial: "layouts/header" %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "heros/shared/error_messages", resource: resource %>
-
-  <p>------------------------------------------------------------------------------------------------------------------------</p>
-  <h3>変更する情報を入力してください。</h3>
-  
-   <div class="field">
-    <%= f.label "名前" %><br />
-    <%= f.text_field :last_name, autofocus: true, autocomplete: true, placeholder: "姓" %> <%= f.text_field :first_name, autofocus: true, autocomplete: true, placeholder: "名" %>
-  </div>
-
-  <div class="field">
-    <%= f.label "フリガナ" %><br />
-    <%= f.text_field :last_name_kana, autofocus: true, autocomplete: true, placeholder: "セイ" %> <%= f.text_field :first_name_kana, autofocus: true, autocomplete: true, placeholder: "メイ" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :adderss %><br />
-    <%= f.text_field :address, autofocus: true, autocomplete: true, placeholder: "住所" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :gender %><br />
-    <%= f.select :gender, [ ["男性", 1], ["女性", 2], ["その他", 3] ] %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :birthday %><br />
-    <%= raw sprintf(
-        f.date_select(:birthday, use_month_numbers: true, start_year: (Time.now.year - 18), end_year: (Time.now.year - 80),
-        date_separator: '%s'), '年 ', '月 ') + '日' %>
-  </div>
-  
-  <div class="field" >
-    <%= f.label :special_skill %><br />
-    <%= f.text_field :special_skill, autofocus: true, autocomplete: true, placehplder: "特技など" %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :like %><br />
-    <%= f.text_field :like, autofocus: true, autocomplete: true, placeholder: "趣味など" %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :profile %><span>(500文字以内)</span><br />
-    <%= f.text_area :profile, autofocus: true, autocomplete: true, placeholder: "自己アピールを入力しましょう！",
-        cols: "80", rows: "10", maxlength: "500" %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: true, placeholder: "メールアドレス" %>
-  </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>※現在、承認待ちのメールアドレスです: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label "新しいパスワード" %> <i>(※パスワードを変更しない場合は空欄のままにしてください。)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %>文字以上</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label "新しいパスワード（確認用）" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <p>------------------------------------------------------------------------------------------------------------------------</p>
-  <br />
-  <div class="field">
-    <%= f.label :current_password %> <i>(変更内容を更新するには現在のパスワードの入力が必要です)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-  <br />
-  <div class="actions">
-    <%= f.submit "更新する" %>
-  </div>
-<% end %>
-
-<br />
-<%= link_to "マイページに戻る", hero_path(resource) %>
-<br />
-<br />
-
-<h3>アカウントを削除する</h3>
-
-<p><%= button_to "このアカウントを削除する", registration_path(resource_name), data: { confirm: "すべての会員情報が削除されます。よろしいですか？" }, method: :delete %></p>
-
-
+<main class="style-main">
+  <section class="container style-login-back">
+    <div class="row">
+      <div class="col-md-3">
+      </div>
+      <div class="col-md-6">
+        <%= link_to root_path do %>
+          <img class="" src="/assets/Heros-Logo.png" alt="ヒーローズロゴ画像" height="80px" width="200px">
+        <% end %>
+      </div>
+      <div class="col-md-3">
+      </div>
+      <div class="col-md-3">
+      </div>
+      <div class="col-md-6">
+        <h1 class="style-centertext style-lightbeigeback my-4 ">★ヘルパーさん登録情報変更画面★</h1>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= render "heros/shared/error_messages", resource: resource %>
+          <p class="">以下のフォームにお客様の情報を入力してください<br>変更後「更新する」ボタンを押してください</p>
+          <div class="my-5">
+            <h3 class="style-text-bold style-leftbar-lightred my-3">氏名</h3>
+            <div class="row">
+              <div class="col-lg-6">
+                <%= f.text_field :last_name, autofocus: true, autocomplete: true, placeholder: "姓", class: "style-rg-sminput" %>
+              </div>
+              <div class="col-lg-6">
+                 <%= f.text_field :first_name, autofocus: true, autocomplete: true, placeholder: "名", class: "style-rg-sminput" %>
+              </div>
+            </div>
+            <h3 class="style-text-bold style-leftbar-lightred my-3">氏名（フリガナ）</h3>
+            <div class="row">
+              <div class="col-lg-6">
+                <%= f.text_field :last_name_kana, autofocus: true, autocomplete: true, placeholder: "セイ", class: "style-rg-sminput" %>
+              </div>
+              <div class="col-lg-6">
+                <%= f.text_field :first_name_kana, autofocus: true, autocomplete: true, placeholder: "メイ", class: "style-rg-sminput" %>
+              </div>
+            </div>
+            <h3 class="style-text-bold style-leftbar-lightred my-3">性別</h3>
+            <%= f.select :gender, [ ["男性", 1], ["女性", 2], ["その他", 3] ] %>
+            <h3 class="style-text-bold style-leftbar-lightred my-3">プロフィール画像</h3>
+            <% if @hero.image? %>
+              <div class="thumbnail">
+                <%= image_tag @hero.image.url(:thumb) %>
+              </div>
+            <% end %>
+            <div class="field">
+              <%= f.file_field :image, id: :hero_image %>
+            </div>
+            <p><%= f.check_box :remove_image %>画像を削除する</p>
+            <%= f.hidden_field :image_cache %>
+            <h3 class="style-text-bold style-leftbar-lightred my-3">住所</h3>
+            <div class="field">
+              <%= f.text_field :address, autofocus: true, autocomplete: true, placeholder: "例:東京都新宿区西新宿1-1-1", class: "style-rg-sminput" %>
+            </div>
+            <h3 class="style-text-bold style-leftbar-lightred my-3">生年月日</h3>
+              <%= raw sprintf(
+                f.date_select(:birthday, use_month_numbers: true, start_year: (Time.now.year - 18), end_year: (Time.now.year - 80),
+                date_separator: '%s'), '年 ', '月 ') + '日' %>
+            <h3 class="style-text-bold style-leftbar-lightred my-3">得意なこと</h3>
+            <div class="field">
+              <%= f.text_field :special_skill, autofocus: true, autocomplete: true, placeholder: "例：運動、歌など", class: "style-rg-sminput" %>
+            </div>
+            <h3 class="style-text-bold style-leftbar-lightred my-3">好きなこと</h3>
+            <div class="field">
+              <%= f.text_field :like, autofocus: true, autocomplete: true, placeholder: "例：ゲーム、お話、スポーツなど", class: "style-rg-sminput" %>
+            </div>
+            <h3 class="style-text-bold style-leftbar-lightred my-3">自己紹介（５００文字以内）</h3>
+            <%= f.text_area :profile, autofocus: true, autocomplete: true, placeholder: "自己アピールを入力しましょう！",cols: "80", rows: "10", maxlength: "500", class: "style-rg-textarea mt-3",placeholder: 
+"介護の世界に足を踏み入れ、５年目になります。訪問介護・リハビリ施設等の勤務経験があります。
+現在は、要介護者様の訪問介護をしています。
+毎日お客様がどうやったら喜んでくれるのか考えながら、ありがとうと言われた時に最高の幸せを感じます。
+色んな介護の職場を経験して介護業界を盛り上げたいと思っています。また少しでも職員の方の力になれたらと思います。
+どんなに小さなことでも遠慮なく言ってください。
+明るさとやる気なら誰にも負けません。どうぞよろしくお願いします。" %>
+            <h3 class="style-text-bold style-leftbar-lightred my-3">メールアドレス</h3>
+            <div class="field">
+              <%= f.email_field :email, autofocus: true, autocomplete: true, placeholder: "example@example.com", class: "style-rg-lginput" %>
+              <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                <div>※このメールアドレスは無効です: <%= resource.unconfirmed_email %></div>
+              <% end %>
+            </div>
+            <h3 class="style-text-bold style-leftbar-lightred my-3">新しいパスワード<br>(パスワードを変更したい場合のみ入力してください)</h3>
+            <div class="field">
+              <%= f.password_field "新しいパスワード", class: "style-rg-sminput", placeholder: "新しいパスワード" %>
+              <% if @minimum_password_length %>
+                <br />
+                <em><%= @minimum_password_length %>文字以上</em>
+              <% end %>
+            </div>
+            <div class="field">
+              <%= f.password_field :password_confirmation, placeholder: "確認用", class: "style-rg-sminput" %>
+            </div>
+            <h3 class="style-text-bold style-leftbar-lightred my-3">現在のパスワード<br>(変更内容を更新するには現在のパスワードの入力が必要です)</h3>
+            <div class="field">
+              <%= f.password_field :current_password, placeholder: "現在のパスワード", class: "style-rg-sminput" %>
+            </div>
+          </div>
+          <div class="style-centertext mb-5">
+            <%= f.submit "更新する", class: "style-boder-smallradius style-login-btn style-redorengeback style-midtext" %>
+          </div>
+        <% end %>
+        <div class="style-centertext">
+          <%= button_to "サービスを退会する", registration_path(resource_name), data: { confirm: "すべての会員情報が削除されます。よろしいですか？" }, method: :delete %></p>
+        </div>
+      </div>
+      <div class="col-md-3">
+      </div>
+    </div>
+    <!--退会ボタン-->
+    <div id="Deleteheroes-Form" class="fixed-top style-alert-form">
+      <p>退会します。よろしいですか？</p>
+      <p>※すべての会員情報が削除されます。</p>
+      <button class="mr-3" onclick="DeleteheroesYes()">退会する</button>
+      <button onclick="DeleteheroesNo()">いいえ</button>
+    </div>
+    <div id="Deleteheroes-Form-End" class="fixed-top style-alert-form">
+      <p>退会が完了しました。</p>
+      <p>またのご利用お待ちしておリます</p>
+      <button class="mr-3" onclick="DeleteheroesEnd()">OK</button>
+    </div>
+  </section>
+</main>

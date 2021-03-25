@@ -1,3 +1,41 @@
-<p>業務を取り下げました！</p>
+<%= render "layouts/header" %>
 
-<%= link_to "管理ページへ戻る", nursing_home_path(current_nursing_home.id) %>
+<main class="style-main style-ma-tlow mb-5">
+  <section class="container-fluid">
+    <div class="row">
+      <div class="col-lg-3">
+      </div>
+      <div class="col-lg-6">
+        <div class="mb-5">
+          <h1 class="style-centertext mb-3">お仕事を取り下げました</h1>
+          <!--<p class="style-centertext">事業所からの返答をお待ちください！</p>-->
+        </div>
+        <div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="style-centertext mb-3">
+                <%= link_to nursing_home_path(current_nursing_home.id) do  %>
+                  <button class="style-boder-smallradius style-orderreq-entrybtn">管理ページへ</button>
+                <% end %>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="style-centertext mb-3">
+                <%= link_to jobs_ordered_index_path(current_nursing_home.id) do %>
+                  <button class="style-boder-smallradius style-orderreq-cancelbtn">他の募集中のお仕事を見る</button>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="mt-5">
+            <figure class="style-centertext">
+              <img src="/assets/character/Rabbit-Phone-Coment.jpg" alt="お仕事取り下げ画像" width="80%" height="80%">
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+    </div>
+  </section>
+</main>

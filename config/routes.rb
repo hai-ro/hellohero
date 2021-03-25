@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   # 労働条件提示書承認入力
   get "jobs/condition_confirm/:id" => "jobs#condition_confirm"
   # 労働条件提示書確認完了
-  get "jobs/condition_conmplete/:id" => "jobs#condition_complete"
+  get "jobs/condition_complete/:id" => "jobs#condition_complete"
   # 事業所がエントリーを承認
   get "jobs/entry_confirm/:id" => "jobs#entry_confirm"
   # エントリー承認後

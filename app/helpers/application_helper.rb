@@ -17,6 +17,10 @@ module ApplicationHelper
     start_datetime.strftime("%Y/%m/%d %H:%M")
   end
   
+  def shape_datetime_ja(start_datetime)
+    start_datetime.strftime("%Y年%-m月%-d日 %H:%M")
+  end
+  
   def shape_end_datetime(end_datetime)
     end_datetime.strftime("%Y/%m/%d %H:%M")
   end

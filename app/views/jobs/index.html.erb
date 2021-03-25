@@ -1,43 +1,158 @@
-<% if hero_signed_in? %>
-  <h2>募集中のミッション一覧</h2>
-<% else %>
-  <h2>募集中の業務一覧</h2>
-<% end %>
+<%= render partial: 'layouts/header' %>
 
-<% @jobs.each do |job| %>
-  <p>--------------------------------------------------------------------------------</p>
+<main class="style-main">
+  <section class="container-fluid">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="d-lg-block d-none style-sidebarsticky">
+          <div class="style-boder style-boder-smallradius mx-3">
+            <h2 class="my-3">○お仕事検索</h2>
+            <div class="ml-3">
+              <%= form_with(model: @job, scope: :search, url: jobs_path, method: :get, local: true) do |f| %>
+                <div class="field">
+                  <%= f.label "タイトル", id:"testmoji"%><br>
+                  <%= f.text_field :title, value: @search_params[:title] %>
+                </div>
+                
+                <div class="field">
+                  <%= f.label "仕事カテゴリ" %><br>
+                  <%= f.collection_select(:job_category_id, JobCategory.all, :id, :name, selected: @search_params[:job_category_id], include_blank: t('helpers.select.include_blank')) %>
+                </div>
+                
+                <div class="field">
+                  <%= f.label "仕事日" %><br>
+                  <%= f.date_field :date, value: @search_params[:date] %>
+                </div>
+                
+                <div class="field">
+                  <%= f.label "勤務時間" %><br>
+                  <%= f.select :time_from, [ ["0.5", 0.5], ["1", 1], ["1.5", 1.5], ["2", 2], ["2.5", 2.5], ["3", 3], ["3.5", 3.5], ["4", 4], ["4.5", 4.5], ["5", 5], ["5.5", 5.5], ["6", 6], ["6.5", 6.5], ["7", 7], ["7.5", 7.5], ["8", 8], ["8.5", 8.5], ["9", 9], ["9.5", 9.5], ["10", 10], ["10.5", 10.5], ["11", 11], ["11.5", 11.5], ["12", 12], ["12.5", 12.5], ["13", 13], ["13.5", 13.5], ["14", 14], ["14.5", 14.5], ["15", 15], ["15.5", 15.5], ["16", 16], ["16.5", 16.5], ["17", 17], ["17.5", 17.5], ["18", 18], ["18.5", 18.5], ["19", 19], ["19.5", 19.5], ["20", 20] ], prompt: "選択" %><span>時間 〜 </span><%= f.select :time_to, [ ["0.5", 0.5], ["1", 1], ["1.5", 1.5], ["2", 2], ["2.5", 2.5], ["3", 3], ["3.5", 3.5], ["4", 4], ["4.5", 4.5], ["5", 5], ["5.5", 5.5], ["6", 6], ["6.5", 6.5], ["7", 7], ["7.5", 7.5], ["8", 8], ["8.5", 8.5], ["9", 9], ["9.5", 9.5], ["10", 10], ["10.5", 10.5], ["11", 11], ["11.5", 11.5], ["12", 12], ["12.5", 12.5], ["13", 13], ["13.5", 13.5], ["14", 14], ["14.5", 14.5], ["15", 15], ["15.5", 15.5], ["16", 16], ["16.5", 16.5], ["17", 17], ["17.5", 17.5], ["18", 18], ["18.5", 18.5], ["19", 19], ["19.5", 19.5], ["20", 20] ], prompt: "選択" %><span>時間</span>
+                </div>
+                <div class="my-3">
+                  <%= f.submit '検索する', class: "style-jobs-searchbtn style-boder-smallradius" %>
+                </div>
+                <!--各カラムを実装後に追加-->
+                <!--<p>職種</p>-->
+                <!--<select name=”workkind” class="pr-5 mb-3">-->
+                <!--  <option value=”kaigo”>介護</option>-->
+                <!--  <option value=”idousien”>移動支援</option>-->
+                <!--  <option value=”reku”>レクレーション</option>-->
+                <!--</select>-->
+                <!--<p>地域</p>-->
+                <!--<select name=”area” class="pr-5 mb-3">-->
+                <!--  <option value=”tokyo”>東京</option>-->
+                <!--  <option value=”kanagawa”>神奈川</option>-->
+                <!--  <option value=”chiba”>千葉</option>-->
+                <!--</select>-->
+                <!--<p>日時</p>-->
+                <!--<input name="date" type="date" class="mb-3">-->
+                <!--<div>-->
+                <!--  <label for="favoritenursing">-->
+                <!--    <input type="checkbox" id="favoritenursing">-->
+                <!--    お気に入りの事業所のみ</lavel>-->
+                <!--</div>-->
+                <!--<div class="my-3">-->
+                <!--  <a href="./show.html" class="">-->
+                <!--    <button class="style-jobs-searchbtn style-boder-smallradius">検索する</button></a>-->
+                <!--</div>-->
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9 style-ma-thigh">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="d-block d-lg-none style-righttext">
+                <button class="style-jobs-searchsmbtn style-boder-smallradius" onclick="Serchjob()"><i class="fas fa-search"></i><span>&nbsp;詳細検索</span></button>
+              </div>
+              <div class="style-centertext style-heading-width mt-5">
+                <h1 class="style-heading style-headingtext"><span class="style-heading-icon"><i class="fas fa-user-plus"></i></span>ミッション一覧</h1>
+              </div>
+              <p class="style-jobs-nubmber style-midtext"><%= page_entries_info(@jobs) %></p>
+              <div class="style-midtext my-4">
+                <!--aria-label="ページ送り"はプログラマーにこれがページネーションですとわかるようにするためのラベル付-->
+                <nav aria-label="ページ送り">
+                  <ul class="pagination justify-content-center">
+                    <%= paginate @jobs %>
+                  </ul>
+                </nav>
+              </div>
+              <div id="work-carousel" class="carousel slide" data-interval=false>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <div class="row">
+                      <%= render partial: 'layouts/job_cards', locals: { jobs: @jobs } %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="style-midtext my-4">
+          <p class="style-jobs-nubmber"><%= page_entries_info(@jobs) %></p>
+          <nav aria-label="ページ送り">
+            <ul class="pagination justify-content-center">
+              <%= paginate @jobs %>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
 
-  <div class="image_field">
-    <% if job.image? %>
-      <%= image_tag job.image.url(:thumb), alt:"Image", class:"style-smboder style-imgcontain" %>
-    <% else %>
-      <img src="assets/Heros-Logo.png" alt="Image" class="style-smboder style-imgcontain";>
-    <% end %>
-  </div>
+    <!--お仕事の削除ボタン-->
+    <div id="Destroyjob-Form" class="fixed-top style-alert-form">
+      <div id="Destroyjob-Form-Title"></div>
+      <p>このお仕事を削除して良いでしょうか？</p>
+      <button class="mr-3" onclick="DestroyjobYes()">削除する</button>
+      <button onclick="DestroyjobNo()">いいえ</button>
+    </div>
 
-  <p>ミッション名:<%= job.title %></p>
-  
-  <p>カテゴリ:<%= job.job_category.name %></p>
-  
-  <p>発注者:<%= link_to "#{job.nursing_home.name}", "/nursing_homes/profile/#{job.nursing_home_id}" %></p>
-  
-  <p>報酬額:<%= job.price %>円</p>
-  
-  <%= link_to "仕事の詳細を見る", job_path(job.id) %><br />
-  
-  <% if nursing_home_signed_in? && job.nursing_home_id == current_nursing_home.id %>
-    <%= link_to "編集",  edit_job_path(job.id) %><br />
-    <%= link_to "仕事を取り下げる", job_path(job.id), method: :delete %><br />
-    <%= link_to "この仕事をコピーして新規発注", jobs_copied_new_path(job.id) %><br />
-  <% end %>
-  <p>--------------------------------------------------------------------------------</p>
-<% end %>
-
-<% if hero_signed_in? %>
-  <%= link_to "マイページへ戻る", hero_path(current_hero.id) %>
-<% elsif nursing_home_signed_in? %>
-  <%= link_to "管理ページへ戻る", nursing_home_path(current_nursing_home.id) %>
-<% end %>
-
-
-<p><%= link_to "トップへ戻る", root_path %></p>
+    <div id="Serchjob-Form" class="fixed-top style-alert-form">
+      <h2 class="style-lefttext">○お仕事検索</h2>
+      <div class="ml-3 style-lefttext">
+        <p>職種</p>
+        <select name=”workkind” class="pr-5 mb-2">
+          <option value=”kaigo”>介護</option>
+          <option value=”idousien”>移動支援</option>
+          <option value=”reku”>レクレーション</option>
+        </select>
+        <p>地域</p>
+        <select name=”area” class="pr-5 mb-2">
+          <option value=”tokyo”>東京</option>
+          <option value=”kanagawa”>神奈川</option>
+          <option value=”chiba”>千葉</option>
+        </select>
+        <p>日時</p>
+        <input name="date" type="date" class="mb-2">
+        <div>
+          <label for="favoritenursing">
+            <input type="checkbox" id="favoritenursing">
+            お気に入りの事業所のみ</lavel>
+        </div>
+        <div class="">
+          <a href="#">
+            <button class="style-jobs-searchbtn style-boder-smallradius" onclick="Serchjobbtn()">検索する</button></a>
+          <button class="style-boder-smallradius my-3" onclick="Serchjobbtn()">キャンセル</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<script> 
+// ページ読み込み時に実行する処理
+window.onload = function(){
+//タグの読み込む
+let testtxt=document.getElementById('testmoji');
+//タグの中の文字によって条件分岐
+if ('タイトル' === testtxt.innerText){
+testtxt.style.backgroundColor = "blue";
+} else if('テスト' === testtxt.innerText) {
+testtxt.style.backgroundColor = "red";
+}else{
+testtxt.style.backgroundColor = "green";
+}
+}
+</script>

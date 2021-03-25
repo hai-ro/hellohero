@@ -11,7 +11,6 @@ class Hero < ApplicationRecord
   has_many :rooms
   has_many :jobs
   
-  # # フォロー・フォロワー関係をあらわすアソシエーション
-  # acts_as_followable
-  # acts_as_follower
+  # 画像アップローダ設定
+  mount_uploader :image, ImageUploader
 end

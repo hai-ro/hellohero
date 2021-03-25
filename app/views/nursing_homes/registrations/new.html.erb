@@ -1,61 +1,112 @@
-<h2>事業所嗚呼登録</h2>
+<main class="style-main">
+  <section class="container style-login-back">
+    <div class="row">
+      <div class="col-lg-3">
+      </div>
+      <div class="col-lg-6">
+        <%= link_to root_path do %>
+          <img class="", src="/assets/Heros-Logo.png" alt="ハロヒロロゴ画像" height="40px" width="134px">
+        <% end %>
+      </div>
+      <div class="col-lg-3">
+      </div>
+      <div class="col-lg-3">
+      </div>
+      <div class="col-lg-6">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <h1 class="style-centertext style-lightbeigeback my-4">★事業所さん登録情報入力画面★</h1>
+          <p class="">以下のフォームに事業所様の情報を入力してください<br>※メールアドレス及びパスワードはログイン時に必要となります</p>
+          <%= render "nursing_homes/shared/error_messages", resource: resource %>
+          <div class="my-5">
+            <div class="row">
+              <div class="col-lg-6">
+                <h3 class="style-text-bold style-leftbar-lightred my-3">事業所名</h3>
+                <%= f.text_field :name, autofocus: true, autocomplete: true, placeholder: "例：介護戦士事業所", class: "style-rg-sminput" %>
+              </div>
+              <!--審査機能追加まで一旦外します-->
+              <!--<div class="col-lg-6">-->
+              <!--  <h3 class="style-text-bold style-leftbar-lightred my-3">事務所種別</h3>-->
+              <!--  <select name=”nursing-homes-type” class="style-rg-sminput">-->
+              <!--    <option hidden>選択してください</option>-->
+              <!--    <option value=”houstation”>訪問看護ステーション</option>-->
+              <!--    <option value=”kyojimusyo”>居宅介護支援事業所</option>-->
+              <!--    <option value=”houjimsusyo”>訪問介護事業所</option>-->
+              <!--  </select>-->
+              <!--</div>-->
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <h3 class="style-text-bold style-leftbar-lightred my-3">担当者</h3>
+                <%= f.text_field :contact_person, autofocus: true, autocomplete: true, placeholder: "例：介護太郎", class: "style-rg-sminput" %>
+              </div>
+              <div class="col-lg-6">
+                <h3 class="style-text-bold style-leftbar-lightred my-3">電話番号</h3>
+                <%= f.telephone_field :phone, autofocus: true, autocomplete: true, placeholder: "例:0312345678", class: "style-rg-sminput" %>
+              </div>
+            </div>
+            <h3 class="style-text-bold style-leftbar-lightred my-3">住所</h3>
+            <%= f.text_field :address, autofocus: true, autocomplete: true, placeholder: "例:東京都新宿区西新宿1-1-1", class: "style-rg-sminput" %>
+            <!--一旦外しておきます-->
+            <!--<h3 class="style-text-bold style-leftbar-lightred my-3">アクセス情報</h3>-->
+            <!--<input type="access" placeholder="例:〇〇駅より徒歩１５分" name="access-info" class="style-rg-sminput">-->
+            <h3 class="style-text-bold style-leftbar-lightred my-3">事業所情報</h3>
+            <%= f.text_area :detail, autofocus: true, autocomplete: true, rows: "10", cols: "40", class: "style-rg-textarea mt-3", placeholder: "例：
+  ≪事務所概要≫
+  新宿区西新宿にある訪問介護事業所を運営する小さな会社です。地域を元気にするを目標に日々活動しています。
+  ≪経営理念≫
+  ①ご利用者様を笑顔にする
+  ②職員がいつまでも安心して働きつづけられる職場にする
+  ≪事業所の雰囲気≫
+  若い人、ベテランの人みんながどうやったら利用者様の笑顔を増やせるかを相談し合いながら毎日楽しく働いています。
+  ≪スタッフ≫
+  女性が多いですが、もちろん男性も活躍されています！年齢層は20代～60代の方で、お互いに得意なことを生かしながら働いています。
+  ≪交通≫
+  お車での来訪も可能です！（無料駐車場あり）ご希望の方は事前にご相談ください！
+  スタッフ全員ウェルカムで、ヒーローズのみなさんのお気軽なご質問、お問い合わせお待ちしております！
+  " %>
+            <!--認証機能追加まで一旦外します-->
+            <!--<h3 class="style-text-bold style-leftbar-lightred my-3">事業所番号（指定番号）</h3>-->
+            <!--<input type="access" placeholder="例:1234-567890-1(番号がない場合は0)" name="access-info" class="style-rg-lginput">-->
+            <h3 class="style-text-bold style-leftbar-lightred my-3">メールアドレス</h3>
+            <div class="field">
+              <%= f.email_field :email, autofocus: true, autocomplete: true, placeholder: "例:test@kaigo.co.jp", class: "style-rg-lginput" %>
+              <h3 class="style-text-bold style-leftbar-lightred my-3">パスワード</h3>
+              <div class="field">
+                <% if @minimum_password_length %>
+                  <em>(<%= @minimum_password_length %>文字以上)</em>
+                <% end %><br />
+                <%= f.password_field :password, placeholder: "英数字6文字以上", class: "style-rg-sminput" %>
+              </div>
+              <div class="field">
+                <%= f.label :password_confirmation %><br />
+                <%= f.password_field :password_confirmation, placeholder: "確認用", class: "style-rg-sminput" %>
+              </div>
+              <div class="style-centertext my-3">
+                <%= f.submit "登録する", class: "style-boder-smallradius style-login-btn" %>
+              </div>
+              <div class="my-1">
+                <%= render "nursing_homes/shared/links" %>
+              </div>
+            </div>
+            <div class="col-lg-3">
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+</main>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "nursing_homes/shared/error_messages", resource: resource %>
+<script>
+  var nua = navigator.userAgent;
+  var is_android = ((nua.indexOf('Mozilla/5.0') > -1 && nua.indexOf('Android ') > -1 && nua.indexOf('AppleWebKit') > -1) && !(nua.indexOf('Chrome') > -1));
+  if (is_android) { $('select.form-control').removeClass('form-control').css('width', '100%'); }
+</script>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true, autocomplete: "事業所名" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address, autofocus: true, autocomplete: "事業所住所" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :detail %><br />
-    <%= f.text_area :detail, autofocus: true, autocomplete: "ヘルパーに、あなたたちについて知ってもらいましょう！" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :website %><br />
-    <%= f.text_field :website, autofocus: true, autocomplete: "URL" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :contact_person %><br />
-    <%= f.text_field :contact_person, autofocus: true, autocomplete: "担当者名" %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :phone %><br />
-    <%= f.text_field :phone, autofocus: true, autocomplete: "電話番号" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "メールアドレス" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %>文字以上)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "パスワード" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "パスワード" %>
-  </div>
-
-  <br />
-
-  <div class="actions">
-    <%= f.submit "登録する" %>
-  </div>
-<% end %>
-
-<%= render "nursing_homes/shared/links" %>
+<!-- オプションのJavaScript -->
+<!-- 最初にjQuery、次にPopper.js、次にBootstrap JS -->
+<script src="./../../../assets/javascripts/application.js"></script>
+<script src="https://kit.fontawesome.com/de95f90de5.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>

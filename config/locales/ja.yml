@@ -141,6 +141,7 @@ ja:
   helpers:
     select:
       prompt: 選択してください
+      include_blank: 選択
     submit:
       create: 登録する
       submit: 保存する

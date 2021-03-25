@@ -1,82 +1,205 @@
-<% if @progress == 1 %>
-  <% if hero_signed_in? %>
-    <h2>エントリー中</h2>
-  <% elsif nursing_home_signed_in? %>
-    <h2>エントリーのある仕事</h2>
-  <% end %>
-<% elsif @progress == 2 %>
-  <% if hero_signed_in? %>
-    <h2>労働条件提示書 承認待ち</h2>
-  <% elsif nursing_home_signed_in? %>
-    <h2>労働条件提示中</h2>
-  <% end %>
-<% elsif @progress == 3 %>
-  <h2>契約中</h2>
-<% elsif @progress == 4 %>
-  <% if nursing_home_signed_in? %>
-    <h2>完了した仕事</h2>
-  <% elsif hero_signed_in? %>
-    <h2>完了したミッション</h2>
-  <% end %>
-<% elsif @progress == 5 %>
-  <% if nursing_home_signed_in? %>
-    <h2>過去発注した仕事</h2>
-  <% elsif hero_signed_in? %>
-    <h2>過去の経歴</h2>
-  <% end %>
-<% end %>
+<%= render partial: 'layouts/header' %>
 
-<% @jobs.each do |job| %>
-  <p>--------------------------------------------------------------------------------</p>
-
-  
-
-  <p>仕事名:<%= job.title %></p>
-  
-  <p>カテゴリ:<%= job.job_category.name %></p>
-  
-  <% if hero_signed_in? %>
-    <p>発注者:<%= link_to "#{job.nursing_home.name}", "/nursing_homes/profile/#{job.nursing_home_id}" %></p>
-  <% elsif nursing_home_signed_in? %>
-    <% if @progress <= 2 %>
-      <p>エントリー：<%= link_to "#{job.hero.last_name} #{job.hero.first_name}", "/hero/profile/#{job.hero_id}" %></p>
-    <% elsif @progress >= 3 %>
-      <p>契約者：<%= link_to "#{job.hero.last_name} #{job.hero.first_name}", "/hero/profile/#{job.hero_id}" %></p>
-    <% end %>
-  <% end %>
-  <p>報酬額:<%= job.price %>円</p>
-  
-  <p>開始時間:<%= job.start_datetime %></p>
-  
-  <% if nursing_home_signed_in? %>
-    <% if @progress == 1 %>
-      <p><%= link_to "承認", "/jobs/entry_confirm_complete/#{job.id}" %></p>
-      <p><%= link_to "却下", "/jobs/entry_rejection/#{job.id}" %></p>
-    <% elsif @progress == 3 %>
-      <p><%= link_to "評価入力", new_job_review(job.id) %></p>
-    <% end %>
-  <% elsif hero_signed_in? %>
-    <% if @progress == 1 %>
-      <p><%= link_to "取り下げ", "/jobs/entry_cancel/#{job.id}" %></p>
-    <% elsif @progress == 2 %>
-      <p><%= link_to "労働条件提示書確認", "/jobs/condition_confirm/#{job.id}" %></p>
-    <% end %>
-  <% end %>
-  <%= link_to "詳細", job_path(job.id) %><br />
-  
-  <% if nursing_home_signed_in? && job.nursing_home_id == current_nursing_home.id %>
-    <%= link_to "編集",  edit_job_path(job.id) %><br />
-    <%= link_to "仕事を取り下げる", job_path(job.id), method: :delete %><br />
-    <%= link_to "この仕事をコピー", jobs_copied_new_path(job.id) %><br />
-  <% end %>
-  <p>--------------------------------------------------------------------------------</p>
-<% end %>
-
-<% if hero_signed_in? %>
-  <%= link_to "マイページへ戻る", hero_path(current_hero.id) %>
-<% elsif nursing_home_signed_in? %>
-  <%= link_to "管理ページへ戻る", nursing_home_path(current_nursing_home.id) %>
-<% end %>
-
-
-<p><%= link_to "トップへ戻る", root_path %></p>
+<!--タイトル画像表示-->
+<main class="style-main mb-5">
+  <section class="container-fluid">
+    <div class="row">
+      <%= render partial: "layouts/sidebar" %>
+      <div class="col-lg-9">
+        <ol class="breadcrumb style-ma-thigh">
+          <li>
+            <%= link_to hero_path(current_hero.id) do %>
+              <em class="fa fa-home"></em>
+            <% end %>
+          </li>
+          <li class="">
+            <% if @progress == 1 %>
+              /応募中ミッション
+            <% elsif @progress == 2 %>
+              /契約処理待ちミッション
+            <% elsif @progress == 3 %>
+              /実施中ミッション
+            <% elsif @progress == 4 %>
+              /完了ミッション
+            <% elsif @progress == 5 %>
+              /ミッション履歴
+            <% end %>
+          </li>
+        </ol>
+        <div class="row">
+          <div class="col-lg-12 mt-5">
+            <ul class="nav">
+              <li class="nav-item style-boder style-lightredback">
+                <%= link_to "応募中", jobs_index_path(1), class: "nav-link style-text-white" %>
+              </li>
+              <li class="nav-item style-boder">
+                <%= link_to "契約待ち", jobs_index_path(2), class: "nav-link style-text-black" %>
+              </li>
+              <li class="nav-item style-boder">
+                <%= link_to "実施中", jobs_index_path(3), class: "nav-link style-text-black" %>
+              </li>
+              <li class="nav-item style-boder">
+                <%= link_to "完了", jobs_index_path(4), class: "nav-link style-text-black" %>
+              </li>
+            </ul>
+            <div class="">
+              <div class="style-boder">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-12">
+                      <ul class="style-mypage-list">
+                        <% if @jobs.present? %>
+                          <% @jobs.each do |job| %>
+                            <li class="style-smunderbar mb-3">
+                              <div class="row">
+                                <figure class="col-lg-2 col-4">
+                                  <%= link_to job_path(job.id) do %>
+                                    <% if job.image? %>
+                                      <%= image_tag job.image.url(:thumb), width: "100px", height: "100px", alt: "お仕事画像", class: "style-mypage-workimg" %>
+                                    <% else %>
+                                      <img src="/assets/character/Lion-Icon.png" width="100px" height="100px" alt="お仕事画像" class="style-mypage-workimg">
+                                    <% end %>
+                                  <% end %>
+                                </figure>
+                                <div class="col-lg-6 col-8">
+                                  <%= link_to job_path(job.id), class: "style-text-black" do %>
+                                      <h2 class="card-title style-text-bold"><%= job.title %></h2>
+                                      <ul class="style-ftlist">
+                                        <li class=""><i class="fas fa-calendar-alt style-work-icon"></i><span>&nbsp;<%= shape_job_date(job.start_datetime) %></span></li>
+                                        <li class=""><i class="far fa-clock style-work-icon"></i><span>&nbsp;<%= shape_job_start_time(job.start_datetime) %>~<%= shape_job_end_time(job.start_datetime + (job.time * 3600)) %></span></li>
+                                      </ul>
+                                  <% end %>
+                                </div>
+                                <div class="col-lg-4">
+                                  <% if @progress == 2 %>
+                                    <div class="style-mypage-confirmbtn">
+                                      <p class="style-text-red">労働契約書確認要</p>
+                                    </div>
+                                  <% elsif @progress == 4 %>
+                                    <div class="style-mypage-confirmbtn">
+                                      <p class="style-text-red">レビュー確認要</p>
+                                    </div>
+                                  <% end %>
+                                  <div class="chat-btn">
+                                    <a href="./../heros/chat-heros.html">
+                                      <button class="mb-3 style-mypage-workbtn">チャット画面へ</button>
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                          <% end %>
+                        <% else %>
+                          <li class="style-smunderbar mb-3">
+                            <div class="row">
+                              <figure class="col-lg-2 col-4">
+                                <img src="/assets/character/Lion-Icon.png" width="100px" height="100px" alt="お仕事画像" class="style-mypage-workimg">
+                              </figure>
+                              <div class="col-lg-6 col-8">
+                                該当するミッションはありません。
+                              </div>
+                            </div>
+                          </li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div id="sidebar-collapse" class="col-12 sidebar style-ma-tlow d-lg-none d-block">
+        <ul class="nav style-dblock">
+          <li class="style-smunderbar">
+            <a href="./../heros/show.html" class="style-mypage-listitem">
+              マイページ
+              <i class="fas fa-chevron-right style-mypage-navicon"></i>
+            </a>
+          </li>
+          <li class="style-smunderbar">
+            <a href="./../heros/show.html" class="style-mypage-listitem">
+              お知らせ
+              <i class="fas fa-chevron-right style-mypage-navicon"></i>
+            </a>
+          </li>
+          <li class="style-smunderbar">
+            <a href="./../heros/show.html" class="style-mypage-listitem">
+              やることリスト
+              <i class="fas fa-chevron-right style-mypage-navicon"></i>
+            </a>
+          </li>
+          <li class="style-smunderbar">
+            <a href="./../heros/chat-heros.html" class="style-mypage-listitem">
+              チャット画面
+              <i class="fas fa-chevron-right style-mypage-navicon"></i>
+            </a>
+          </li>
+          <li class="style-smunderbar style-lightblueback">
+            <a href="#" class="style-mypage-listitem">
+              応募中ミッション
+              <i class="fas fa-chevron-right style-mypage-navicon"></i>
+            </a>
+          </li>
+          <li class="style-smunderbar">
+            <a href="./index_2_hero.html" class="style-mypage-listitem">
+              契約処理待ちミッション
+              <i class="fas fa-chevron-right style-mypage-navicon"></i>
+            </a>
+          </li>
+          <li class="style-smunderbar">
+            <a href="./index_3_hero.html" class="style-mypage-listitem">
+              実施中ミッション
+              <i class="fas fa-chevron-right style-mypage-navicon"></i>
+            </a>
+          </li>
+          <li class="style-smunderbar">
+            <a href="./index_4_hero.html" class="style-mypage-listitem">
+              完了ミッション
+              <i class="fas fa-chevron-right style-mypage-navicon"></i>
+            </a>
+          </li>
+          <li class="style-smunderbar">
+            <a href="./index_5_hero.html" class="style-mypage-listitem">
+              ミッション履歴
+              <i class="fas fa-chevron-right style-mypage-navicon"></i>
+            </a>
+          </li>
+        </ul>
+        <p class="style-text-bold mt-4">設定</p>
+        <ul class="nav style-dblock">
+          <li class="style-smunderbar">
+            <a href="./../heros/registrations/edit.html" class="style-mypage-listitem">
+              プロフィール・パスワード変更
+              <i class="fas fa-chevron-right style-mypage-navicon"></i>
+            </a>
+          </li>
+          <li class="style-smunderbar">
+            <a href="./../heros/registrations/confirmation.html" class="style-mypage-listitem">
+              ミッション必要書類提出
+              <i class="fas fa-chevron-right style-mypage-navicon"></i>
+            </a>
+          <li class="style-smunderbar">
+            <a href="#" class="style-mypage-listitem">
+              残高・振込確認
+              <i class="fas fa-chevron-right style-mypage-navicon"></i>
+            </a>
+          </li>
+          <li class="style-smunderbar">
+            <p class="style-mypage-listitem" onclick="LogoutFormHeros()">ログアウト
+            <i class="fas fa-chevron-right style-mypage-navicon"></i>
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section id="Logout-Form-Heros" class="fixed-top style-alert-form">
+    <p>ログアウトしてよろしいでしょうか？</p>
+    <button class="mr-3" onclick="LogoutHerosYes()">はい</button>
+    <button onclick="LogoutHerosNo()">いいえ</button>
+  </section>
+</main>
