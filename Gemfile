@@ -9,6 +9,8 @@ gem 'rails', '~> 5.2.1'
 gem 'mysql2', '0.5.2'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
+
+gem 'sprockets', '3.7.2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.7'
 # Use Uglifier as compressor for JavaScript assets
@@ -64,7 +66,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # 初期設定で追加
 gem 'pry-rails'
 gem 'compass-rails', '3.1.0'
-gem 'sprockets', '3.7.2'
+
 gem 'hirb'
 gem 'hirb-unicode'
 
