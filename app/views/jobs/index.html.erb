@@ -147,12 +147,12 @@ window.onload = function(){
 //タグの読み込む
 let testtxt=document.getElementById('testmoji');
 //タグの中の文字によって条件分岐
-if ('タイトル' === testtxt.innerText){
-testtxt.style.backgroundColor = "blue";
-} else if('テスト' === testtxt.innerText) {
-testtxt.style.backgroundColor = "red";
+if ('タイトル' === testtxt.innerHTML){
+  testtxt.style.backgroundColor = "blue";
+} else if('テスト' === testtxt.innerHTML) {
+  testtxt.style.backgroundColor = "red";
 }else{
-testtxt.style.backgroundColor = "green";
-}
+    testtxt.style.backgroundColor = "green";
+  }
 }
 </script>
