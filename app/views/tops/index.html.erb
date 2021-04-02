@@ -37,12 +37,10 @@
               </label>
               <div id="SidebarMenu">
                 <ul class="style-sidebarMenuInner">
-                                <%= link_to  new_nursing_home_registration_path do %>
-                  <li><a>事業所新規登録</a></li>
-                  <% end %>
-                  <li><a class="" href="./../../views/nursing_homes/sessions/new.html">事業所ログイン</a></li>
-                  <li><a class="" href="./../../views/heros_rules/index.html">ヒーロー新規登録</a></li>
-                  <li><a class="" href="./../../views/heros/sessions/new.html">ヒーローログイン</a></li>
+                  <li><%= link_to "事業所新規登録", new_nursing_home_registration_path %></li>
+                  <li><%= link_to "事業所ログイン", new_nursing_home_session_path %></li>
+                  <li><%= link_to "ヒーロー新規登録", new_hero_registration_path %></li>
+                  <li><%= link_to "ヒーローログイン", new_hero_session_path %></li>
                 </ul>
               </div>
             </div>
