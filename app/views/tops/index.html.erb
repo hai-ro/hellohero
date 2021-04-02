@@ -1,56 +1,7 @@
 <!--ログイン前トップページ-->
 <% @page_title = 'トップページ' %>
-  <!--CSSのスタイルシートから持ってきているものはクラスにstyle-が入っている 基本的に初めがbootstrapのCSS 位置調整は1番右-->
-  <header class="style-header">
-    <section class="container-fluid">
-      <div class="row">
-        <nav class="navbar navbar-expand-lg fixed-top style-nav style-shadow-rightblack" id="mainNav">
-          <!--.navbar-brand はブランドを表示します。-->
-          <div class="">
-            <%= link_to root_path do %>
-              <img class="" src="/assets/Heros-Logo.png" alt="ハロヒロロゴ画像" height="40px" width="134px">
-            <% end %>
-          </div>
-          <div class="navbar-nav style-midtext style-ma-rauto">
-            <div class="d-none d-lg-block">
-              <%= link_to  new_nursing_home_registration_path do %>
-                <button class="style-topoffices-newmenbtn style-boder-smallradius">事業所新規登録</button>
-              <% end %>
-              <%= link_to  new_nursing_home_session_path do %>
-                <button class="style-helper-toploginbtn style-boder-smallradius mr-3">事業所ログイン</button>
-              <% end %>
-              <%= link_to  heros_rules_path do %>
-                <button class="style-helper-topnewmenbtn style-boder-smallradius">ヒーロー新規登録</button>
-              <% end %>
-              <%= link_to  new_hero_session_path do %>
-                <button class="style-helper-toploginbtn style-boder-smallradius">ヒーローログイン</button>
-              <% end %>
-              <%= link_to   jobs_path , data: {"turbolinks" => false}  do %>
-                <button class="style-helper-toploginbtn style-boder-smallradius">テスト用仕事一覧</button>
-              <% end %>
-            </div>
-            <div class="d-lg-none d-inline-block">
-            <div class="d-lg-none d-block">
-              <input type="checkbox" id="OpenSidebarMenu">
-              <label for="OpenSidebarMenu" class="style-sidebarIcon" id="SidebarMenuLabel">
-                メニュー
-              </label>
-              <div id="SidebarMenu">
-                <ul class="style-sidebarMenuInner">
-                  <li><%= link_to "事業所新規登録", new_nursing_home_registration_path %></li>
-                  <li><%= link_to "事業所ログイン", new_nursing_home_session_path %></li>
-                  <li><%= link_to "ヒーロー新規登録", new_hero_registration_path %></li>
-                  <li><%= link_to "ヒーローログイン", new_hero_session_path %></li>
-                </ul>
-              </div>
-            </div>
-            </div>
-          </div>
-        </nav>
-      </div>
-    </section>
-  </header>
 
+<%= render "layouts/top_header" %>
   <!--タイトル画像表示-->
   <main class="style-main">
     <section class="container-fluid">
@@ -113,7 +64,7 @@
                 <div class="row">
                   <%= render partial: 'layouts/job_cards', locals: { jobs: @jobs } %>
                 </div>
-                <p><%= link_to "仕事一覧", jobs_path, data: {"turbolinks" => false } %></p>
+                <p><%= link_to "仕事一覧", jobs_path %></p>
               </div>
             </div>
           </div>

@@ -1,4 +1,8 @@
-<%= render partial: 'layouts/header' %>
+<% if hero_signed_in? || nursing_home_signed_in? %>
+  <%= render partial: 'layouts/header' %>
+<% else %>
+  <%= render partial: 'layouts/top_header' %>
+<% end %>
 
 <main class="style-main">
   <section class="container-fluid">
@@ -143,7 +147,7 @@
 </main>
 <script> 
 // ページ読み込み時に実行する処理
-window.onload = function(){
+window.onload = document.addEventListener("turbolinks:load", function(){
 //タグの読み込む
 let testtxt=document.getElementById('testmoji');
 //タグの中の文字によって条件分岐
@@ -154,5 +158,5 @@ if ('タイトル' === testtxt.innerHTML){
 }else{
     testtxt.style.backgroundColor = "green";
   }
-}
+})
 </script>
