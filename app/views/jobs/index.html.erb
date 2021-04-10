@@ -77,8 +77,8 @@
               <p class="style-jobs-nubmber style-midtext"><%= page_entries_info(@jobs) %></p>
               <div class="style-midtext my-4">
                 <!--aria-label="ページ送り"はプログラマーにこれがページネーションですとわかるようにするためのラベル付-->
-                <nav aria-label="ページ送り">
-                  <ul class="pagination justify-content-center">
+                <nav aria-label="ページ送り" class="style-centertext">
+                  <ul class="pagination">
                     <%= paginate @jobs %>
                   </ul>
                 </nav>
@@ -92,16 +92,17 @@
                   </div>
                 </div>
               </div>
+              <p class="style-jobs-nubmber style-midtext mt-4"><%= page_entries_info(@jobs) %></p>
+              <div class="style-midtext my-4">
+                <!--aria-label="ページ送り"はプログラマーにこれがページネーションですとわかるようにするためのラベル付-->
+                <nav aria-label="ページ送り" class="style-centertext">
+                  <ul class="pagination">
+                    <%= paginate @jobs %>
+                  </ul>
+                </nav>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="style-midtext my-4">
-          <p class="style-jobs-nubmber"><%= page_entries_info(@jobs) %></p>
-          <nav aria-label="ページ送り">
-            <ul class="pagination justify-content-center">
-              <%= paginate @jobs %>
-            </ul>
-          </nav>
         </div>
       </div>
     </div>

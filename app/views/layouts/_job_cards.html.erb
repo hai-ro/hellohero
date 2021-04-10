@@ -1,6 +1,6 @@
 <% jobs.each do |job| %>
   <div class="col-lg-3 col-md-6">
-    <div class="card style-shadow-rightblack  my-3" style="max-width: 250px;">
+    <div class="card style-shadow-rightblack  my-3" style="max-width: 250px; height:400px">
       <figure>
         <% if job.image? %>
           <%= image_tag job.image.url(:thumb), alt:"Image", class:"style-smboder style-imgcontain", height:"150px", width:"100%" %>

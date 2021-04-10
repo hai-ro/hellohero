@@ -60,16 +60,16 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   
   # メール認証用
-  config.action_mailer.default_url_options = { protocol: 'https', host: 'https://4920906b96954a0ebbf78f82c85f6168.vfs.cloud9.ap-northeast-1.amazonaws.com/' }
-  # config.action_mailer.raise_delivery_errors = true
-  # config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { protocol: Settings.web[:protocol], host: Settings.web[:host] }
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :enable_starttls_auto => true,
-    :address => "smtp.gmail.com",
-    :port => 587,
-    :domain => 'smtp.gmail.com',
-    :user_name => "heroes.matching@gmail.com",
-    :password => "skghessvfndmgwau",
+    :address => Settings.smtp[:address],
+    :port => Settings.smtp[:port],
+    :domain => Settings.smtp[:domain],
+    :user_name => Settings.smtp[:user_name],
+    :password => Settings.smtp[:password],
     :authentication => 'login'
   }
 end

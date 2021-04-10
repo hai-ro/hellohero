@@ -1,5 +1,17 @@
-<p>Welcome <%= @email %>!</p>
+<p><%= @resource.last_name %> <%= @resource.first_name %> さま</p>
 
-<p>You can confirm your account email through the link below:</p>
+<p>この度はヘルパーマッチングサービス</p>
+<p>「ハロヒロ」にご登録いただき、</p>
+<p>誠にありがとうございます。</p>
+<br>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<p>以下のリンクをクリックして、</p>
+<p>新規登録を完了しましょう！</p>
+<p><%= link_to 'アカウントを承認し、登録する', confirmation_url(@resource, confirmation_token: @token) %></p>
+<br>
+<br>
+
+<p>なお、登録内容についてご確認のお電話・メールをさせていただく場合がございます。ご了承ください。</p>
+<p>また、本サービスに関するお問い合わせは以下のお問い合わせフォームからお願いいたします。</p>
+
+

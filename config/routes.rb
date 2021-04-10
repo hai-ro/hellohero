@@ -41,11 +41,17 @@ Rails.application.routes.draw do
   devise_for :heros, controllers: {
     sessions:      'heros/sessions',
     passwords:     'heros/passwords',
-    registrations: 'heros/registrations'
+    registrations: 'heros/registrations',
+    confirmations: 'heros/confirmations'
   }
   devise_scope :hero do
     get "heros/confirmation" => "heros/registrations#confirmation"
   end
+  
+  # 登録完了の画面
+  get "heros/success"
+  # メール認証を依頼する画面
+  get "heros/checkmail"
   # 利用規約の確認
   get "heros/rules" => "heros#rules"
   # ヘルパーのプロフィールを表示
@@ -64,8 +70,13 @@ Rails.application.routes.draw do
   devise_for :nursing_homes, controllers: {
     sessions:      'nursing_homes/sessions',
     passwords:     'nursing_homes/passwords',
-    registrations: 'nursing_homes/registrations'
+    registrations: 'nursing_homes/registrations',
+    confirmations: 'nursing_homes/confirmations'
   }
+  # 登録完了の画面
+  get "nursing_homes/success"
+  # メール認証を依頼する画面
+  get "nursing_homes/checkmail"
   get "nursing_homes/profile/:id" => "nursing_homes#profile"
   resources :nursing_homes, only: [:show]
 

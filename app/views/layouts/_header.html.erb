@@ -1,49 +1,73 @@
 <header class="style-header">
   <section class="container-fluid">
     <div class="row">
-      <nav class="col-12 navbar navbar-expand-lg  fixed-top style-whiteback style-shadow-rightblack">
-          <%= link_to root_path, class: "navbar-brand" do %>
-              <img class="" src="/assets/Heros-Logo.png" alt="ハロヒロロゴ画像" height="60px" width="200px">
-          <% end %>
-        <button class="navbar-toggler style-ma-rauto" type="button" data-toggle="collapse" data-target="#helper-navmenu" aria-controls="helper-navmenu" aria-expanded="true" aria-label="Toggle navigation">
-          <span class="style-midtext"><i class="far fa-caret-square-down"></i>メニュー</span>
-        </button>
+      <nav class="col-12 navbar navbar-expand-lg　fixed-top style-whiteback style-shadow-rightblack">
+        <%= link_to root_path, class: "navbar-brand" do %>
+          <figure>
+            <img class="" src="/assets/Heros-Logo.png" alt="ハロヒロロゴ画像" height="40px" width="134px"">
+          </figure>
+        <% end %>
         <div class="navbar-nav d-lg-block d-none style-midtext style-ma-rauto">
-          <%= link_to "ミッション一覧", jobs_path, class: "nav-item nav-link d-lg-inline-block style-text-black" %>
           <% if hero_signed_in? %>
-            <%= link_to "マイページ", hero_path(current_hero.id), class: "nav-item nav-link d-lg-inline-block style-text-black" %>
+            <%= link_to jobs_path, class: "nav-item nav-link d-lg-inline-block style-text-black mr-lg-3" do%>
+              <p><i class="fas fa-briefcase"></i>ミッション一覧</p>
+            <% end %>
+            <%= link_to hero_path(current_hero.id), class: "nav-item nav-link d-lg-inline-block style-text-black mr-lg-3" do%>
+              <p><i class="fas fa-check"></i>やることリスト</p>
+            <% end %>
+            <%= link_to hero_path(current_hero.id), class: "nav-item nav-link d-lg-inline-block style-text-black mr-lg-3" do%>
+              <p><i class="fas fa-bell"></i>お知らせ</p>
+            <% end %>
+            <%= link_to hero_path(current_hero.id), class: "nav-item nav-link d-lg-inline-block style-text-black" do%>
+              <p><i class="fas fa-user"></i>マイページ</p>
+            <% end %>
           <% elsif nursing_home_signed_in? %>
-            <%= link_to "管理画面", nursing_home_path(current_nursing_home.id), class: "nav-item nav-link d-lg-inline-block style-text-black" %>
+            <%= link_to new_job_path,class:"nav-item nav-link d-lg-inline-block style-text-black mr-lg-3"  do %>
+              <p><i class="fas fa-users"></i>お仕事登録</p>
+            <% end %>
+            <%= link_to jobs_path, class: "nav-item nav-link d-lg-inline-block style-text-black" do%>
+              <p><i class="fas fa-users"></i>ミッション一覧</p>
+            <% end %>
+            <%= link_to nursing_home_path(current_nursing_home.id), class: "nav-item nav-link d-lg-inline-block style-text-black" do%>
+              <p><i class="fas fa-users"></i>管理画面</p>
+            <% end %>
           <% end %>
-          <div class="nav-item nav-link dropdown d-lg-inline-block">
-            <p class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ヘルプ</p>
-            <div class="dropdown-menu style-midtext style-nav-dropleft">
-              <a class="dropdown-item" href="#">ヒーローズとは</a>
-              <a class="dropdown-item" href="#">よくある質問</a>
-              <div class="dropdown-divider"></div>
-              <% if hero_signed_in? %>
-                <%= link_to "ログアウト", destroy_hero_session_path, method: :delete, class: "dropdown-item", data: { confirm: "ログアウトしてよろしいですか？" } %>
-              <% elsif nursing_home_signed_in? %>
-                <%= link_to "ログアウト", destroy_nursing_home_session_path, method: :delete, class: "dropdown-item", data: { confirm: "ログアウトしてよろしいですか？" } %>
-              <% end %>
-            </div>
-          </div>
         </div>
-        <div class="d-lg-none">
-          <div class="collapse navbar-collapse" id="helper-navmenu">
-            <%= link_to "ミッション一覧", jobs_path, class: "nav-item nav-link style-text-black" %>
+        <div class="d-lg-none d-block">
+          <input type="checkbox" id="OpenSidebarMenu">
+          <label for="OpenSidebarMenu" class="style-sidebarIcon" id="SidebarMenuLabel">
+            メニュー
+          </label>
+          <div id="SidebarMenu">
+            <ul class="style-sidebarMenuInner">
             <% if hero_signed_in? %>
-              <%= link_to "マイページ", hero_path(current_hero.id), class: "nav-item nav-link style-text-black" %>
+              <%= link_to jobs_path, class: "nav-item nav-link style-text-black mr-lg-3",onclick: "SidevarClick()" do%>
+                <p><i class="fas fa-briefcase"></i>ミッション一覧</p>
+              <% end %>
+              <%= link_to hero_path(current_hero.id), class: "nav-item nav-link style-text-black mr-lg-3",onclick: "SidevarClick()"  do%>
+                <p><i class="fas fa-check"></i>やることリスト</p>
+              <% end %>
+              <%= link_to hero_path(current_hero.id), class: "nav-item nav-link style-text-black mr-lg-3",onclick: "SidevarClick()"  do%>
+                <p><i class="fas fa-bell"></i>お知らせ</p>
+              <% end %>
+              <%= link_to hero_path(current_hero.id), class: "nav-item nav-link style-text-black",onclick: "SidevarClick()"  do%>
+                <p><i class="fas fa-user"></i>マイページ</p>
+              <% end %>
             <% elsif nursing_home_signed_in? %>
-              <%= link_to "管理画面", nursing_home_path(current_nursing_home.id), class: "nav-item nav-link style-text-black" %>
+              <%= link_to jobs_path, class: "nav-item nav-link style-text-black mr-lg-3", onclick: "SidevarClick()" do%>
+                <p><i class="fas fa-briefcase"></i>ミッション一覧</p>
+              <% end %>
+              <%= link_to nursing_home_path(current_nursing_home.id), class: "nav-item nav-link style-text-black mr-lg-3", onclick: "SidevarClick()"  do%>
+                <p><i class="fas fa-check"></i>やることリスト</p>
+              <% end %>
+              <%= link_to nursing_home_path(current_nursing_home.id), class: "nav-item nav-link style-text-black mr-lg-3", onclick: "SidevarClick()"  do%>
+                <p><i class="fas fa-bell"></i>お知らせ</p>
+              <% end %>
+              <%= link_to nursing_home_path(current_nursing_home.id), class: "nav-item nav-link style-text-black", onclick: "SidevarClick()"  do%>
+                <p><i class="fas fa-user"></i>マイページ</p>
+              <% end %>
             <% end %>
-            <a class="nav-item nav-link style-text-black" href="#">ヒーローズとは</a>
-            <a class="nav-item nav-link style-text-black" href="#">よくある質問</a>
-            <% if hero_signed_in? %>
-              <%= link_to "ログアウト", destroy_hero_session_path, method: :delete, class: "nav-item nav-link style-text-black" %>
-            <% elsif nursing_home_signed_in? %>
-              <%= link_to "ログアウト", destroy_nursing_home_session_path, method: :delete, class: "nav-item nav-link style-text-black" %>
-            <% end %>
+            </ul>
           </div>
         </div>
       </nav>

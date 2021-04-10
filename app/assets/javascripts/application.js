@@ -17,21 +17,29 @@
 // //= require turbolinks
 // //= require_tree .
 
-let Navtxt = document.getElementById('SidebarMenuLabel')
+
+
+//Androidのthe Android stock broswerのサイドバーのエラーを修正する>
+//var nua = navigator.userAgent;
+//var is_android = ((nua.indexOf('Mozilla/5.0') > -1 && nua.indexOf('Android ') > -1 && nua.indexOf('AppleWebKit') > -1) && !(nua.indexOf('Chrome') > -1));
+//if (is_android) { $('select.form-control').removeClass('form-control').css('width', '100%'); }
+
+function test(){
+  alert("test");
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+let Navtxt = document.getElementById('SidebarMenuLabel');
 document.getElementById('OpenSidebarMenu').addEventListener('click', function () {
   if (this.checked) {
+  console.log("test");
     Navtxt.textContent = "閉じる X";
     Navtxt.style.display = "inline-block";
   } else {
     Navtxt.textContent = "メニュー";
   }
 }, false);
-
-//Androidのthe Android stock broswerのサイドバーのエラーを修正する>
-var nua = navigator.userAgent;
-var is_android = ((nua.indexOf('Mozilla/5.0') > -1 && nua.indexOf('Android ') > -1 && nua.indexOf('AppleWebKit') > -1) && !(nua.indexOf('Chrome') > -1));
-if (is_android) { $('select.form-control').removeClass('form-control').css('width', '100%'); }
-
+}, false);
 //仕事削除
 function Destroyjob() {
   let dialog = document.getElementById('Destroyjob-Form');

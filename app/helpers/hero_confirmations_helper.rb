@@ -1,0 +1,2 @@
+module HeroConfirmationsHelper
+end

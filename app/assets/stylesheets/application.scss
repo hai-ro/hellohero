@@ -647,7 +647,7 @@ input[type=checkbox] {
 .style-sidebarsticky{
   position:sticky;
   top:180px;
-  width: 250px;
+  width: 95%x;
   margin: 0px 0px 0px auto;
 }
 .style-jobs-nubmber{
@@ -994,4 +994,8 @@ select:first-child{
   line-height: 50px;
   position: relative;
   z-index: 2;
+}
+
+#btnline:hover{
+text-decoration: none;
 }
