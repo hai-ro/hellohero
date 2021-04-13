@@ -91,4 +91,18 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  
+  # メール認証用
+  config.action_mailer.default_url_options = { protocol: Settings.web[:protocol], host: Settings.web[:host] }
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :enable_starttls_auto => true,
+    :address => Settings.smtp[:address],
+    :port => Settings.smtp[:port],
+    :domain => Settings.smtp[:domain],
+    :user_name => Settings.smtp[:user_name],
+    :password => Settings.smtp[:password],
+    :authentication => 'login'
+  }
 end
