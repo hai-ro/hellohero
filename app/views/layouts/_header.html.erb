@@ -32,7 +32,7 @@
             <%= link_to nursing_home_path(current_nursing_home.id), class: "nav-item nav-link d-lg-inline-block style-text-black" do%>
               <p><i class="fas fa-users"></i>管理画面</p>
             <% end %>
-            <%= link_to destroy_hero_session_path, method: :delete, data: { confirm: "ログアウトしてよろしいですか？" }, id: "Destroy-btn-Show1", onclick: "LogoutFormHeros()" , class: "style-mypage-listitem" do %>
+            <%= link_to destroy_nursing_home_session_path, method: :delete, data: { confirm: "ログアウトしてよろしいですか？" }, id: "Destroy-btn-Show1", onclick: "LogoutFormHeros()" , class: "style-mypage-listitem" do %>
               ログアウト<i class="fas fa-chevron-right style-mypage-navicon"></i>
             <% end %>
           <% end %>
