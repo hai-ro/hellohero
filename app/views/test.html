@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!--lang="ja"は日本語を使いますよという意味-->
+<html lang="ja">
+<head>
+  <!--UTFー8は文字の企画-->
+  <meta charset="UTF-8">
+  <title>ヒーローズトップページ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <!--href=は相対パス（このHTMLからみてのパス）-->
+  <!--ローカル開発よう用-->
+  <link href="./../../assets/stylesheets/application.css" rel="stylesheet">
+  <!--cloud9用link href="/assets/stylesheets/application.css" rel="stylesheet"-->
+</head>
+
+<body>
+  <!--JSを使うにはCoffファイルをコンパイルしてJSファイルにしてから実行する
+      <script type="text/javascript" src="/assets/tops.js">
+      </script>-->
+
+  <!--CSSのスタイルシートから持ってきているものはクラスにstyle-が入っている-->
+  <header class="style-header">
+    <div class="container">
+      <div class="row">
+        <nav class="navbar navbar-expand-lg text-uppercase fixed-top style-nav" id="mainNav">
+          <a href="#">
+            <img class="" src="./../../assets/images/Heros-Logo.png" alt="ヒーローズロゴ画像" height="50px" width="300px">
+          </a>
+          <!--data-toggle="collapse"はデータを折り畳まれた状態で表示 data-target="#navbarResponsive"に折り畳まれた時に表示するidを記載-->
+          <!--aria-expanded="false"で閉じている状態の時を指定、aria-label 属性は、現在の要素にラベル付けする文字列を定義する-->
+          <button class="navbar-toggler navbar-toggler-right font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            メニュー
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <!--d-lg-none d-xl-noneはラージ以上の画面で非表示にする d-none d-lg-blockはラージ以上の画面で表示する-->
+              <li class="nav-item mx-0 d-lg-none d-xl-none">
+                <a href="./../../views/offices/sessions/new.html">
+                  <p class="h5 text-dark pl-lg-2 style-float-right">新規登録</p>
+                </a>
+              </li>
+              <li class="nav-item mx-0 d-lg-none d-xl-none">
+                <a href="./../../views/helpers/sessions/new.html">
+                  <p class="h5 text-dark pl-lg-2 style-float-right">ログイン</p>
+                </a>
+              </li>
+              <li class="nav-item mx-0 d-lg-none d-xl-none">
+                <a href="./../../views/offices/sessions/new.html">
+                  <p class="h5 text-dark pl-lg-2 style-float-right">事業所さんはこちらから</p>
+                </a>
+              </li>
+              <li class="nav-item mx-0 d-none d-lg-block">
+                <a href="./../../views/offices/sessions/new.html">
+                  <p class="style-topoffices-btn nav-link mx-3 py-3 px-3 rounded js-scroll-trigger">事業所さんはこちらから</p>
+                </a>
+              </li>
+              <li class="nav-item mx-0 d-none d-lg-block">
+                <a href="./../../views/offices/sessions/new.html">
+                  <p class="style-helper-newmenbtn nav-link  mx-3 py-3 px-4 rounded js-scroll-trigger">新規登録</p>
+                </a>
+              </li>
+              <li class="nav-item mx-0 d-none d-lg-block">
+                <a href="./../../views/helpers/sessions/new.html">
+                  <p class="style-helper-loginbtn nav-link mx-3 py-3 px-4 rounded js-scroll-trigger">ログイン</p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+  </header>
+
+
+  <!--タイトル画像表示-->
+  <main class="style-main">
+    <div class="container">
+      <div class="style-pd-high">
+        <div class="row">
+          <div class="col-md-6 col-lg-6">
+            <img class="img-fluid" src="./../../assets/images/character/Rabbit-Stand.jpg" alt="ヘルパーさんトップ画像" height="700px" width="400px">
+          </div>
+          <div class="col-md-6 col-lg-6 mt-5">
+            <div class="style-boder style-centertext style-gra-pinkback test">
+              <h1 class="mt-5"><span class="style-lgtext d-inline-block mb-3">「お仕事を自己成長の場に」</span><br>一緒に介護の世界を冒険しましょう</h1>
+              <div class="my-4">
+                <a href="./../../views/helpers/sessions/new.html" class="style-helper-topnewmenbtn">
+                  冒険する（新規登録はこちら）
+                </a>
+              </div>
+              <div class="mb-4">
+                <a href="./../../views/helpers/registration/new.html" class="style-helper-toploginbtn">
+                  ログインはこちら
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--今日のお仕事表示-->
+      <h1 class="my-5 style-centertext style-grayback"><i class="fas fa-user-plus"></i>お仕事紹介</h1>
+      <section>
+        <div class="container">
+          <div class="row style-boder">
+            <div class="col-lg-6 style-boder">
+              <div class="">
+                <h1 class="style-centertext style-boder mt-2 mb-2">お庭の掃除</h1>
+                <div class="style-workimg-place style-boder mx-auto mb-3 ">
+                  <img class="img-fluid d-block" src="./../../assets/images/character/Rabbit-Stand.jpg" alt="">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 style-boder">
+              <div>
+                <p class="style-midtext">お仕事詳細</p>
+                <ul class="style-ftlist style-midtext">
+                  <li class="style-midtext"><i class=" fas fa-house-user"></i>事業所：<span>ポジティブギバー</span></li>
+                  <li class="style-midtext"><i class="fas fa-calendar-alt"></i>お仕事日付：<span>2021年1月1日</span></li>
+                  <li class="style-midtext"><i class="far fa-clock"></i>お仕事時間：<span>10:00〜12:00</span></li>
+                  <li class="style-midtext"><i class="fas fa-wallet"></i>お給料:<span>時給500円</span></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-6 style-boder">
+              <div class="">
+                <h3 class="style-centertext style-boder mt-2 mb-2">お話相手</h3>
+                <div class="style-workimg-place style-boder mx-auto mb-3 ">
+                  <img class="img-fluid style-workimg d-block" src="./../../assets/images/character/Lion-Guts.jpg" alt="">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 style-boder">
+              <div>
+                <p class="style-midtext">お仕事詳細</p>
+                <ul class="style-ftlist style-midtext">
+                  <li class="style-midtext"><i class=" fas fa-house-user"></i>事業所：<span>テスト</span></li>
+                  <li class="style-midtext"><i class="fas fa-calendar-alt"></i>お仕事日付：<span>2021/01/01</span></li>
+                  <li class="style-midtext"><i class="far fa-clock"></i>お仕事時間：<span>10時スタート</span></li>
+                  <li class="style-midtext"><i class="fas fa-wallet"></i>お給料:<span>500円</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="style-footer mt-5 style-indigoback">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h1>ヒーローズについて</h1>
+          <ul class="style-ftlist">
+            <li>会社概要（運営会社）</li>
+            <li>プライバシーポリシー</li>
+            <li>利用規約</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- オプションのJavaScript -->
+  <!-- 最初にjQuery、次にPopper.js、次にBootstrap JS -->
+  <script src="https://kit.fontawesome.com/de95f90de5.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>
