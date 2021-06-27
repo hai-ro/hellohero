@@ -36,32 +36,15 @@ ActiveRecord::Schema.define(version: 2021_04_06_114257) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
-    t.date "birthday"
-    t.integer "gender"
-    t.string "disability"
-    t.string "like"
-    t.string "bad"
-    t.string "image"
-    t.string "area"
-    t.text "profile"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "nursing_home_id"
-  end
-
   create_table "heros", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
-    t.string "first_name", default: "", null: false
-    t.string "last_name", default: "", null: false
-    t.string "first_name_kana", default: "", null: false
-    t.string "last_name_kana", default: "", null: false
-    t.string "address"
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.integer "gender"
     t.string "special_skill"
     t.date "birthday"
-    t.string "eto"
     t.integer "performance"
     t.text "profile"
     t.decimal "evaluation", precision: 10
@@ -69,6 +52,9 @@ ActiveRecord::Schema.define(version: 2021_04_06_114257) do
     t.integer "pool_money"
     t.integer "point"
     t.string "like"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "address"
     t.integer "initial_training"
     t.integer "practical_training"
     t.integer "social_worker"
@@ -80,17 +66,6 @@ ActiveRecord::Schema.define(version: 2021_04_06_114257) do
     t.integer "whec"
     t.integer "dementia_care"
     t.integer "confirmation"
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.float "behavior"
-    t.float "smile"
-    t.float "cleanliness"
-    t.float "politeness"
-    t.float "physical"
     t.text "initial_training_file"
     t.text "practical_training_file"
     t.text "social_worker_file"
@@ -102,6 +77,7 @@ ActiveRecord::Schema.define(version: 2021_04_06_114257) do
     t.text "whec_file"
     t.text "dementia_care_file"
     t.text "confirmation_file"
+    t.string "eto"
     t.string "image"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
@@ -126,13 +102,13 @@ ActiveRecord::Schema.define(version: 2021_04_06_114257) do
     t.integer "client_id"
     t.integer "job_category_id"
     t.datetime "start_datetime"
-    t.float "time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "progress"
     t.integer "hero_id"
     t.string "area"
     t.string "image"
+    t.float "time"
   end
 
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -144,11 +120,6 @@ ActiveRecord::Schema.define(version: 2021_04_06_114257) do
   end
 
   create_table "nursing_homes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
-    t.string "address"
-    t.string "website"
-    t.string "contact_person"
-    t.string "phone"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -158,11 +129,16 @@ ActiveRecord::Schema.define(version: 2021_04_06_114257) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
+    t.string "name"
+    t.string "address"
     t.string "latitude"
     t.string "longitude"
     t.string "area"
+    t.string "website"
     t.string "authorization"
     t.integer "type_id"
+    t.string "contact_person"
+    t.string "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "detail"
@@ -179,7 +155,7 @@ ActiveRecord::Schema.define(version: 2021_04_06_114257) do
     t.datetime "updated_at", null: false
     t.integer "behavior"
     t.integer "smile"
-    t.integer "cleanliness"
+    t.integer "cleaniless"
     t.integer "politeness"
     t.integer "physical"
   end

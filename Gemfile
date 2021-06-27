@@ -90,3 +90,6 @@ gem 'carrierwave'
 gem 'mini_magick'
 
 gem 'config'
+
+#アプリのリネーム
+gem 'rename'

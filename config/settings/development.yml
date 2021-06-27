@@ -1,0 +1,10 @@
+web:
+  host: 'heroes-test02.herokuapp.com'
+  protocol: 'https'
+
+smtp:
+  address: 'smtp.gmail.com'
+  port: 587
+  domain: 'smtp.gmail.com'
+  user_name: 'heroes.matching@gmail.com'
+  password: 'skghessvfndmgwau'
