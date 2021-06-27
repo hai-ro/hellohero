@@ -1,0 +1,35 @@
+@import "./../base/variable";
+
+.section-title {
+  position: relative;
+  overflow: hidden;
+  padding: 10px 0px;
+  border: 1px solid $black;
+  text-align: center;
+  @include mquery(sp){
+  text-align: right;
+  padding: 10px 10px;
+  }
+  span {
+    color: $white;
+    background-color: $black;
+    height: 100%;
+    margin: 0;
+  }
+  &::before {
+    position: absolute;
+    top: -150%;
+    left: -100px;
+    width: 200px;
+    height: 300%;
+    content: "";
+    transform: rotate(25deg);
+    background: #000;
+  }
+}
+.section-title__icon {
+  position: absolute;
+  font-size: 40px;
+  left: 15px;
+  top: -5px;
+}

@@ -1,0 +1,63 @@
+@import "./../../base/variable";
+
+.top-title {
+  text-align: center;
+  h1 {
+    background: linear-gradient(to right, $red, $yellow);
+    border-radius: 8px;
+    font-size: 36px;
+    margin: 20px 0px;
+    color: $white;
+  }
+  .top-title__box {
+    margin: 80px;
+    @include flex();
+    @include mquery("sp") {
+      margin: 40px 0;
+      display: block;
+    }
+    .top-title__box__contents {
+      @include flex();
+      width: 50%;
+      @include mquery("tab") {
+        width: 100%;
+        display: block;
+      }
+      .top-title__box__contents--btn {
+        @include flex();
+        @include mquery("tab") {
+          display: block;
+        }
+        a {
+          margin: 0 10px;
+          padding: 10px 20px;
+          @include mquery("tab") {
+            display: block;
+            margin: 10px 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.top-container {
+  @include container(1200px, 90%);
+}
+
+.about-harohero {
+  margin: 20px 0px;
+  text-align: center;
+  .about-harohero__img {
+    @include flex();
+    @include mquery("sp") {
+      display: block;
+    }
+    img {
+      margin: 20px;
+      @include mquery("sp") {
+        margin: 20px auto;
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN",
+    Meiryo, sans-serif;
+}
+
+header main footer {
+  width: 100%;
+}
+a {
+  color: #000;
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+main {
+  // ナブバーで隠れてしまうところを表示する
+  margin-top: 100px;
+}

@@ -1,0 +1,42 @@
+@import "./../base/variable";
+
+.footer-nav {
+  background-color: $ivory;
+  @include flex();
+  @include mquery("sp") {
+    display: block;
+  }
+  .footer-nav__conmanyname {
+    width: 30%;
+    @include mquery("sp") {
+      width: 100%;
+    }
+    h2 {
+      padding-left: 40px;
+      font-size: 20px;
+    }
+    li {
+      line-height: 30px;
+      padding-left: 40px;
+    }
+  }
+  .footer-nav__sns-btn {
+    width: 30%;
+    @include mquery("sp") {
+      width: 100%;
+      margin: 20px 0;
+    }
+    @include flex();
+    .sns-btn__contets {
+      margin: 0px 10px;
+    }
+  }
+  .footer-nav__sdgsimg {
+    width: 40%;
+    @include mquery("sp") {
+      width: 100%;
+      padding-bottom: 20px;
+    }
+    padding: 0px 20px;
+  }
+}

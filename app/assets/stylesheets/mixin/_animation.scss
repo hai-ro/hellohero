@@ -1,0 +1,63 @@
+@mixin keyframes($animation-name) {
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+@mixin animation($animation-name) {
+  -webkit-animation: $animation-name;
+  animation: $animation-name;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+@include keyframes(fadein) {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.0);
+  }
+}
+
+
+
+// トップページを開いた時にアニメーション
+@include keyframes(byeShutter ) {
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+    z-index: -1;
+  }
+}
+
+@include keyframes(shutterOpen) {
+  30% {
+    width: 30%;
+  }
+  60% {
+    width: 60%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@include keyframes(textAnime) {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-30%);
+  }
+  75% {
+    transform: translateY(30%);
+  }
+  100% {
+    transform: translateY(0);
+    color: #007bc7;
+  }
+}

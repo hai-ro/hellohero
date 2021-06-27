@@ -1,0 +1,17 @@
+@import "./../base/variable";
+.worktab--pink {
+  color: $white;
+  background-color: $pink;
+}
+.worktab--yellow {
+  background-color: $yellow;
+}
+.worktab--grayblue {
+  color: $white;
+  background-color: $grayblue;
+}
+.worktab__mini {
+  font-size: 12px;
+  padding: 0 5px;
+  border-radius: 8px;
+}

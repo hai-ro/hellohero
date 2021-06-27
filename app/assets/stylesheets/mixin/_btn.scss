@@ -1,0 +1,29 @@
+@import "./../base/variable";
+
+.officebtn {
+  color: $white;
+  background-color: $aliceblue;
+  box-shadow: 1px 1px $grayblue;
+  border: 1px solid $white;
+  border-radius: 8px;
+}
+.officebtn-login {
+  color: $blackblue;
+  box-shadow: 1px 1px $grayblue;
+  border: 1px solid $aliceblue;
+  border-radius: 8px;
+}
+
+.herobtn {
+  color: $white;
+  background-color: $red;
+  box-shadow: 1px 1px $orange;
+  border: 1px solid $white;
+  border-radius: 8px;
+}
+.herobtn-login {
+  color: $blackblue;
+  box-shadow: 1px 1px $orange;
+  border: 1px solid $red;
+  border-radius: 8px;
+}

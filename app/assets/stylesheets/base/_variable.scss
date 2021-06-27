@@ -1,0 +1,53 @@
+@mixin flex() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin flexdirection() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+@mixin container($maxwidth, $width) {
+  max-width: $maxwidth;
+  width: $width;
+  margin: 0 auto;
+}
+
+// レイアウト幅　式①
+$layout-width-inner: 1180px;
+$layout-width-smartphone: 767px;
+
+// ブレークポイント 式②
+$breakpoints: (
+  "sp": "screen and (max-width: #{$layout-width-smartphone})",
+  "tab": "screen and (max-width: #{$layout-width-inner - 1px})",
+  "pc": "screen and (min-width: #{$layout-width-inner})",
+);
+
+// メディアクエリー　式③
+@mixin mquery($breakpoint: sp) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
+
+$white: #fff;
+$whitegray: #f5f5f5;
+$silver:#c0c0c0;
+$black: #000;
+$blackblue: #3d68a8;
+$pink:#ffc0cb;
+$yellow: #f9d423;
+$ivory:#fffff0;
+
+$aliceblue: #4c90f5;
+// アリスブルーのボックスシャドウはグレーブルー
+$grayblue: #3399ff;
+
+$red: #e83820;
+// 赤のボックスシャドウはオレンジ
+$orange: #ff9872;
