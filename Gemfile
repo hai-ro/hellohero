@@ -76,8 +76,6 @@ gem 'bootstrap4-kaminari-views'
 
 #会員登録機能
 gem 'devise'
-
-gem 'bootstrap-sass', '~>3.3.6'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
