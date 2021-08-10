@@ -1,96 +1,98 @@
 <%= render partial: 'layouts/header' %>
 
-<main class="style-main mb-5">
-  <section class="container-fluid">
-    <div class="style-pd-high">
-      <div class="row">
-        <div class="col-12">
-          <div class="style-centertext">
-            <h1 class="style-lgtext style-redorengeback">ハロヒロへようこそ</h1>
-            <h2 class="style-midtext">ご利用ありがとうございます。ヘルパーさんに依頼したいお仕事を登録してください。</h2>
-            <div class="style-midtext style-centertext my-5">
-              <%= link_to new_job_path do %>
-                <button class="style-boder-smallradius style-nursingtop-jobbtn mt-5 style-ma-blow"><i class="fas fa-users"></i>お仕事を登録する</button>
-              <% end %>
-            </div>
+<main>
+  <article class="top-container">
+    <section class="top-title nursing_homes-top">
+      <h1>ハロヒロにようこそ</h1>
+      <div class="nursing_homes-top__contents">
+        <p>
+          ご利用ありがとうございます。あなたの職場にヒーローを要請してください。
+        </p>
+        <img
+          src="/assets/character/Lion-Guts-Coment.jpg"
+          alt="事業所さんトップページ画像"
+        />
+      </div>
+    </section>
+    <section class="nursing_homes-top--info">
+      <h2 class="section-title">
+        <span class="section-title__icon"
+          ><i class="fas fa-home" aria-hidden="true"></i></span
+        >事業所情報
+      </h2>
+      <div class="nursing_homes-top--info--major">
+        <img
+          src="/assets/character/Lion-Stand.jpg"
+          alt="事業所画像"
+        />
+        <div class="nursing_homes-top--info--text">
+          <h3>事業所名</h3>
+          <p><%= @nursing_home.name %></p>
+          <h3>事務所種別</h3>
+          <p>訪問看護ステーション</p>
+          <h3>担当者</h3>
+          <p><%= @nursing_home.contact_person %></p>
+        </div>
+        <div class="nursing_homes-top--info--text">
+          <h3>電話番号</h3>
+          <p><%= @nursing_home.phone %></p>
+          <h3>住所</h3>
+          <p><%= @nursing_home.address %></p>
+          <h3>アクセス情報</h3>
+          <p>新宿駅より徒歩１５分 タバコ屋の近くにあります</p>
+        </div>
+      </div>
+      <h3>事業所情報</h3>
+      <p>
+        <%= @nursing_home.detail %>
+      </p>
+      <h3>事業所番号（指定番号）</h3>
+      <p>1234-567890-1</p>
+    </section>
+    <section>
+      <h2 class="section-title">
+        <span class="section-title__icon"
+          ><i class="fas fa-user-plus" aria-hidden="true"></i></span
+        >お仕事登録方法
+      </h2>
+      <div class="nursing_homes-top__work">
+        <h3>やり方は、お仕事を登録してヘルパーさんの応募を待つだけ!</h3>
+        <div class="nursing_homes-top__work--contents">
+          <div class="nursing_homes-top__work--contents__box">
+            <h4>○お仕事を登録</h4>
+            <img
+              src="/assets/character/Lion-Stand.jpg"
+              alt="お仕事依頼画像"
+            />
+            <p>登録画面からお仕事を簡単に依頼できます</p>
           </div>
-          <div class="row">
-            <div class="col-lg-12 mb-5">
-              <div class="style-centertext style-heading-width mx-auto mb-5">
-                <h1 class="style-heading style-lgtext"><span class="style-heading-icon"><i class="fas fa-home"></i></span>事業所様情報</h1>
-              </div>
-              <div class="row">
-                <div class="col-lg-4">
-                  <figure>
-                    <img src="/assets/character/Lion-Stand.jpg" alt="" class="style-boder style-boder-radius ml-5" height="200px" width="200px">
-                  </figure>
-                </div>
-                <div class="col-lg-4">
-                  <h3 class="style-text-bold style-leftbar-lightred my-3">事業所名</h3>
-                  <p class="mx-3"><%= @nursing_home.name %></p>
-                  <h3 class="style-text-bold style-leftbar-lightred my-3">事務所種別</h3>
-                  <p class="mx-3">訪問看護ステーション</p>
-                  <h3 class="style-text-bold style-leftbar-lightred my-3">担当者</h3>
-                  <p class="mx-3"><%= @nursing_home.contact_person %></p>
-                </div>
-                <div class="col-lg-4">
-                  <h3 class="style-text-bold style-leftbar-lightred my-3">電話番号</h3>
-                  <p class="mx-3"><%= @nursing_home.phone %></p>
-                  <h3 class="style-text-bold style-leftbar-lightred my-3">住所</h3>
-                  <p class="mx-3"><%= @nursing_home.address %></p>
-                  <h3 class="style-text-bold style-leftbar-lightred my-3">アクセス情報</h3>
-                  <p class="mx-3">新宿駅より徒歩１５分 タバコ屋の近くにあります</p>
-                </div>
-              </div>
-              <h3 class="style-text-bold style-leftbar-lightred my-3">事業所情報</h3>
-              <p class="mx-3"><%= @nursing_home.detail %></p>
-              <h3 class="style-text-bold style-leftbar-lightred my-3">事業所番号（指定番号）</h3>
-              <p class="mx-3">1234-567890-1</p>
-              <a href="./registrations/edit.html" class="">
-                <%= link_to edit_nursing_home_registration_path(current_nursing_home.id) do %>
-                  <button class="style-jobsshow-editbtn style-boder-smallradius mt-3">事業所情報を編集する</button>
-                <% end %>
-            </div>
+          <div class="nursing_homes-top__work--contents__box">
+            <h4>○ヒーロー（ヘルパーさん）を待つ</h4>
+            <img
+              src="/assets/character/Rabbit-Phone.jpg"
+              alt="ヘルパーさん応募"
+            />
+            <p>ヒーローへの積極的なアプローチもお任せ！</p>
           </div>
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="style-centertext style-heading-width mx-auto mb-5">
-                <h1 class="style-heading style-lgtext"><span class="style-heading-icon"><i class="fas fa-home"></i></span>お仕事登録方法</h1>
-              </div>
-              <div class="style-centertext style-lightblueback style-nursingtop-title">
-                <h2 class="style-midtext">やり方は、お仕事を登録してヘルパーさんの応募を待つだけ!</h2>
-              </div>
-              <div class="style-boder mb-5">
-                <div class="row">
-                  <div class="col-lg-4 style-centertext my-3">
-                    <p>○お仕事を依頼する</p>
-                    <img src="/assets/character/Lion-Stand.jpg" width="100px" height="100px" alt="事業所さん依頼手順１">
-                    <p>登録画面からお仕事を簡単に依頼できます・・・</p>
-                  </div>
-                  <div class="col-lg-4 style-centertext my-3">
-                    <p>○ヘルパーさんを待つ</p>
-                    <img src="/assets/character/Rabbit-Phone.jpg" width="100px" height="100px" alt="事業所さん依頼手順２">
-                    <p>ヘルパーさんへの積極的なアプローチも<br>ヒーローズでできます・・・</p>
-                  </div>
-                  <div class="col-lg-4 style-centertext my-3">
-                    <p>○契約する</p>
-                    <img src="/assets/character/Lion-Guts.jpg" width="100px" height="100px" alt="事業所さん依頼手順３">
-                    <p>頑張るヘルパーさんが事業所様の<br>お仕事を楽にします・・・</p>
-                  </div>
-                </div>
-              </div>
-              <p class="style-centertext">↓お仕事の依頼はこちらから↓</p>
-              <div class="style-midtext style-centertext my-5">
-                <%= link_to new_job_path do %>
-                  <button class="style-boder-smallradius style-nursingtop-jobbtn">お仕事を登録する</button>
-                <% end %>
-              </div>
-            </div>
+          <div class="nursing_homes-top__work--contents__box">
+            <h4>○ヒーローと契約</h4>
+            <img
+              src="/assets/character/Lion-Guts.jpg"
+              alt="契約完了画像"
+            />
+            <p>ヒーローがあなたのお仕事を助けてくれます</p>
           </div>
         </div>
       </div>
-    </div>
-    </div>
-    </div>
-  </section>
+      <div class="nursing_homes-top__work--submit">
+        <p>↓お仕事の依頼はこちらから↓</p>
+        <%= link_to new_job_path do %>
+          <button class="submit-btn">
+            <i class="fas fa-pen"></i>
+            <p>お仕事を登録する</p>
+          </button>
+        <% end %>
+      </div>
+    </section>
+  </article>
 </main>

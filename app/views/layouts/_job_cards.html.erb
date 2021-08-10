@@ -1,24 +1,24 @@
 <% jobs.each do |job| %>
-  <div class="col-lg-3 col-md-6">
-    <div class="card style-shadow-rightblack  my-3" style="max-width: 250px; height:400px">
-      <figure>
-        <% if job.image? %>
-          <%= image_tag job.image.url(:thumb), alt:"Image", class:"style-smboder style-imgcontain", height:"150px", width:"100%" %>
-        <% else %>
-          <img src="assets/Heros-Logo.png" alt="Image" class="style-smboder style-imgcontain" height="150px" width="100%";>
-        <% end %>
-      </figure>
-      <div class="card-body">
-        <span class="style-tag-lightred"><%= job.job_category.name %></span>
-        <h2 class="card-title style-text-bold"><%= link_to "#{job.title.truncate(10)}", job_path(job.id) %></h2>
+  <div class="workbox">
+    <div class="workbox__container">
+      <% if job.image? %>
+        <div class="workbox__container__img">
+          <%= image_tag job.image.url(:thumb), alt:"お仕事画像" %>
+        </div>
+      <% else%>
+        <div class="workbox__container__img">
+          <img src="assets/Heros-Logo.png" alt="お仕事画像（デフォルト）">
+        </div>
+      <% end %>
+      <div class="workbox__contents">
+        <span class="worktab--pink worktab__mini"><%= job.job_category.name %></span>
+        <h3><%= link_to "#{job.title.truncate(10)}", job_path(job.id) %></h3>
         <p><%= job.service.truncate(20) %></p>
-        <ul class="style-ftlist">
-          <li class=""><i class="fas fa-calendar-alt style-work-icon"></i><span>&nbsp;</span><%= shape_job_date(job.start_datetime) %></li>
-          <li class=""><i class="far fa-clock style-work-icon"></i><span>&nbsp;</span><%= shape_job_start_time(job.start_datetime) %>~<%= shape_job_end_time(job.start_datetime + (job.time * 3600)) %></li>
-          <div class="style-disflex">
-            <li class="mr-3"><i class="fas fa-map-marker-alt style-work-icon"></i><span>&nbsp;</span><%= job.area %></li>
-            <li class=""><i class="fa fa-yen style-work-icon"></i><span>&nbsp;</span><%= job.price.to_s(:delimited) %></li>
-          </div>
+        <ul>
+          <li><i class="fas fa-calendar-alt"></i><%= shape_job_date(job.start_datetime) %></li>
+          <li><i class="fas fa-clock"></i><%= shape_job_start_time(job.start_datetime) %>~<%= shape_job_end_time(job.start_datetime + (job.time * 3600)) %></li>
+          <li><i class="fas fa-map-marker-alt"></i><%= job.area %></li>
+          <li><i class="fas fa-yen-sign"></i><%= job.price.to_s(:delimited) %></li>
         </ul>
         <% if hero_signed_in? %>
           <% if job.progress == 0 %>

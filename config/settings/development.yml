@@ -1,6 +1,6 @@
 web:
-  host: 'heroes-test02.herokuapp.com'
-  protocol: 'https'
+  host: 'localhost:3000'
+  protocol: 'http'
 
 smtp:
   address: 'smtp.gmail.com'
