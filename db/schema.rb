@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_27_111044) do
+ActiveRecord::Schema.define(version: 2021_08_28_095516) do
 
   create_table "admins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -36,6 +36,14 @@ ActiveRecord::Schema.define(version: 2021_07_27_111044) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "hero_messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.text "message"
+    t.integer "room_id"
+    t.integer "helper_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "heros", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -48,8 +56,8 @@ ActiveRecord::Schema.define(version: 2021_07_27_111044) do
     t.integer "performance"
     t.text "profile"
     t.decimal "evaluation", precision: 10
-    t.integer "money"
     t.integer "pool_money"
+    t.integer "money"
     t.integer "point"
     t.string "like"
     t.datetime "created_at", null: false
@@ -115,10 +123,9 @@ ActiveRecord::Schema.define(version: 2021_07_27_111044) do
     t.float "time"
   end
 
-  create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
-    t.text "message"
+  create_table "nursing_home_messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.integer "nursing_home_id"
     t.integer "room_id"
-    t.integer "helper_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

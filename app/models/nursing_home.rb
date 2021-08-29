@@ -8,5 +8,5 @@ class NursingHome < ApplicationRecord
   has_many :jobs
   # belongs_to :type
   has_many :reviews
-  has_many :messages
+  has_many :nursing_home_messages
 end

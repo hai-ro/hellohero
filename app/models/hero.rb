@@ -7,7 +7,7 @@ class Hero < ApplicationRecord
   # アソシエーション
   has_many :reviews
   has_many :tag_maps
-  has_many :messages
+  has_many :hero_messages
   has_many :rooms
   has_many :jobs
   

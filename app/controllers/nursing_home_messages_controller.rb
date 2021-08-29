@@ -1,0 +1,2 @@
+class NursingHomeMessagesController < ApplicationController
+end
